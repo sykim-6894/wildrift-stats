@@ -173,6 +173,17 @@ def load_builds(ver, heroes):
     return out, things, names
 
 
+def load_patches():
+    """fetch_patches.py 가 만든 patches.json. 없으면 빈 목록."""
+    path = HERE / "patches.json"
+    if not path.exists():
+        return []
+    patches = json.loads(path.read_text(encoding="utf-8"))
+    for p in patches:
+        p.pop("title", None)
+    return patches
+
+
 def get_json(url):
     req = urllib.request.Request(url, headers=UA)
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -244,6 +255,7 @@ def main():
         "stats": stats,
         "builds": builds,
         "things": things,
+        "patches": load_patches(),
     }
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     tpl = (HERE / "template.html").read_text(encoding="utf-8")

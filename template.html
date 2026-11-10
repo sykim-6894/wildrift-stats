@@ -50,6 +50,63 @@ h1 {
 h1 span { color: var(--gold); }
 .meta { color: var(--mute); font-size: 13px; margin: 6px 0 0; }
 
+.views { display: flex; gap: 20px; border-bottom: 1px solid var(--line); }
+.views button {
+  background: none; border: 0; border-bottom: 3px solid transparent;
+  padding: 8px 2px; margin-bottom: -1px;
+  font-family: var(--font-display); font-size: 19px; color: var(--mute);
+}
+.views button[aria-current="page"] { color: var(--text); border-bottom-color: var(--gold); }
+[hidden] { display: none !important; }
+
+/* 패치 노트 */
+#view-patch { padding-top: 14px; display: flex; flex-direction: column; gap: 10px; }
+.pnote { font-size: 12px; color: var(--mute); margin: 0; }
+details.patch { background: var(--panel); border: 1px solid var(--line); border-radius: 12px; }
+details.patch > summary {
+  list-style: none; cursor: pointer; padding: 12px 14px;
+  display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap;
+}
+details.patch > summary::-webkit-details-marker, details.sec > summary::-webkit-details-marker { display: none; }
+.pver { font-family: var(--font-display); font-size: 24px; color: var(--gold); line-height: 1; }
+.pdate { font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.pcount { font-size: 12px; color: var(--mute); margin-left: auto; }
+details.patch > summary::after { content: "펼치기"; font-size: 12px; color: var(--mute); }
+details.patch[open] > summary::after { content: "접기"; }
+.pbody { padding: 0 14px 14px; display: flex; flex-direction: column; gap: 14px; }
+.pdesc { margin: 0; font-size: 14px; }
+.glance { background: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 12px; }
+.glance h3, .pbody h3 { margin: 0; font-size: 13px; color: var(--mute); font-weight: 700; }
+.grow { display: flex; flex-direction: column; gap: 6px; }
+.grow .gt { font-size: 12px; color: var(--gold); font-weight: 700; }
+.grow .names { font-size: 13px; overflow-wrap: anywhere; }
+.champs { display: flex; flex-wrap: wrap; gap: 6px; }
+.champ {
+  display: flex; align-items: center; gap: 6px;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 999px;
+  padding: 2px 10px 2px 2px; font-size: 13px;
+}
+.champ .ava { width: 26px; height: 26px; border-radius: 50%; font-size: 13px; }
+details.sec { border-top: 1px solid var(--line); }
+details.sec > summary {
+  list-style: none; cursor: pointer; padding: 10px 0;
+  display: flex; justify-content: space-between; gap: 8px; font-weight: 700;
+}
+details.sec > summary .n { color: var(--mute); font-weight: 400; font-size: 12px; white-space: nowrap; }
+details.sec > summary .n::after { content: " ▾"; }
+details.sec[open] > summary .n::after { content: " ▴"; }
+.secbody { display: flex; flex-direction: column; gap: 12px; padding-bottom: 12px; }
+.pg { display: flex; flex-direction: column; gap: 4px; }
+.pg .gn { font-weight: 700; font-size: 14px; display: flex; align-items: center; gap: 6px; }
+.pg .gn .ava { width: 24px; height: 24px; border-radius: 6px; font-size: 12px; }
+.pg.sub .gn { color: var(--gold); font-family: var(--font-display); font-weight: 400; font-size: 16px; }
+.pg .ct { font-size: 12px; color: var(--mute); margin-top: 2px; }
+.pg ul { margin: 0; padding-left: 16px; font-size: 13px; display: flex; flex-direction: column; gap: 2px; }
+.pg li { overflow-wrap: anywhere; }
+.pg li .to { color: var(--gold); font-weight: 500; }
+.pg .cut { font-size: 12px; color: var(--mute); }
+a.orig { align-self: flex-start; color: var(--gold); font-size: 13px; }
+
 .controls {
   position: sticky; top: 0; z-index: 5;
   background: var(--ink);
@@ -227,6 +284,14 @@ tr.cur td:first-child { color: var(--gold); }
     <p class="meta" id="meta"></p>
   </header>
 
+  <nav class="views" aria-label="화면 전환">
+    <button type="button" data-view="stats">승률표</button>
+    <button type="button" data-view="patch">패치 노트</button>
+  </nav>
+
+  <div id="view-patch" hidden></div>
+
+  <div id="view-stats">
   <div class="controls">
     <div class="tabs" role="tablist" aria-label="포지션" id="tabs"></div>
     <div class="row2">
@@ -247,6 +312,7 @@ tr.cur td:first-child { color: var(--gold); }
     <span>출처: 텐센트 리그 오브 레전드 모바일(중국 서버) 공식 랭크 통계. 한국 서버 통계는 공개되지 않아 중국 서버 수치를 보여줍니다.</span>
     <span>순위 옆 숫자는 선택한 포지션·구간 안에서의 순위입니다. 행을 누르면 챔피언 상세가 열립니다.</span>
   </footer>
+  </div>
 </div>
 
 <div class="scrim" id="scrim">
@@ -508,13 +574,140 @@ tr.cur td:first-child { color: var(--gold); }
   scrim.addEventListener('click', function (e) { if (e.target === scrim) closeHero(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.hero) closeHero(); });
   function fromHash() {
-    var m = /^#c-(\d+)$/.exec(location.hash || '');
-    if (m && D.heroes[m[1]]) { if (state.hero !== m[1]) openHero(m[1], state.pos); }
-    else if (state.hero) { state.hero = null; scrim.classList.remove('open'); }
+    var hash = location.hash || '';
+    var m = /^#c-(\d+)$/.exec(hash);
+    if (m && D.heroes[m[1]]) { if (state.hero !== m[1]) openHero(m[1], state.pos); return; }
+    if (state.hero) { state.hero = null; scrim.classList.remove('open'); }
+    if (hash === '#patch-notes') showView('patch');
+    else if (hash === '' || hash === '#') showView(state.view || 'stats');
   }
   window.addEventListener('hashchange', fromHash);
 
+  // 화면 전환: 승률표 / 패치 노트
+  var viewStats = document.getElementById('view-stats'), viewPatch = document.getElementById('view-patch');
+  var viewBtns = document.querySelectorAll('.views button'), patchBuilt = false;
+  function showView(v) {
+    state.view = v;
+    viewStats.hidden = v !== 'stats';
+    viewPatch.hidden = v !== 'patch';
+    Array.prototype.forEach.call(viewBtns, function (b) {
+      if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
+    });
+    if (v === 'patch' && !patchBuilt) { buildPatches(); patchBuilt = true; }
+  }
+  Array.prototype.forEach.call(viewBtns, function (b) {
+    b.onclick = function () {
+      showView(b.dataset.view);
+      try { history.replaceState(null, '', location.pathname + location.search + (b.dataset.view === 'patch' ? '#patch-notes' : '')); } catch (e) {}
+    };
+  });
+
+  var heroByName = {};
+  Object.keys(D.heroes).forEach(function (id) { heroByName[D.heroes[id].n.replace(/\s/g, '')] = id; });
+  function heroId(name) { return heroByName[String(name).replace(/\s/g, '')]; }
+
+  // "A → B" 줄은 바뀐 뒤 값(B)을 강조한다
+  function changeLine(text) {
+    var li = el('li'), i = text.lastIndexOf('→');
+    if (i < 0) { li.textContent = text; return li; }
+    li.appendChild(document.createTextNode(text.slice(0, i + 1) + ' '));
+    li.appendChild(el('span', 'to', text.slice(i + 1).trim()));
+    return li;
+  }
+  function namesOf(sec) {
+    // 소제목(lv 3)만 있는 항목은 묶음 이름이라 요약에서는 실제 변경 항목만 센다
+    var real = sec.g.filter(function (g) { return sec.k === 'champ' || g.c.length || g.lv !== 3; });
+    return (real.length ? real : sec.g).map(function (g) { return g.n; });
+  }
+  function buildPatches() {
+    var P = D.patches || [];
+    viewPatch.textContent = '';
+    if (!P.length) { viewPatch.appendChild(el('p', 'empty', '패치 노트를 가져오지 못했습니다.')); return; }
+    viewPatch.appendChild(el('p', 'pnote', '공식 한국어 패치 노트에서 바뀐 항목과 수치만 추렸습니다. 개발자 설명과 긴 안내문은 원문에서 볼 수 있습니다.'));
+    P.forEach(function (p, idx) {
+      var d = el('details', 'patch');
+      if (idx === 0) d.open = true;
+      var sum = el('summary');
+      sum.appendChild(el('span', 'pver', p.v));
+      sum.appendChild(el('span', 'pdate', p.date));
+      var nChamp = 0, nEtc = 0;
+      p.s.forEach(function (s) { if (s.k === 'champ') nChamp += s.g.length; else nEtc += namesOf(s).length; });
+      sum.appendChild(el('span', 'pcount', (nChamp ? '챔피언 ' + nChamp + ' · ' : '') + '기타 ' + nEtc));
+      d.appendChild(sum);
+
+      var body = el('div', 'pbody');
+      if (p.desc) body.appendChild(el('p', 'pdesc', p.desc));
+
+      // 한눈에 보기
+      var glance = el('div', 'glance');
+      glance.appendChild(el('h3', '', '한눈에 보기'));
+      p.s.forEach(function (s) {
+        var row = el('div', 'grow');
+        var names = namesOf(s);
+        row.appendChild(el('span', 'gt', s.t + ' ' + names.length));
+        if (s.k === 'champ') {
+          var box = el('div', 'champs');
+          s.g.forEach(function (g) {
+            var id = heroId(g.n);
+            var c = el(id ? 'button' : 'span', 'champ');
+            if (id) {
+              c.type = 'button'; c.title = g.n + ' 승률 보기';
+              c.appendChild(avatar(id));
+              c.onclick = function () { openHero(id, state.pos); };
+            } else c.style.paddingLeft = '10px';
+            c.appendChild(document.createTextNode(g.n));
+            box.appendChild(c);
+          });
+          row.appendChild(box);
+        } else {
+          var shown = names.slice(0, 12).join(', ');
+          row.appendChild(el('span', 'names', shown + (names.length > 12 ? ' 외 ' + (names.length - 12) + '개' : '')));
+        }
+        glance.appendChild(row);
+      });
+      body.appendChild(glance);
+
+      // 항목별 변경 내용 (눌러서 펼침)
+      var secs = el('div');
+      p.s.forEach(function (s) {
+        var sd = el('details', 'sec'), ss = el('summary');
+        ss.appendChild(el('span', '', s.t));
+        ss.appendChild(el('span', 'n', namesOf(s).length + '개'));
+        sd.appendChild(ss);
+        var sb = el('div', 'secbody');
+        s.g.forEach(function (g) {
+          var pg = el('div', 'pg' + (g.lv === 3 ? ' sub' : ''));
+          var gn = el('div', 'gn');
+          var id = s.k === 'champ' ? heroId(g.n) : null;
+          if (id) gn.appendChild(avatar(id));
+          gn.appendChild(document.createTextNode(g.n));
+          pg.appendChild(gn);
+          g.c.forEach(function (c) {
+            if (c.t) pg.appendChild(el('div', 'ct', c.t));
+            if (c.l.length) {
+              var ul = el('ul');
+              c.l.forEach(function (line) { ul.appendChild(changeLine(line)); });
+              pg.appendChild(ul);
+            }
+            if (c.x) pg.appendChild(el('div', 'cut', '설명이 더 있습니다. 원문에서 확인하세요.'));
+          });
+          sb.appendChild(pg);
+        });
+        sd.appendChild(sb);
+        secs.appendChild(sd);
+      });
+      body.appendChild(secs);
+
+      var a = el('a', 'orig', p.v + ' 패치 노트 원문 보기');
+      a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
+      body.appendChild(a);
+      d.appendChild(body);
+      viewPatch.appendChild(d);
+    });
+  }
+
   render();
+  showView('stats');
   fromHash();
 })();
 </script>
