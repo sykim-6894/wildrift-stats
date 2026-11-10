@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>와일드리프트 승률표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 좁은 한 칸짜리 순위표. 위에 포지션 탭과 티어 선택이 붙어 있고, 행을 누르면 상세 시트가 올라온다. */
+:root {
+  color-scheme: dark;
+  --ink: #0b1a24;
+  --panel: #12283a;
+  --panel-2: #183247;
+  --line: #24465f;
+  --text: #e6eef2;
+  --mute: #8fa7b6;
+  --gold: #d9b45f;
+  --up: #4fc3a1;
+  --down: #e0736a;
+  --font-display: "Do Hyeon", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-body: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 48px; }
+
+header.top { padding: 20px 0 12px; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+h1 span { color: var(--gold); }
+.meta { color: var(--mute); font-size: 13px; margin: 6px 0 0; }
+
+.controls {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--ink);
+  padding: 10px 0;
+  display: flex; flex-direction: column; gap: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.tabs button {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--mute);
+}
+.tabs button[aria-selected="true"] {
+  background: var(--gold); border-color: var(--gold); color: #1c1503;
+}
+.row2 { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tiers { display: flex; gap: 6px; flex-wrap: wrap; }
+.tiers button {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--mute);
+}
+.tiers button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+#q {
+  flex: 1 1 140px; min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+#q::placeholder { color: var(--mute); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 26px 40px minmax(0, 1fr) 96px 52px 52px;
+  align-items: center;
+  column-gap: 8px;
+}
+.head {
+  padding: 10px 8px 6px;
+  color: var(--mute);
+  font-size: 12px;
+}
+.head button {
+  background: none; border: 0; padding: 4px 0;
+  color: var(--mute); font-size: 12px; text-align: right;
+}
+.head button[aria-sort="descending"] { color: var(--gold); }
+.head button[aria-sort="descending"]::after { content: " ▼"; font-size: 9px; }
+
+ol#list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+#list button.rowbtn {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 7px 8px;
+  text-align: left;
+}
+#list button.rowbtn:hover { border-color: var(--line); background: var(--panel-2); }
+.rank { color: var(--mute); font-variant-numeric: tabular-nums; font-size: 13px; text-align: center; }
+.top3 .rank { color: var(--gold); font-weight: 700; }
+.ava {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  display: grid; place-items: center; overflow: hidden;
+  font-family: var(--font-display); font-size: 18px; color: var(--gold);
+}
+.ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.name { font-weight: 500; overflow-wrap: anywhere; line-height: 1.25; }
+.num { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--mute); }
+.win { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
+.win b { font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 700; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+/* 50%를 가운데에 둔 막대: 오른쪽이 50% 초과, 왼쪽이 미만 */
+.bar { position: relative; width: 100%; height: 4px; background: var(--line); border-radius: 2px; }
+.bar::before { content: ""; position: absolute; left: 50%; top: -2px; width: 1px; height: 8px; background: var(--mute); }
+.bar i { position: absolute; top: 0; height: 100%; border-radius: 2px; }
+.bar i.up { left: 50%; background: var(--up); }
+.bar i.down { right: 50%; background: var(--down); }
+.empty { color: var(--mute); padding: 24px 8px; text-align: center; }
+
+footer { color: var(--mute); font-size: 12px; margin-top: 24px; display: flex; flex-direction: column; gap: 4px; }
+footer a, .sheet a { color: var(--gold); }
+
+/* 상세 시트 */
+.scrim { position: fixed; inset: 0; background: rgba(4, 12, 18, 0.72); z-index: 20; display: none; align-items: flex-end; justify-content: center; }
+.scrim.open { display: flex; }
+.sheet {
+  width: 100%; max-width: 560px; max-height: 88%;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+@media (min-width: 640px) {
+  .scrim { align-items: center; }
+  .sheet { border-radius: 16px; }
+}
+.sheet-head { display: flex; gap: 12px; align-items: center; }
+.sheet-head .ava { width: 56px; height: 56px; font-size: 24px; flex: none; }
+.sheet-head h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0; line-height: 1.2; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.close { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 13px; flex: none; }
+.sheet h3 { font-size: 13px; font-weight: 700; color: var(--mute); margin: 0 0 8px; }
+.posgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.poscard {
+  background: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; text-align: left;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.poscard[aria-pressed="true"] { border-color: var(--gold); }
+.poscard .p { font-family: var(--font-display); font-size: 16px; color: var(--gold); }
+.poscard .w { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.poscard .s { font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+th, td { padding: 7px 6px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--mute); font-weight: 500; font-size: 12px; }
+tr.cur td:first-child { color: var(--gold); }
+.build { background: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.build p { margin: 0; font-size: 13px; color: var(--mute); }
+.bgroup { display: flex; flex-direction: column; gap: 5px; }
+.blabel { font-size: 12px; color: var(--gold); font-weight: 700; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.bhead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.bpicked { font-size: 13px; color: var(--text); }
+.chip {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 4px 9px; font-size: 13px; min-height: 44px;
+}
+.icon {
+  position: relative; display: block;
+  width: 44px; height: 44px; padding: 0;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+}
+.icon img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 7px; }
+.icon.round, .icon.round img { border-radius: 50%; }
+.icon.on, .chip.on { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.icon .no {
+  position: absolute; left: -4px; top: -4px;
+  min-width: 16px; height: 16px; border-radius: 8px;
+  background: var(--ink); border: 1px solid var(--line);
+  color: var(--gold); font-size: 10px; line-height: 14px; text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.build a.go {
+  align-self: flex-start;
+  background: var(--gold); color: #1c1503; text-decoration: none;
+  border-radius: 8px; padding: 8px 14px; font-weight: 700; font-size: 14px;
+}
+@media (max-width: 400px) {
+  .grid { grid-template-columns: 22px 36px minmax(0, 1fr) 84px 44px 44px; column-gap: 6px; }
+  .ava { width: 36px; height: 36px; }
+  h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>와일드리프트 <span>승률표</span></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <div class="controls">
+    <div class="tabs" role="tablist" aria-label="포지션" id="tabs"></div>
+    <div class="row2">
+      <div class="tiers" id="tiers" aria-label="랭크 구간"></div>
+      <input id="q" type="search" placeholder="챔피언 검색" aria-label="챔피언 검색" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="grid head" id="head">
+    <span style="text-align:center">#</span><span></span><span>챔피언</span>
+    <button type="button" data-sort="1">승률</button>
+    <button type="button" data-sort="2">픽률</button>
+    <button type="button" data-sort="3">밴률</button>
+  </div>
+  <ol id="list"></ol>
+
+  <footer>
+    <span>출처: 텐센트 리그 오브 레전드 모바일(중국 서버) 공식 랭크 통계. 한국 서버 통계는 공개되지 않아 중국 서버 수치를 보여줍니다.</span>
+    <span>순위 옆 숫자는 선택한 포지션·구간 안에서의 순위입니다. 행을 누르면 챔피언 상세가 열립니다.</span>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1"></div>
+</div>
+
+<script id="data" type="application/json">__DATA__</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var POS = [['2', '탑'], ['5', '정글'], ['1', '미드'], ['3', '원딜'], ['4', '서폿']];
+  var TIER = [['1', '다이아+'], ['2', '마스터+'], ['3', '챌린저'], ['4', '최상위 큐']];
+  var POSNAME = {}, TIERNAME = {};
+  POS.forEach(function (p) { POSNAME[p[0]] = p[1]; });
+  TIER.forEach(function (t) { TIERNAME[t[0]] = t[1]; });
+
+  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null };
+  try {
+    var saved = JSON.parse(localStorage.getItem('wr-state') || '{}');
+    if (POSNAME[saved.pos]) state.pos = saved.pos;
+    if (TIERNAME[saved.tier]) state.tier = saved.tier;
+  } catch (e) {}
+  function save() {
+    try { localStorage.setItem('wr-state', JSON.stringify({ pos: state.pos, tier: state.tier })); } catch (e) {}
+  }
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function pct(v) { return v.toFixed(2) + '%'; }
+  function avatar(id) {
+    var h = D.heroes[id], box = el('span', 'ava');
+    var img = new Image();
+    img.alt = ''; img.loading = 'lazy';
+    img.onerror = function () { box.textContent = h.n.charAt(0); };
+    img.src = h.a;
+    box.appendChild(img);
+    return box;
+  }
+  function winBar(w) {
+    var bar = el('span', 'bar'), i = el('i', w >= 50 ? 'up' : 'down');
+    i.style.width = Math.min(Math.abs(w - 50) / 8, 1) * 50 + '%';
+    bar.appendChild(i);
+    return bar;
+  }
+  function sorted(tier, pos, col) {
+    return (D.stats[tier][pos] || []).slice().sort(function (a, b) { return b[col] - a[col]; });
+  }
+
+  // 컨트롤
+  var tabs = document.getElementById('tabs');
+  POS.forEach(function (p) {
+    var b = el('button', '', p[1]);
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.pos = p[0];
+    b.onclick = function () { state.pos = p[0]; save(); render(); };
+    tabs.appendChild(b);
+  });
+  var tiers = document.getElementById('tiers');
+  TIER.forEach(function (t) {
+    var b = el('button', '', t[1]);
+    b.type = 'button'; b.dataset.tier = t[0];
+    b.onclick = function () { state.tier = t[0]; save(); render(); };
+    tiers.appendChild(b);
+  });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderList(); });
+  Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+    b.onclick = function () { state.sort = +b.dataset.sort; render(); };
+  });
+  document.getElementById('meta').textContent = '중국 서버 랭크 게임 기준 · ' + D.date + ' 집계';
+
+  function render() {
+    Array.prototype.forEach.call(tabs.children, function (b) {
+      b.setAttribute('aria-selected', b.dataset.pos === state.pos ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(tiers.children, function (b) {
+      b.setAttribute('aria-pressed', b.dataset.tier === state.tier ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+      if (+b.dataset.sort === state.sort) b.setAttribute('aria-sort', 'descending');
+      else b.removeAttribute('aria-sort');
+    });
+    renderList();
+  }
+
+  function renderList() {
+    var list = document.getElementById('list');
+    list.textContent = '';
+    var rows = sorted(state.tier, state.pos, state.sort);
+    var q = state.q.toLowerCase(), shown = 0;
+    rows.forEach(function (r, idx) {
+      var h = D.heroes[r[0]];
+      if (q && h.n.toLowerCase().indexOf(q) === -1) return;
+      shown++;
+      var li = el('li', idx < 3 ? 'top3' : '');
+      var b = el('button', 'rowbtn grid');
+      b.type = 'button';
+      b.setAttribute('aria-label', h.n + ' 상세 보기');
+      b.appendChild(el('span', 'rank', idx + 1));
+      b.appendChild(avatar(r[0]));
+      b.appendChild(el('span', 'name', h.n));
+      var win = el('span', 'win');
+      win.appendChild(el('b', r[1] >= 50 ? 'up' : 'down', pct(r[1])));
+      win.appendChild(winBar(r[1]));
+      b.appendChild(win);
+      b.appendChild(el('span', 'num', pct(r[2])));
+      b.appendChild(el('span', 'num', pct(r[3])));
+      b.onclick = function () { openHero(r[0], state.pos); };
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+    if (!shown) list.appendChild(el('li', 'empty', q ? '"' + state.q + '" 검색 결과가 없습니다.' : '이 구간에는 통계가 없습니다.'));
+  }
+
+  // 상세 시트
+  var scrim = document.getElementById('scrim'), sheet = document.getElementById('sheet');
+  function find(tier, pos, id) {
+    var rows = sorted(tier, pos, 1);
+    for (var i = 0; i < rows.length; i++) if (rows[i][0] === id) return { row: rows[i], rank: i + 1, total: rows.length };
+    return null;
+  }
+  function openHero(id, pos) {
+    state.hero = id; state.hpos = pos;
+    renderSheet();
+    scrim.classList.add('open');
+    sheet.scrollTop = 0;
+    sheet.focus();
+    try { if (location.hash !== '#c-' + id) location.hash = 'c-' + id; } catch (e) {}
+  }
+  function closeHero() {
+    state.hero = null;
+    scrim.classList.remove('open');
+    try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
+  function renderSheet() {
+    var id = state.hero, h = D.heroes[id];
+    sheet.textContent = '';
+
+    var head = el('div', 'sheet-head');
+    head.appendChild(avatar(id));
+    var t = el('h2', '', h.n); t.id = 'sheet-title';
+    head.appendChild(t);
+    var c = el('button', 'close', '닫기'); c.type = 'button'; c.onclick = closeHero;
+    head.appendChild(c);
+    sheet.appendChild(head);
+
+    // 포지션별 요약 (선택한 랭크 구간)
+    var played = POS.filter(function (p) { return find(state.tier, p[0], id); });
+    if (played.length && !find(state.tier, state.hpos, id)) state.hpos = played[0][0];
+    var s1 = el('section');
+    s1.appendChild(el('h3', '', '포지션별 성적 · ' + TIERNAME[state.tier]));
+    if (!played.length) {
+      s1.appendChild(el('p', 'empty', '이 구간에는 통계가 없습니다.'));
+    } else {
+      var pg = el('div', 'posgrid');
+      played.forEach(function (p) {
+        var f = find(state.tier, p[0], id);
+        var card = el('button', 'poscard');
+        card.type = 'button';
+        card.setAttribute('aria-pressed', p[0] === state.hpos ? 'true' : 'false');
+        card.appendChild(el('span', 'p', p[1]));
+        card.appendChild(el('span', 'w ' + (f.row[1] >= 50 ? 'up' : 'down'), pct(f.row[1])));
+        card.appendChild(el('span', 's', '승률 ' + f.rank + '위 / ' + f.total + '명'));
+        card.appendChild(el('span', 's', '픽 ' + pct(f.row[2]) + ' · 밴 ' + pct(f.row[3])));
+        card.onclick = function () { state.hpos = p[0]; renderSheet(); };
+        pg.appendChild(card);
+      });
+      s1.appendChild(pg);
+    }
+    sheet.appendChild(s1);
+
+    // 랭크 구간별 비교 (선택한 포지션)
+    var s2 = el('section');
+    s2.appendChild(el('h3', '', POSNAME[state.hpos] + ' · 랭크 구간별 비교'));
+    var wrap = el('div', 'tablewrap'), table = el('table'), thead = el('thead'), trh = el('tr');
+    ['구간', '승률', '순위', '픽률', '밴률'].forEach(function (x) { trh.appendChild(el('th', '', x)); });
+    thead.appendChild(trh); table.appendChild(thead);
+    var tb = el('tbody');
+    TIER.forEach(function (tr) {
+      var f = find(tr[0], state.hpos, id), row = el('tr', tr[0] === state.tier ? 'cur' : '');
+      row.appendChild(el('td', '', tr[1]));
+      if (f) {
+        row.appendChild(el('td', f.row[1] >= 50 ? 'up' : 'down', pct(f.row[1])));
+        row.appendChild(el('td', '', f.rank + ' / ' + f.total));
+        row.appendChild(el('td', '', pct(f.row[2])));
+        row.appendChild(el('td', '', pct(f.row[3])));
+      } else {
+        var td = el('td', '', '통계 없음'); td.colSpan = 4; td.style.color = 'var(--mute)';
+        row.appendChild(td);
+      }
+      tb.appendChild(row);
+    });
+    table.appendChild(tb); wrap.appendChild(table); s2.appendChild(wrap);
+    sheet.appendChild(s2);
+
+    // 빌드
+    var s3 = el('section');
+    s3.appendChild(el('h3', '', '추천 빌드'));
+    var build = el('div', 'build');
+    var B = (D.builds || {})[id];
+    // 아이콘에 마우스를 올리면 이름이 뜨고, 누르면(터치 화면) 묶음 제목 옆에 이름이 표시된다.
+    function group(label, refs, numbered, round) {
+      if (!refs || !refs.length) return;
+      var g = el('div', 'bgroup');
+      var head = el('div', 'bhead');
+      head.appendChild(el('span', 'blabel', label));
+      var picked = el('span', 'bpicked');
+      picked.setAttribute('aria-live', 'polite');
+      head.appendChild(picked);
+      g.appendChild(head);
+      var chips = el(numbered ? 'ol' : 'ul', 'chips');
+      refs.forEach(function (ref, i) {
+        var thing = D.things[ref] || ['?', ''], name = thing[0], src = thing[1];
+        var li = el('li');
+        var b = el('button', 'icon' + (round ? ' round' : ''));
+        b.type = 'button'; b.title = name; b.setAttribute('aria-label', name);
+        function asText() { b.className = 'chip'; b.textContent = name; }
+        if (src) {
+          var img = new Image();
+          img.alt = ''; img.loading = 'lazy';
+          img.onerror = asText;
+          img.src = src;
+          b.appendChild(img);
+          if (numbered) b.appendChild(el('span', 'no', i + 1));
+        } else asText();
+        b.onclick = function () {
+          Array.prototype.forEach.call(chips.querySelectorAll('.on'), function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          picked.textContent = name;
+        };
+        li.appendChild(b);
+        chips.appendChild(li);
+      });
+      g.appendChild(chips);
+      build.appendChild(g);
+    }
+    if (B) {
+      group('시작', B.s);
+      group('핵심', B.c, true);
+      group('신발', B.b);
+      group('최종 빌드', B.f, true);
+      group('핵심 룬', B.r.slice(0, 1), false, true);
+      group('보조 룬', B.r.slice(1), false, true);
+      group('소환사 주문', B.sp);
+      build.appendChild(el('p', '', '아이콘에 마우스를 올리거나 누르면 이름이 나옵니다. 가이드 사이트 wildriftfire.com의 추천 빌드입니다' + (B.p ? ' (패치 ' + B.p + ')' : '') + '. 승률 통계로 뽑은 빌드가 아니며, 공식 통계에는 빌드별 승률이 없습니다.'));
+    } else {
+      build.appendChild(el('p', '', '이 챔피언의 추천 빌드를 가져오지 못했습니다.'));
+    }
+    if (h.g) {
+      var a = el('a', 'go', '상황별 아이템·스킬 순서 보기');
+      a.href = h.g; a.target = '_blank'; a.rel = 'noopener';
+      build.appendChild(a);
+    }
+    s3.appendChild(build);
+    sheet.appendChild(s3);
+  }
+  scrim.addEventListener('click', function (e) { if (e.target === scrim) closeHero(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.hero) closeHero(); });
+  function fromHash() {
+    var m = /^#c-(\d+)$/.exec(location.hash || '');
+    if (m && D.heroes[m[1]]) { if (state.hero !== m[1]) openHero(m[1], state.pos); }
+    else if (state.hero) { state.hero = null; scrim.classList.remove('open'); }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  render();
+  fromHash();
+})();
+</script>
+</body>
+</html>

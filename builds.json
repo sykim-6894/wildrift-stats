@@ -1,0 +1,4800 @@
+{
+ "10001": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Black Cleaver",
+   "Dead Man's Plate",
+   "Spear of Shojin"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Black Cleaver",
+   "Dead Man's Plate",
+   "Spear of Shojin",
+   "Force of Nature",
+   "Thornmail"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Nimbus Cloak"
+  ],
+  "patch": "7.3e"
+ },
+ "10002": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Eclipse",
+   "Death's Dance",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Stridebreaker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Eclipse",
+   "Death's Dance",
+   "Serylda's Grudge",
+   "Spear of Shojin",
+   "Guardian Angel",
+   "Stridebreaker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10003": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Infinity Orb",
+   "Void Staff"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Boots of Mana",
+   "Luden's Echo",
+   "Infinity Orb",
+   "Void Staff",
+   "Rabadon's Deathcap"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Arcane Comet",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10004": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Sunfire Aegis",
+   "Abyssal Mask"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Liandry's Torment",
+   "Plated Steelcaps",
+   "Sunfire Aegis",
+   "Abyssal Mask",
+   "Amaranth's Twinguard",
+   "Thornmail"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Legend: Bloodline"
+  ],
+  "patch": "7.3e"
+ },
+ "10005": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Manamune",
+   "Youmuu's Ghostblade",
+   "Serpent's Fang"
+  ],
+  "boots": [
+   "Boots of Dynamism"
+  ],
+  "final": [
+   "Boots of Dynamism",
+   "Muramana",
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Serylda's Grudge",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "First Strike",
+   "Sudden Impact",
+   "Hubris",
+   "Eyeball Collector",
+   "Celerity"
+  ],
+  "patch": "7.3e"
+ },
+ "10006": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Essence Reaver",
+   "The Collector",
+   "Infinity Edge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Essence Reaver",
+   "The Collector",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "First Strike",
+   "Brutal",
+   "Cut Down",
+   "Legend: Haste",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10007": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Echoes of Helia"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Echoes of Helia",
+   "Redemption"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10008": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Thornmail",
+   "Force of Nature",
+   "Warmog's Armor"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Thornmail",
+   "Force of Nature",
+   "Warmog's Armor",
+   "Frozen Heart",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Overgrowth",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10009": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Sundered Sky",
+   "Black Cleaver"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Stridebreaker"
+  ],
+  "final": [
+   "Trinity Force",
+   "Plated Steelcaps",
+   "Sundered Sky",
+   "Black Cleaver",
+   "Death's Dance",
+   "Amaranth's Twinguard",
+   "Stridebreaker"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10010": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Kraken Slayer",
+   "Guinsoo's Rageblade",
+   "Terminus"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Kraken Slayer",
+   "Berserker's Greaves",
+   "Guinsoo's Rageblade",
+   "Terminus",
+   "Blade of the Ruined King",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10011": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Dusk and Dawn",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Dusk and Dawn",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Sudden Impact",
+   "Hubris",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10012": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Archangel's Staff",
+   "Blackfire Torch",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Seraph's Embrace",
+   "Blackfire Torch",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Conqueror",
+   "Manaflow Band",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10013": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10014": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Rabadon's Deathcap",
+   "Infinity Orb"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Cryptbloom",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Botanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10015": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Stormrazor",
+   "Infinity Edge"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Blade of the Ruined King",
+   "Stormrazor",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Ghost",
+   "Smite"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Last Stand",
+   "Legend: Alacrity",
+   "Nimbus Cloak"
+  ],
+  "patch": "7.3e"
+ },
+ "10016": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Serpent's Fang",
+   "Mortal Reminder"
+  ],
+  "boots": [
+   "Gluttonous Greaves",
+   "Goredrinker"
+  ],
+  "final": [
+   "Trinity Force",
+   "Gluttonous Greaves",
+   "Serpent's Fang",
+   "Mortal Reminder",
+   "Death's Dance",
+   "Guardian Angel",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Triumph",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10017": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Serylda's Grudge",
+   "Eclipse",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Sudden Impact",
+   "Hubris",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10018": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Stormrazor",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Stormrazor",
+   "Berserker's Greaves",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard",
+   "Runaan's Hurricane",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10019": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Manamune",
+   "Black Cleaver",
+   "Death's Dance"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Muramana",
+   "Ionian Boots of Lucidity",
+   "Black Cleaver",
+   "Death's Dance",
+   "Spear of Shojin",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Ghost",
+   "Smite"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10020": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Redemption"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Ionian Boots of Lucidity",
+   "Redemption",
+   "Knight's Vow"
+  ],
+  "spells": [
+   "Ignite",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Revitalize"
+  ],
+  "patch": "7.3e"
+ },
+ "10021": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Knight's Vow",
+   "Warmog's Armor",
+   "Radiant Virtue"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Knight's Vow",
+   "Warmog's Armor",
+   "Radiant Virtue",
+   "Mantle of the Twelfth Hour"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Guardian",
+   "Font of Life",
+   "Second Wind",
+   "Perseverance",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10022": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Stormrazor",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Boots of Dynamism",
+   "Galeforce"
+  ],
+  "final": [
+   "The Collector",
+   "Boots of Dynamism",
+   "Stormrazor",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Celerity"
+  ],
+  "patch": "7.3e"
+ },
+ "10023": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Rylai's Crystal Scepter",
+   "Liandry's Torment",
+   "Cryptbloom"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Rylai's Crystal Scepter",
+   "Liandry's Torment",
+   "Cryptbloom",
+   "Rabadon's Deathcap",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Manaflow Band",
+   "Transcendence",
+   "Gathering Storm",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10024": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Cryptbloom",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Hextech Flashtraption",
+   "Absolute Focus",
+   "Scorch",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10025": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Manaflow Band",
+   "Absolute Focus",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10026": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Kraken Slayer",
+   "Guinsoo's Rageblade",
+   "Terminus"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Kraken Slayer",
+   "Berserker's Greaves",
+   "Guinsoo's Rageblade",
+   "Terminus",
+   "Runaan's Hurricane",
+   "Blade of the Ruined King"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10027": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Essence Reaver",
+   "The Collector",
+   "Infinity Edge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Essence Reaver",
+   "The Collector",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10028": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Rylai's Crystal Scepter",
+   "Blackfire Torch"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Rylai's Crystal Scepter",
+   "Blackfire Torch",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Arcane Comet",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10029": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Stormsurge",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10030": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Youmuu's Ghostblade",
+   "Blade of the Ruined King",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Boots of Dynamism",
+   "Galeforce"
+  ],
+  "final": [
+   "Boots of Dynamism",
+   "Youmuu's Ghostblade",
+   "Blade of the Ruined King",
+   "Serylda's Grudge",
+   "Edge of Night",
+   "Guardian Angel",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Triumph",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10031": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10032": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Trinity Force",
+   "Eclipse",
+   "Hullbreaker"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Trinity Force",
+   "Eclipse",
+   "Hullbreaker",
+   "Death's Dance",
+   "Guardian Angel",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10033": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Yordle Trap",
+   "Zeke's Convergence",
+   "Warmog's Armor"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Yordle Trap",
+   "Plated Steelcaps",
+   "Zeke's Convergence",
+   "Warmog's Armor",
+   "Frozen Heart"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Hextech Flashtraption"
+  ],
+  "patch": "7.3e"
+ },
+ "10034": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Whispering Circlet",
+   "Echoes of Helia",
+   "Harmonic Echo"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Diadem of Songs",
+   "Echoes of Helia",
+   "Harmonic Echo",
+   "Ardent Censer"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10035": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Riftmaker",
+   "Hextech Rocketbelt"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Riftmaker",
+   "Hextech Rocketbelt",
+   "Bloodletter's Curse",
+   "Rabadon's Deathcap"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Demolish",
+   "Second Wind",
+   "Overgrowth",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10036": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Malignance",
+   "Hextech Rocketbelt",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Malignance",
+   "Hextech Rocketbelt",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Hextech Flashtraption",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10037": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Immortal Shieldbow",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Blade of the Ruined King",
+   "Immortal Shieldbow",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Guardian Angel",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Legend: Alacrity"
+  ],
+  "patch": "7.3e"
+ },
+ "10038": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Lich Bane",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Lich Bane",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Empowered Attack",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10039": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Eclipse",
+   "Trinity Force",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Eclipse",
+   "Ionian Boots of Lucidity",
+   "Trinity Force",
+   "Serylda's Grudge",
+   "Spear of Shojin",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Haste",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10040": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Dusk and Dawn",
+   "Blade of the Ruined King",
+   "Hullbreaker"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Dusk and Dawn",
+   "Blade of the Ruined King",
+   "Hullbreaker",
+   "Zhonya's Hourglass",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Brutal",
+   "Last Stand",
+   "Legend: Haste",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10041": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Nashor's Tooth",
+   "Dusk and Dawn",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Nashor's Tooth",
+   "Dusk and Dawn",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Botanist",
+   "Absolute Focus",
+   "Gathering Storm",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10042": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Essence Reaver",
+   "Stormrazor",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Gluttonous Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Essence Reaver",
+   "Gluttonous Greaves",
+   "Stormrazor",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Empowerment",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10044": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Warmog's Armor",
+   "Radiant Virtue",
+   "Dawnshroud"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Warmog's Armor",
+   "Radiant Virtue",
+   "Dawnshroud",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10045": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Yun Tal Wildarrows",
+   "Infinity Edge",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Yun Tal Wildarrows",
+   "Berserker's Greaves",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Navori Quickblades",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10046": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Stormsurge"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Sudden Impact",
+   "Tyrant",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10047": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Whispering Circlet",
+   "Echoes of Helia",
+   "Harmonic Echo"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Diadem of Songs",
+   "Echoes of Helia",
+   "Harmonic Echo",
+   "Ardent Censer"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10048": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Redemption"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ardent Censer",
+   "Ionian Boots of Lucidity",
+   "Harmonic Echo",
+   "Redemption",
+   "Knight's Vow"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10049": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Blade of the Ruined King",
+   "Death's Dance"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Trinity Force",
+   "Blade of the Ruined King",
+   "Death's Dance",
+   "Force of Nature",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Unshakeable",
+   "Second Wind",
+   "Overgrowth",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10050": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Sundered Sky",
+   "Death's Dance"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Trinity Force",
+   "Plated Steelcaps",
+   "Sundered Sky",
+   "Death's Dance",
+   "Mortal Reminder",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Triumph",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10051": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Stormrazor",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Stormrazor",
+   "Berserker's Greaves",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10052": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Imperial Mandate",
+   "Zeke's Convergence",
+   "Warmog's Armor"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Ionian Boots of Lucidity",
+   "Imperial Mandate",
+   "Zeke's Convergence",
+   "Warmog's Armor",
+   "Knight's Vow"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Bone Plating",
+   "Perseverance",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10053": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Fiendhunter Bolts",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "The Collector",
+   "Berserker's Greaves",
+   "Fiendhunter Bolts",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Runaan's Hurricane"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10054": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Dusk and Dawn",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Dusk and Dawn",
+   "Nashor's Tooth",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Battle Zeal",
+   "Last Stand",
+   "Legend: Bloodline",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10055": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Trinity Force",
+   "Hullbreaker",
+   "Eclipse"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Trinity Force",
+   "Hullbreaker",
+   "Eclipse",
+   "Death's Dance",
+   "Spear of Shojin",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Scorch"
+  ],
+  "patch": "7.3e"
+ },
+ "10056": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Radiant Virtue",
+   "Force of Nature"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Trinity Force",
+   "Plated Steelcaps",
+   "Radiant Virtue",
+   "Force of Nature",
+   "Frozen Heart",
+   "Amaranth's Twinguard",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Unshakeable",
+   "Bone Plating",
+   "Perseverance",
+   "Triumph"
+  ],
+  "patch": "7.3e"
+ },
+ "10057": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Infinity Edge",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "The Collector",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Immortal Shieldbow",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10058": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Dusk and Dawn",
+   "Heartsteel",
+   "Riftmaker"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Dusk and Dawn",
+   "Plated Steelcaps",
+   "Heartsteel",
+   "Riftmaker",
+   "Amaranth's Twinguard",
+   "Thornmail"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Triumph",
+   "Last Stand",
+   "Legend: Haste",
+   "Overgrowth"
+  ],
+  "patch": "7.3e"
+ },
+ "10059": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Youmuu's Ghostblade",
+   "Trinity Force",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Youmuu's Ghostblade",
+   "Trinity Force",
+   "Serylda's Grudge",
+   "Serpent's Fang",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10060": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Essence Reaver",
+   "Stormrazor",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Essence Reaver",
+   "Gluttonous Greaves",
+   "Stormrazor",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10061": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Hextech Rocketbelt",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Hextech Rocketbelt",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Void Staff"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10062": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Thornmail",
+   "Unending Despair"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Heartsteel",
+   "Thornmail",
+   "Unending Despair",
+   "Amaranth's Twinguard",
+   "Force of Nature"
+  ],
+  "spells": [
+   "Flash",
+   "Teleport"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Overgrowth",
+   "Last Stand"
+  ],
+  "patch": "7.3e"
+ },
+ "10063": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Rylai's Crystal Scepter",
+   "Cryptbloom"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Rylai's Crystal Scepter",
+   "Cryptbloom",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10064": {
+  "start": [
+   "Cloth Armor"
+  ],
+  "core": [
+   "Thornmail",
+   "Iceborn Gauntlet",
+   "Amaranth's Twinguard"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Thornmail",
+   "Plated Steelcaps",
+   "Iceborn Gauntlet",
+   "Amaranth's Twinguard",
+   "Dawnshroud",
+   "Randuin's Omen"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Second Wind",
+   "Overgrowth",
+   "Celerity"
+  ],
+  "patch": "7.3e"
+ },
+ "10065": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Sundered Sky",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Ionian Boots of Lucidity",
+   "Trinity Force",
+   "Sundered Sky",
+   "Serylda's Grudge",
+   "Amaranth's Twinguard",
+   "Kaenic Rookern"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10066": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Stormrazor",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Boots of Dynamism"
+  ],
+  "final": [
+   "The Collector",
+   "Boots of Dynamism",
+   "Stormrazor",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10067": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Essence Reaver",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Essence Reaver",
+   "Berserker's Greaves",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Axiom Arcanist"
+  ],
+  "patch": "7.3e"
+ },
+ "10068": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Overlord's Bloodmail",
+   "Stridebreaker"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Galeforce"
+  ],
+  "final": [
+   "Heartsteel",
+   "Plated Steelcaps",
+   "Overlord's Bloodmail",
+   "Stridebreaker",
+   "Black Cleaver",
+   "Spear of Shojin",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Last Stand",
+   "Legend: Alacrity",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10069": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Immortal Shieldbow",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Blade of the Ruined King",
+   "Immortal Shieldbow",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Legend: Alacrity"
+  ],
+  "patch": "7.3e"
+ },
+ "10070": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Kraken Slayer",
+   "Guinsoo's Rageblade",
+   "Blade of the Ruined King"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Kraken Slayer",
+   "Berserker's Greaves",
+   "Guinsoo's Rageblade",
+   "Blade of the Ruined King",
+   "Terminus",
+   "Death's Dance"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Triumph",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Perseverance"
+  ],
+  "patch": "7.3e"
+ },
+ "10071": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Stridebreaker",
+   "Sterak's Gage",
+   "Amaranth's Twinguard"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Stridebreaker",
+   "Sterak's Gage",
+   "Amaranth's Twinguard",
+   "Force of Nature",
+   "Randuin's Omen"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Conqueror",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Nimbus Cloak"
+  ],
+  "patch": "7.3e"
+ },
+ "10072": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Stormrazor",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Gluttonous Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "The Collector",
+   "Stormrazor",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Sudden Impact",
+   "Tyrant",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10073": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Kraken Slayer",
+   "The Collector",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Kraken Slayer",
+   "The Collector",
+   "Lord Dominik's Regard",
+   "Stormrazor",
+   "Hexoptics C44"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10074": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Radiant Virtue",
+   "Thornmail",
+   "Force of Nature"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Radiant Virtue",
+   "Thornmail",
+   "Force of Nature",
+   "Frozen Heart"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10075": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Tear of the Goddess",
+   "Harmonic Echo",
+   "Whispering Circlet"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Diadem of Songs",
+   "Ionian Boots of Lucidity",
+   "Harmonic Echo",
+   "Ardent Censer",
+   "Staff of Flowing Water"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10076": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Sunfire Aegis",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Heartsteel",
+   "Plated Steelcaps",
+   "Sunfire Aegis",
+   "Thornmail",
+   "Force of Nature",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Scorch"
+  ],
+  "patch": "7.3e"
+ },
+ "10077": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Bloodthirster",
+   "Hexoptics C44",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Bloodthirster",
+   "Berserker's Greaves",
+   "Hexoptics C44",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Stormrazor"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10078": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Trinity Force",
+   "Black Cleaver",
+   "Sterak's Gage"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Trinity Force",
+   "Black Cleaver",
+   "Sterak's Gage",
+   "Amaranth's Twinguard",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Demolish",
+   "Bone Plating",
+   "Perseverance",
+   "Brutal"
+  ],
+  "patch": "7.3e"
+ },
+ "10079": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Stormrazor",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Stormrazor",
+   "Berserker's Greaves",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10080": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Echoes of Helia",
+   "Ardent Censer",
+   "Harmonic Echo"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Echoes of Helia",
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Knight's Vow"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10081": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Zeke's Convergence",
+   "Radiant Virtue",
+   "Warmog's Armor"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Zeke's Convergence",
+   "Radiant Virtue",
+   "Warmog's Armor",
+   "Frozen Heart"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Hextech Flashtraption"
+  ],
+  "patch": "7.3e"
+ },
+ "10082": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Eclipse",
+   "Death's Dance",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Eclipse",
+   "Death's Dance",
+   "Serylda's Grudge",
+   "Spear of Shojin",
+   "Guardian Angel",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10083": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Iceborn Gauntlet",
+   "Thornmail",
+   "Frozen Heart"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Iceborn Gauntlet",
+   "Thornmail",
+   "Frozen Heart",
+   "Force of Nature",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Unshakeable",
+   "Second Wind",
+   "Overgrowth",
+   "Empowered Attack"
+  ],
+  "patch": "7.3e"
+ },
+ "10084": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Sudden Impact",
+   "Tyrant",
+   "Eyeball Collector",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10085": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10086": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Rabadon's Deathcap",
+   "Void Staff"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Infinity Orb",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10087": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Horizon Focus",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Horizon Focus",
+   "Rabadon's Deathcap",
+   "Cryptbloom",
+   "Liandry's Torment"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "First Strike",
+   "Manaflow Band",
+   "Absolute Focus",
+   "Gathering Storm",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10088": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Sunfire Aegis",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Heartsteel",
+   "Sunfire Aegis",
+   "Thornmail",
+   "Unending Despair",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Teleport"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Overgrowth",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10089": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "First Strike",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10090": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Cosmic Drive"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Battle Zeal",
+   "Last Stand",
+   "Legend: Haste",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10091": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Tear of the Goddess",
+   "Echoes of Helia",
+   "Whispering Circlet"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Diadem of Songs",
+   "Ionian Boots of Lucidity",
+   "Echoes of Helia",
+   "Ardent Censer",
+   "Harmonic Echo"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10092": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Eclipse",
+   "Sundered Sky",
+   "Death's Dance"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Eclipse",
+   "Sundered Sky",
+   "Death's Dance",
+   "Serylda's Grudge",
+   "Guardian Angel",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Battle Zeal",
+   "Last Stand",
+   "Legend: Haste",
+   "Second Wind"
+  ],
+  "patch": "7.3e"
+ },
+ "10093": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Statikk Shiv",
+   "Guinsoo's Rageblade",
+   "Terminus"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Statikk Shiv",
+   "Berserker's Greaves",
+   "Guinsoo's Rageblade",
+   "Terminus",
+   "Runaan's Hurricane",
+   "Amaranth's Twinguard",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10094": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Hullbreaker",
+   "Trinity Force"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Blade of the Ruined King",
+   "Gluttonous Greaves",
+   "Hullbreaker",
+   "Trinity Force",
+   "Death's Dance",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Last Stand"
+  ],
+  "patch": "7.3e"
+ },
+ "10095": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Infinity Orb",
+   "Stormsurge",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Infinity Orb",
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "First Strike",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10096": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Dead Man's Plate",
+   "Rylai's Crystal Scepter"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Dead Man's Plate",
+   "Rylai's Crystal Scepter",
+   "Bloodletter's Curse",
+   "Riftmaker"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Botanist",
+   "Celerity",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10097": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Whispering Circlet",
+   "Ardent Censer",
+   "Harmonic Echo"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Diadem of Songs",
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Redemption"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10098": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Manamune",
+   "Trinity Force",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Muramana",
+   "Gluttonous Greaves",
+   "Trinity Force",
+   "Serylda's Grudge",
+   "Spear of Shojin",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10099": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Hollow Radiance",
+   "Thornmail",
+   "Unending Despair"
+  ],
+  "boots": [
+   "Mercury's Treads"
+  ],
+  "final": [
+   "Mercury's Treads",
+   "Hollow Radiance",
+   "Thornmail",
+   "Unending Despair",
+   "Riftmaker",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Overgrowth",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10100": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Stormrazor",
+   "Infinity Edge"
+  ],
+  "boots": [
+   "Gluttonous Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "The Collector",
+   "Stormrazor",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Empowerment",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10101": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Manamune",
+   "Serpent's Fang",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Boots of Dynamism"
+  ],
+  "final": [
+   "Muramana",
+   "Boots of Dynamism",
+   "Serpent's Fang",
+   "Serylda's Grudge",
+   "Edge of Night",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "First Strike",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10102": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Black Cleaver",
+   "Thornmail",
+   "Gargoyle Stoneplate"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Black Cleaver",
+   "Thornmail",
+   "Gargoyle Stoneplate",
+   "Amaranth's Twinguard",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Empowerment",
+   "Demolish",
+   "Bone Plating",
+   "Perseverance",
+   "Brutal"
+  ],
+  "patch": "7.3e"
+ },
+ "10103": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Rod of Ages",
+   "Archangel's Staff",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Rod of Ages",
+   "Seraph's Embrace",
+   "Rabadon's Deathcap",
+   "Malignance",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "First Strike",
+   "Manaflow Band",
+   "Transcendence",
+   "Gathering Storm",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10104": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "The Collector",
+   "Infinity Edge",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "The Collector",
+   "Gluttonous Greaves",
+   "Infinity Edge",
+   "Lord Dominik's Regard",
+   "Bloodthirster",
+   "Immortal Shieldbow"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Conqueror",
+   "Sudden Impact",
+   "Hubris",
+   "Eyeball Collector",
+   "Legend: Bloodline"
+  ],
+  "patch": "7.3e"
+ },
+ "10105": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Boots of Mana",
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Cheap Shot",
+   "Chain Assault",
+   "Zombie Ward",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10106": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Trinity Force",
+   "Death's Dance",
+   "Force of Nature"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Trinity Force",
+   "Plated Steelcaps",
+   "Death's Dance",
+   "Force of Nature",
+   "Sterak's Gage",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Ghost",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Triumph",
+   "Last Stand",
+   "Legend: Alacrity",
+   "Nimbus Cloak"
+  ],
+  "patch": "7.3e"
+ },
+ "10107": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Yun Tal Wildarrows",
+   "Navori Quickblades",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Yun Tal Wildarrows",
+   "Gluttonous Greaves",
+   "Navori Quickblades",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10108": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Ardent Censer",
+   "Harmonic Echo",
+   "Redemption"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Ardent Censer",
+   "Ionian Boots of Lucidity",
+   "Harmonic Echo",
+   "Redemption",
+   "Knight's Vow"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Aery",
+   "Font of Life",
+   "Bone Plating",
+   "Revitalize",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10109": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Malignance",
+   "Cryptbloom",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Malignance",
+   "Cryptbloom",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Cheap Shot",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10110": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Guinsoo's Rageblade",
+   "Navori Quickblades",
+   "Runaan's Hurricane"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Guinsoo's Rageblade",
+   "Navori Quickblades",
+   "Runaan's Hurricane",
+   "Terminus",
+   "Blade of the Ruined King"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10112": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Stormrazor",
+   "Hexoptics C44",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves",
+   "Galeforce"
+  ],
+  "final": [
+   "Stormrazor",
+   "Berserker's Greaves",
+   "Hexoptics C44",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10116": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Warmog's Armor",
+   "Radiant Virtue",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Warmog's Armor",
+   "Radiant Virtue",
+   "Thornmail",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Hextech Flashtraption"
+  ],
+  "patch": "7.3e"
+ },
+ "10117": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Unending Despair",
+   "Warmog's Armor",
+   "Amaranth's Twinguard"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Unending Despair",
+   "Plated Steelcaps",
+   "Warmog's Armor",
+   "Amaranth's Twinguard",
+   "Thornmail",
+   "Frozen Heart"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Bone Plating",
+   "Overgrowth",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10118": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Sunfire Aegis",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Heartsteel",
+   "Plated Steelcaps",
+   "Sunfire Aegis",
+   "Thornmail",
+   "Unending Despair",
+   "Dawnshroud"
+  ],
+  "spells": [
+   "Flash",
+   "Teleport"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Overgrowth",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10119": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Blackfire Torch",
+   "Liandry's Torment",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Blackfire Torch",
+   "Liandry's Torment",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10120": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Lich Bane",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10121": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Hullbreaker",
+   "Mortal Reminder"
+  ],
+  "boots": [
+   "Plated Steelcaps",
+   "Goredrinker"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Blade of the Ruined King",
+   "Hullbreaker",
+   "Mortal Reminder",
+   "Sterak's Gage",
+   "Guardian Angel",
+   "Goredrinker"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Scorch"
+  ],
+  "patch": "7.3e"
+ },
+ "10122": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Horizon Focus"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Horizon Focus",
+   "Cryptbloom",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10123": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Statikk Shiv",
+   "Hexoptics C44",
+   "Mortal Reminder"
+  ],
+  "boots": [
+   "Boots of Dynamism",
+   "Galeforce"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Statikk Shiv",
+   "Boots of Dynamism",
+   "Hexoptics C44",
+   "Mortal Reminder",
+   "Infinity Edge",
+   "Galeforce"
+  ],
+  "spells": [
+   "Flash",
+   "Heal"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10124": {
+  "start": [
+   "Spectral Sickle"
+  ],
+  "core": [
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Edge of Night"
+  ],
+  "boots": [
+   "Ionian Boots of Lucidity"
+  ],
+  "final": [
+   "Black Mist Scythe",
+   "Ionian Boots of Lucidity",
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Edge of Night",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Unshakeable",
+   "Second Wind",
+   "Perseverance",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10125": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Sunfire Aegis",
+   "Thornmail",
+   "Unending Despair"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Sunfire Aegis",
+   "Thornmail",
+   "Unending Despair",
+   "Mantle of the Twelfth Hour",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Teleport"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Overgrowth",
+   "Manaflow Band"
+  ],
+  "patch": "7.3e"
+ },
+ "10126": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Malignance",
+   "Rylai's Crystal Scepter",
+   "Abyssal Mask"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Malignance",
+   "Rylai's Crystal Scepter",
+   "Abyssal Mask",
+   "Bloodletter's Curse",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Conqueror",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10127": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Malignance",
+   "Stormsurge",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Malignance",
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "First Strike",
+   "Cheap Shot",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10128": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Youmuu's Ghostblade",
+   "Serpent's Fang",
+   "Serylda's Grudge",
+   "Trinity Force",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Sudden Impact",
+   "Hubris",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10129": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "First Strike",
+   "Cheap Shot",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10130": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Warmog's Armor",
+   "Force of Nature",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Warmog's Armor",
+   "Force of Nature",
+   "Thornmail",
+   "Frozen Heart"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Bone Plating",
+   "Perseverance",
+   "Hextech Flashtraption"
+  ],
+  "patch": "7.3e"
+ },
+ "10131": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Kraken Slayer",
+   "Blade of the Ruined King",
+   "Dusk and Dawn"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Kraken Slayer",
+   "Blade of the Ruined King",
+   "Dusk and Dawn",
+   "Terminus",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Empowerment",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10132": {
+  "start": [
+   "Relic Shield"
+  ],
+  "core": [
+   "Warmog's Armor",
+   "Frozen Heart",
+   "Force of Nature"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Bulwark of the Mountain",
+   "Plated Steelcaps",
+   "Warmog's Armor",
+   "Frozen Heart",
+   "Force of Nature",
+   "Thornmail"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Ice Overlord",
+   "Courage of the Colossus",
+   "Second Wind",
+   "Perseverance",
+   "Hextech Flashtraption"
+  ],
+  "patch": "7.3e"
+ },
+ "10133": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Malignance",
+   "Hextech Rocketbelt",
+   "Infinity Orb"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Malignance",
+   "Hextech Rocketbelt",
+   "Infinity Orb",
+   "Void Staff",
+   "Rabadon's Deathcap"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Axiom Arcanist",
+   "Absolute Focus",
+   "Gathering Storm",
+   "Sudden Impact"
+  ],
+  "patch": "7.3e"
+ },
+ "10134": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Blade of the Ruined King",
+   "Guinsoo's Rageblade",
+   "Runaan's Hurricane"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Berserker's Greaves",
+   "Blade of the Ruined King",
+   "Guinsoo's Rageblade",
+   "Runaan's Hurricane",
+   "Terminus",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Alacrity",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10135": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Riftmaker",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Riftmaker",
+   "Rabadon's Deathcap",
+   "Bloodletter's Curse",
+   "Amaranth's Twinguard"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10136": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Heartsteel",
+   "Sunfire Aegis",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Heartsteel",
+   "Plated Steelcaps",
+   "Sunfire Aegis",
+   "Thornmail",
+   "Unending Despair",
+   "Kaenic Rookern"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Overgrowth",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10137": {
+  "start": [
+   "Tear of the Goddess"
+  ],
+  "core": [
+   "Archangel's Staff",
+   "Rod of Ages",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Seraph's Embrace",
+   "Rod of Ages",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Void Staff"
+  ],
+  "spells": [
+   "Flash",
+   "Ghost"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Manaflow Band",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10138": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Manamune",
+   "Trinity Force",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Muramana",
+   "Gluttonous Greaves",
+   "Trinity Force",
+   "Serylda's Grudge",
+   "Spear of Shojin",
+   "Guardian Angel"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Fleet Footwork",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10139": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Cryptbloom",
+   "Liandry's Torment"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Arcane Comet",
+   "Manaflow Band",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10140": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Liandry's Torment",
+   "Hextech Rocketbelt",
+   "Bloodletter's Curse"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Liandry's Torment",
+   "Hextech Rocketbelt",
+   "Bloodletter's Curse",
+   "Riftmaker",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Phase Rush",
+   "Battle Zeal",
+   "Cut Down",
+   "Legend: Haste",
+   "Nimbus Cloak"
+  ],
+  "patch": "7.3e"
+ },
+ "10141": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Stormsurge",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Cheap Shot",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10144": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Rabadon's Deathcap",
+   "Infinity Orb"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Rabadon's Deathcap",
+   "Infinity Orb",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Arcane Comet",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10145": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Eclipse",
+   "Spear of Shojin",
+   "Death's Dance"
+  ],
+  "boots": [
+   "Gluttonous Greaves"
+  ],
+  "final": [
+   "Gluttonous Greaves",
+   "Eclipse",
+   "Spear of Shojin",
+   "Death's Dance",
+   "Sterak's Gage",
+   "Overlord's Bloodmail"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Conqueror",
+   "Sudden Impact",
+   "Chain Assault",
+   "Eyeball Collector",
+   "Absolute Focus"
+  ],
+  "patch": "7.3e"
+ },
+ "10146": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Infinity Orb",
+   "Rabadon's Deathcap",
+   "Void Staff",
+   "Zhonya's Hourglass"
+  ],
+  "spells": [
+   "Flash",
+   "Ignite"
+  ],
+  "runes": [
+   "Dark Harvest",
+   "Cheap Shot",
+   "Tyrant",
+   "Eyeball Collector",
+   "Transcendence"
+  ],
+  "patch": "7.3e"
+ },
+ "10147": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Blackfire Torch",
+   "Infinity Orb",
+   "Liandry's Torment"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Blackfire Torch",
+   "Infinity Orb",
+   "Liandry's Torment",
+   "Cryptbloom",
+   "Rabadon's Deathcap"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Arcane Comet",
+   "Manaflow Band",
+   "Transcendence",
+   "Scorch",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10148": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Stormrazor",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard"
+  ],
+  "boots": [
+   "Berserker's Greaves"
+  ],
+  "final": [
+   "Stormrazor",
+   "Berserker's Greaves",
+   "Yun Tal Wildarrows",
+   "Lord Dominik's Regard",
+   "Infinity Edge",
+   "Bloodthirster"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "Lethal Tempo",
+   "Brutal",
+   "Cut Down",
+   "Legend: Bloodline",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ },
+ "10151": {
+  "start": [
+   "Long Sword"
+  ],
+  "core": [
+   "Duskblade of Draktharr",
+   "Serpent's Fang",
+   "Serylda's Grudge"
+  ],
+  "boots": [
+   "Boots of Dynamism",
+   "Stridebreaker"
+  ],
+  "final": [
+   "Boots of Dynamism",
+   "Duskblade of Draktharr",
+   "Serpent's Fang",
+   "Serylda's Grudge",
+   "Eclipse",
+   "Guardian Angel",
+   "Stridebreaker"
+  ],
+  "spells": [
+   "Flash",
+   "Smite"
+  ],
+  "runes": [
+   "Electrocute",
+   "Axiom Arcanist",
+   "Transcendence",
+   "Nimbus Cloak",
+   "Legend: Haste"
+  ],
+  "patch": "7.3e"
+ },
+ "10152": {
+  "start": [
+   "Ruby Crystal"
+  ],
+  "core": [
+   "Iceborn Gauntlet",
+   "Unending Despair",
+   "Thornmail"
+  ],
+  "boots": [
+   "Plated Steelcaps"
+  ],
+  "final": [
+   "Plated Steelcaps",
+   "Iceborn Gauntlet",
+   "Unending Despair",
+   "Thornmail",
+   "Amaranth's Twinguard",
+   "Gargoyle Stoneplate"
+  ],
+  "spells": [
+   "Flash",
+   "Teleport"
+  ],
+  "runes": [
+   "Grasp of the Undying",
+   "Demolish",
+   "Second Wind",
+   "Perseverance",
+   "Last Stand"
+  ],
+  "patch": "7.3e"
+ },
+ "10166": {
+  "start": [
+   "Amplifying Tome"
+  ],
+  "core": [
+   "Luden's Echo",
+   "Stormsurge",
+   "Rabadon's Deathcap"
+  ],
+  "boots": [
+   "Boots of Mana"
+  ],
+  "final": [
+   "Boots of Mana",
+   "Luden's Echo",
+   "Stormsurge",
+   "Rabadon's Deathcap",
+   "Cryptbloom",
+   "Infinity Orb"
+  ],
+  "spells": [
+   "Flash",
+   "Barrier"
+  ],
+  "runes": [
+   "First Strike",
+   "Sudden Impact",
+   "Tyrant",
+   "Eyeball Collector",
+   "Bone Plating"
+  ],
+  "patch": "7.3e"
+ }
+}

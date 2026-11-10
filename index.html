@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>와일드리프트 승률표</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Do+Hyeon&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+/* 레이아웃: 좁은 한 칸짜리 순위표. 위에 포지션 탭과 티어 선택이 붙어 있고, 행을 누르면 상세 시트가 올라온다. */
+:root {
+  color-scheme: dark;
+  --ink: #0b1a24;
+  --panel: #12283a;
+  --panel-2: #183247;
+  --line: #24465f;
+  --text: #e6eef2;
+  --mute: #8fa7b6;
+  --gold: #d9b45f;
+  --up: #4fc3a1;
+  --down: #e0736a;
+  --font-display: "Do Hyeon", "Noto Sans KR", "Malgun Gothic", sans-serif;
+  --font-body: "Noto Sans KR", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; }
+body {
+  background: var(--ink);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.5;
+  -webkit-text-size-adjust: 100%;
+}
+button, input { font: inherit; color: inherit; }
+button { cursor: pointer; }
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 2px; }
+.wrap { max-width: 720px; margin: 0 auto; padding: 0 16px 48px; }
+
+header.top { padding: 20px 0 12px; }
+h1 {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: 28px;
+  line-height: 1.15;
+  margin: 0;
+  letter-spacing: 0.01em;
+  text-wrap: balance;
+}
+h1 span { color: var(--gold); }
+.meta { color: var(--mute); font-size: 13px; margin: 6px 0 0; }
+
+.controls {
+  position: sticky; top: 0; z-index: 5;
+  background: var(--ink);
+  padding: 10px 0;
+  display: flex; flex-direction: column; gap: 10px;
+  border-bottom: 1px solid var(--line);
+}
+.tabs { display: grid; grid-template-columns: repeat(5, 1fr); gap: 6px; }
+.tabs button {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 9px 0;
+  font-family: var(--font-display);
+  font-size: 17px;
+  color: var(--mute);
+}
+.tabs button[aria-selected="true"] {
+  background: var(--gold); border-color: var(--gold); color: #1c1503;
+}
+.row2 { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; }
+.tiers { display: flex; gap: 6px; flex-wrap: wrap; }
+.tiers button {
+  background: transparent;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 12px;
+  font-size: 13px;
+  color: var(--mute);
+}
+.tiers button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+#q {
+  flex: 1 1 140px; min-width: 0;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  padding: 6px 10px;
+  font-size: 14px;
+}
+#q::placeholder { color: var(--mute); }
+
+.grid {
+  display: grid;
+  grid-template-columns: 26px 40px minmax(0, 1fr) 96px 52px 52px;
+  align-items: center;
+  column-gap: 8px;
+}
+.head {
+  padding: 10px 8px 6px;
+  color: var(--mute);
+  font-size: 12px;
+}
+.head button {
+  background: none; border: 0; padding: 4px 0;
+  color: var(--mute); font-size: 12px; text-align: right;
+}
+.head button[aria-sort="descending"] { color: var(--gold); }
+.head button[aria-sort="descending"]::after { content: " ▼"; font-size: 9px; }
+
+ol#list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 4px; }
+#list button.rowbtn {
+  width: 100%;
+  background: var(--panel);
+  border: 1px solid transparent;
+  border-radius: 10px;
+  padding: 7px 8px;
+  text-align: left;
+}
+#list button.rowbtn:hover { border-color: var(--line); background: var(--panel-2); }
+.rank { color: var(--mute); font-variant-numeric: tabular-nums; font-size: 13px; text-align: center; }
+.top3 .rank { color: var(--gold); font-weight: 700; }
+.ava {
+  width: 40px; height: 40px; border-radius: 8px;
+  background: var(--panel-2); border: 1px solid var(--line);
+  display: grid; place-items: center; overflow: hidden;
+  font-family: var(--font-display); font-size: 18px; color: var(--gold);
+}
+.ava img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.name { font-weight: 500; overflow-wrap: anywhere; line-height: 1.25; }
+.num { text-align: right; font-variant-numeric: tabular-nums; font-size: 13px; color: var(--mute); }
+.win { display: flex; flex-direction: column; gap: 3px; align-items: flex-end; }
+.win b { font-variant-numeric: tabular-nums; font-size: 15px; font-weight: 700; }
+.up { color: var(--up); }
+.down { color: var(--down); }
+/* 50%를 가운데에 둔 막대: 오른쪽이 50% 초과, 왼쪽이 미만 */
+.bar { position: relative; width: 100%; height: 4px; background: var(--line); border-radius: 2px; }
+.bar::before { content: ""; position: absolute; left: 50%; top: -2px; width: 1px; height: 8px; background: var(--mute); }
+.bar i { position: absolute; top: 0; height: 100%; border-radius: 2px; }
+.bar i.up { left: 50%; background: var(--up); }
+.bar i.down { right: 50%; background: var(--down); }
+.empty { color: var(--mute); padding: 24px 8px; text-align: center; }
+
+footer { color: var(--mute); font-size: 12px; margin-top: 24px; display: flex; flex-direction: column; gap: 4px; }
+footer a, .sheet a { color: var(--gold); }
+
+/* 상세 시트 */
+.scrim { position: fixed; inset: 0; background: rgba(4, 12, 18, 0.72); z-index: 20; display: none; align-items: flex-end; justify-content: center; }
+.scrim.open { display: flex; }
+.sheet {
+  width: 100%; max-width: 560px; max-height: 88%;
+  overflow-y: auto;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px 16px 0 0;
+  padding: 16px 16px 24px;
+  display: flex; flex-direction: column; gap: 16px;
+}
+@media (min-width: 640px) {
+  .scrim { align-items: center; }
+  .sheet { border-radius: 16px; }
+}
+.sheet-head { display: flex; gap: 12px; align-items: center; }
+.sheet-head .ava { width: 56px; height: 56px; font-size: 24px; flex: none; }
+.sheet-head h2 { font-family: var(--font-display); font-weight: 400; font-size: 24px; margin: 0; line-height: 1.2; flex: 1; min-width: 0; overflow-wrap: anywhere; }
+.close { background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px; padding: 6px 12px; font-size: 13px; flex: none; }
+.sheet h3 { font-size: 13px; font-weight: 700; color: var(--mute); margin: 0 0 8px; }
+.posgrid { display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 8px; }
+.poscard {
+  background: var(--ink); border: 1px solid var(--line); border-radius: 10px;
+  padding: 10px 12px; text-align: left;
+  display: flex; flex-direction: column; gap: 2px;
+}
+.poscard[aria-pressed="true"] { border-color: var(--gold); }
+.poscard .p { font-family: var(--font-display); font-size: 16px; color: var(--gold); }
+.poscard .w { font-size: 22px; font-weight: 700; font-variant-numeric: tabular-nums; line-height: 1.2; }
+.poscard .s { font-size: 12px; color: var(--mute); font-variant-numeric: tabular-nums; }
+.tablewrap { overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; font-size: 14px; }
+th, td { padding: 7px 6px; text-align: right; border-bottom: 1px solid var(--line); white-space: nowrap; }
+th:first-child, td:first-child { text-align: left; }
+th { color: var(--mute); font-weight: 500; font-size: 12px; }
+tr.cur td:first-child { color: var(--gold); }
+.build { background: var(--ink); border: 1px solid var(--line); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 10px; }
+.build p { margin: 0; font-size: 13px; color: var(--mute); }
+.bgroup { display: flex; flex-direction: column; gap: 5px; }
+.blabel { font-size: 12px; color: var(--gold); font-weight: 700; }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 6px; }
+.bhead { display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap; }
+.bpicked { font-size: 13px; color: var(--text); }
+.chip {
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 6px;
+  padding: 4px 9px; font-size: 13px; min-height: 44px;
+}
+.icon {
+  position: relative; display: block;
+  width: 44px; height: 44px; padding: 0;
+  background: var(--panel-2); border: 1px solid var(--line); border-radius: 8px;
+}
+.icon img { width: 100%; height: 100%; object-fit: cover; display: block; border-radius: 7px; }
+.icon.round, .icon.round img { border-radius: 50%; }
+.icon.on, .chip.on { border-color: var(--gold); box-shadow: 0 0 0 1px var(--gold); }
+.icon .no {
+  position: absolute; left: -4px; top: -4px;
+  min-width: 16px; height: 16px; border-radius: 8px;
+  background: var(--ink); border: 1px solid var(--line);
+  color: var(--gold); font-size: 10px; line-height: 14px; text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.build a.go {
+  align-self: flex-start;
+  background: var(--gold); color: #1c1503; text-decoration: none;
+  border-radius: 8px; padding: 8px 14px; font-weight: 700; font-size: 14px;
+}
+@media (max-width: 400px) {
+  .grid { grid-template-columns: 22px 36px minmax(0, 1fr) 84px 44px 44px; column-gap: 6px; }
+  .ava { width: 36px; height: 36px; }
+  h1 { font-size: 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <h1>와일드리프트 <span>승률표</span></h1>
+    <p class="meta" id="meta"></p>
+  </header>
+
+  <div class="controls">
+    <div class="tabs" role="tablist" aria-label="포지션" id="tabs"></div>
+    <div class="row2">
+      <div class="tiers" id="tiers" aria-label="랭크 구간"></div>
+      <input id="q" type="search" placeholder="챔피언 검색" aria-label="챔피언 검색" autocomplete="off">
+    </div>
+  </div>
+
+  <div class="grid head" id="head">
+    <span style="text-align:center">#</span><span></span><span>챔피언</span>
+    <button type="button" data-sort="1">승률</button>
+    <button type="button" data-sort="2">픽률</button>
+    <button type="button" data-sort="3">밴률</button>
+  </div>
+  <ol id="list"></ol>
+
+  <footer>
+    <span>출처: 텐센트 리그 오브 레전드 모바일(중국 서버) 공식 랭크 통계. 한국 서버 통계는 공개되지 않아 중국 서버 수치를 보여줍니다.</span>
+    <span>순위 옆 숫자는 선택한 포지션·구간 안에서의 순위입니다. 행을 누르면 챔피언 상세가 열립니다.</span>
+  </footer>
+</div>
+
+<div class="scrim" id="scrim">
+  <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheet-title" tabindex="-1"></div>
+</div>
+
+<script id="data" type="application/json">{"date":"2026-11-08","heroes":{"10001":{"n":"가렌","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10001.png","g":"https://www.wildriftfire.com/guide/garen"},"10002":{"n":"아트록스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10002.png","g":"https://www.wildriftfire.com/guide/aatrox"},"10003":{"n":"럭스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10003.png","g":"https://www.wildriftfire.com/guide/lux"},"10004":{"n":"아무무","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10004.png","g":"https://www.wildriftfire.com/guide/amumu"},"10005":{"n":"케인","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10005.png","g":"https://www.wildriftfire.com/guide/kayn"},"10006":{"n":"렝가","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10006.png","g":"https://www.wildriftfire.com/guide/rengar"},"10007":{"n":"카르마","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10007.png","g":"https://www.wildriftfire.com/guide/karma"},"10008":{"n":"누누와 윌럼프","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10008.png","g":"https://www.wildriftfire.com/guide/nunu-amp-willump"},"10009":{"n":"오공","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10009.png","g":"https://www.wildriftfire.com/guide/wukong"},"10010":{"n":"베인","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10010.png","g":"https://www.wildriftfire.com/guide/vayne"},"10011":{"n":"에코","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10011.png","g":"https://www.wildriftfire.com/guide/ekko"},"10012":{"n":"오리아나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10012.png","g":"https://www.wildriftfire.com/guide/orianna"},"10013":{"n":"다이애나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10013.png","g":"https://www.wildriftfire.com/guide/diana"},"10014":{"n":"조이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10014.png","g":"https://www.wildriftfire.com/guide/zoe"},"10015":{"n":"트린다미어","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10015.png","g":"https://www.wildriftfire.com/guide/tryndamere"},"10016":{"n":"신 짜오","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10016.png","g":"https://www.wildriftfire.com/guide/xin-zhao"},"10017":{"n":"카직스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10017.png","g":"https://www.wildriftfire.com/guide/khazix"},"10018":{"n":"징크스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10018.png","g":"https://www.wildriftfire.com/guide/jinx"},"10019":{"n":"헤카림","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10019.png","g":"https://www.wildriftfire.com/guide/hecarim"},"10020":{"n":"유미","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10020.png","g":"https://www.wildriftfire.com/guide/yuumi"},"10021":{"n":"브라움","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10021.png","g":"https://www.wildriftfire.com/guide/braum"},"10022":{"n":"진","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10022.png","g":"https://www.wildriftfire.com/guide/jhin"},"10023":{"n":"아우렐리온 솔","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10023.png","g":"https://www.wildriftfire.com/guide/aurelion-sol"},"10024":{"n":"신드라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10024.png","g":"https://www.wildriftfire.com/guide/syndra"},"10025":{"n":"트위스티드 페이트","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10025.png","g":"https://www.wildriftfire.com/guide/twisted-fate"},"10026":{"n":"카이사","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10026.png","g":"https://www.wildriftfire.com/guide/kaisa"},"10027":{"n":"닐라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10027.png","g":"https://www.wildriftfire.com/guide/nilah"},"10028":{"n":"모르가나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10028.png","g":"https://www.wildriftfire.com/guide/morgana"},"10029":{"n":"이블린","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10029.png","g":"https://www.wildriftfire.com/guide/evelynn"},"10030":{"n":"판테온","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10030.png","g":"https://www.wildriftfire.com/guide/pantheon"},"10031":{"n":"아칼리","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10031.png","g":"https://www.wildriftfire.com/guide/akali"},"10032":{"n":"피오라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10032.png","g":"https://www.wildriftfire.com/guide/fiora"},"10033":{"n":"블리츠크랭크","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10033.png","g":"https://www.wildriftfire.com/guide/blitzcrank"},"10034":{"n":"세라핀","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10034.png","g":"https://www.wildriftfire.com/guide/seraphine"},"10035":{"n":"모데카이저","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10035.png","g":"https://www.wildriftfire.com/guide/mordekaiser"},"10036":{"n":"애니","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10036.png","g":"https://www.wildriftfire.com/guide/annie"},"10037":{"n":"야스오","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10037.png","g":"https://www.wildriftfire.com/guide/yasuo"},"10038":{"n":"아리","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10038.png","g":"https://www.wildriftfire.com/guide/ahri"},"10039":{"n":"제드","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10039.png","g":"https://www.wildriftfire.com/guide/zed"},"10040":{"n":"잭스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10040.png","g":"https://www.wildriftfire.com/guide/jax"},"10041":{"n":"케일","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10041.png","g":"https://www.wildriftfire.com/guide/kayle"},"10042":{"n":"루시안","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10042.png","g":"https://www.wildriftfire.com/guide/lucian"},"10044":{"n":"레오나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10044.png","g":"https://www.wildriftfire.com/guide/leona"},"10045":{"n":"트리스타나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10045.png","g":"https://www.wildriftfire.com/guide/tristana"},"10046":{"n":"티모","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10046.png","g":"https://www.wildriftfire.com/guide/teemo"},"10047":{"n":"소나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10047.png","g":"https://www.wildriftfire.com/guide/sona"},"10048":{"n":"룰루","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10048.png","g":"https://www.wildriftfire.com/guide/lulu"},"10049":{"n":"쉬바나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10049.png","g":"https://www.wildriftfire.com/guide/shyvana"},"10050":{"n":"바이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10050.png","g":"https://www.wildriftfire.com/guide/vi"},"10051":{"n":"자야","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10051.png","g":"https://www.wildriftfire.com/guide/xayah"},"10052":{"n":"라칸","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10052.png","g":"https://www.wildriftfire.com/guide/rakan"},"10053":{"n":"트위치","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10053.png","g":"https://www.wildriftfire.com/guide/twitch"},"10054":{"n":"그웬","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10054.png","g":"https://www.wildriftfire.com/guide/gwen"},"10055":{"n":"카밀","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10055.png","g":"https://www.wildriftfire.com/guide/camille"},"10056":{"n":"자르반 4세","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10056.png","g":"https://www.wildriftfire.com/guide/jarvan-iv"},"10057":{"n":"비에고","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10057.png","g":"https://www.wildriftfire.com/guide/viego"},"10058":{"n":"볼리베어","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10058.png","g":"https://www.wildriftfire.com/guide/volibear"},"10059":{"n":"리 신","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10059.png","g":"https://www.wildriftfire.com/guide/lee-sin"},"10060":{"n":"코르키","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10060.png","g":"https://www.wildriftfire.com/guide/corki"},"10061":{"n":"케넨","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10061.png","g":"https://www.wildriftfire.com/guide/kennen"},"10062":{"n":"문도 박사","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10062.png","g":"https://www.wildriftfire.com/guide/dr-mundo"},"10063":{"n":"자이라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10063.png","g":"https://www.wildriftfire.com/guide/zyra"},"10064":{"n":"람머스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10064.png","g":"https://www.wildriftfire.com/guide/rammus"},"10065":{"n":"나서스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10065.png","g":"https://www.wildriftfire.com/guide/nasus"},"10066":{"n":"미스 포츈","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10066.png","g":"https://www.wildriftfire.com/guide/miss-fortune"},"10067":{"n":"제리","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10067.png","g":"https://www.wildriftfire.com/guide/zeri"},"10068":{"n":"세트","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10068.png","g":"https://www.wildriftfire.com/guide/sett"},"10069":{"n":"요네","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10069.png","g":"https://www.wildriftfire.com/guide/yone"},"10070":{"n":"마스터 이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10070.png","g":"https://www.wildriftfire.com/guide/master-yi"},"10071":{"n":"다리우스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10071.png","g":"https://www.wildriftfire.com/guide/darius"},"10072":{"n":"그레이브즈","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10072.png","g":"https://www.wildriftfire.com/guide/graves"},"10073":{"n":"킨드레드","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10073.png","g":"https://www.wildriftfire.com/guide/kindred"},"10074":{"n":"마오카이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10074.png","g":"https://www.wildriftfire.com/guide/maokai"},"10075":{"n":"잔나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10075.png","g":"https://www.wildriftfire.com/guide/janna"},"10076":{"n":"뽀삐","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10076.png","g":"https://www.wildriftfire.com/guide/poppy"},"10077":{"n":"드레이븐","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10077.png","g":"https://www.wildriftfire.com/guide/draven"},"10078":{"n":"나르","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10078.png","g":"https://www.wildriftfire.com/guide/gnar"},"10079":{"n":"애쉬","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10079.png","g":"https://www.wildriftfire.com/guide/ashe"},"10080":{"n":"질리언","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10080.png","g":"https://www.wildriftfire.com/guide/zilean"},"10081":{"n":"알리스타","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10081.png","g":"https://www.wildriftfire.com/guide/alistar"},"10082":{"n":"암베사","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10082.png","g":"https://www.wildriftfire.com/guide/ambessa"},"10083":{"n":"말파이트","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10083.png","g":"https://www.wildriftfire.com/guide/malphite"},"10084":{"n":"니달리","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10084.png","g":"https://www.wildriftfire.com/guide/nidalee"},"10085":{"n":"오로라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10085.png","g":"https://www.wildriftfire.com/guide/aurora"},"10086":{"n":"피즈","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10086.png","g":"https://www.wildriftfire.com/guide/fizz"},"10087":{"n":"직스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10087.png","g":"https://www.wildriftfire.com/guide/ziggs"},"10088":{"n":"초가스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10088.png","g":"https://www.wildriftfire.com/guide/chogath"},"10089":{"n":"그라가스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10089.png","g":"https://www.wildriftfire.com/guide/gragas"},"10090":{"n":"블라디미르","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10090.png","g":"https://www.wildriftfire.com/guide/vladimir"},"10091":{"n":"나미","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10091.png","g":"https://www.wildriftfire.com/guide/nami"},"10092":{"n":"리븐","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10092.png","g":"https://www.wildriftfire.com/guide/riven"},"10093":{"n":"바루스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10093.png","g":"https://www.wildriftfire.com/guide/varus"},"10094":{"n":"이렐리아","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10094.png","g":"https://www.wildriftfire.com/guide/irelia"},"10095":{"n":"카타리나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10095.png","g":"https://www.wildriftfire.com/guide/katarina"},"10096":{"n":"신지드","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10096.png","g":"https://www.wildriftfire.com/guide/singed"},"10097":{"n":"소라카","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10097.png","g":"https://www.wildriftfire.com/guide/soraka"},"10098":{"n":"이즈리얼","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10098.png","g":"https://www.wildriftfire.com/guide/ezreal"},"10099":{"n":"갈리오","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10099.png","g":"https://www.wildriftfire.com/guide/galio"},"10100":{"n":"아크샨","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10100.png","g":"https://www.wildriftfire.com/guide/akshan"},"10101":{"n":"제이스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10101.png","g":"https://www.wildriftfire.com/guide/jayce"},"10102":{"n":"우르곳","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10102.png","g":"https://www.wildriftfire.com/guide/urgot"},"10103":{"n":"카사딘","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10103.png","g":"https://www.wildriftfire.com/guide/kassadin"},"10104":{"n":"사미라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10104.png","g":"https://www.wildriftfire.com/guide/samira"},"10105":{"n":"바드","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10105.png","g":"https://www.wildriftfire.com/guide/bard"},"10106":{"n":"올라프","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10106.png","g":"https://www.wildriftfire.com/guide/olaf"},"10107":{"n":"시비르","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10107.png","g":"https://www.wildriftfire.com/guide/sivir"},"10108":{"n":"밀리오","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10108.png","g":"https://www.wildriftfire.com/guide/milio"},"10109":{"n":"리산드라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10109.png","g":"https://www.wildriftfire.com/guide/lissandra"},"10110":{"n":"코그모","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10110.png","g":"https://www.wildriftfire.com/guide/kogmaw"},"10112":{"n":"케이틀린","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10112.png","g":"https://www.wildriftfire.com/guide/caitlyn"},"10116":{"n":"렐","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10116.png","g":"https://www.wildriftfire.com/guide/rell"},"10117":{"n":"스카너","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10117.png","g":"https://www.wildriftfire.com/guide/skarner"},"10118":{"n":"쉔","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10118.png","g":"https://www.wildriftfire.com/guide/shen"},"10119":{"n":"브랜드","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10119.png","g":"https://www.wildriftfire.com/guide/brand"},"10120":{"n":"사일러스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10120.png","g":"https://www.wildriftfire.com/guide/sylas"},"10121":{"n":"레넥톤","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10121.png","g":"https://www.wildriftfire.com/guide/renekton"},"10122":{"n":"베이가","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10122.png","g":"https://www.wildriftfire.com/guide/veigar"},"10123":{"n":"세나","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10123.png","g":"https://www.wildriftfire.com/guide/senna"},"10124":{"n":"파이크","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10124.png","g":"https://www.wildriftfire.com/guide/pyke"},"10125":{"n":"사이온","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10125.png","g":"https://www.wildriftfire.com/guide/sion"},"10126":{"n":"스웨인","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10126.png","g":"https://www.wildriftfire.com/guide/swain"},"10127":{"n":"하이머딩거","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10127.png","g":"https://www.wildriftfire.com/guide/heimerdinger"},"10128":{"n":"탈론","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10128.png","g":"https://www.wildriftfire.com/guide/talon"},"10129":{"n":"벨코즈","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10129.png","g":"https://www.wildriftfire.com/guide/velkoz"},"10130":{"n":"쓰레쉬","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10130.png","g":"https://www.wildriftfire.com/guide/thresh"},"10131":{"n":"워윅","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10131.png","g":"https://www.wildriftfire.com/guide/warwick"},"10132":{"n":"노틸러스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10132.png","g":"https://www.wildriftfire.com/guide/nautilus"},"10133":{"n":"피들스틱","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10133.png","g":"https://www.wildriftfire.com/guide/fiddlesticks"},"10134":{"n":"칼리스타","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10134.png","g":"https://www.wildriftfire.com/guide/kalista"},"10135":{"n":"릴리아","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10135.png","g":"https://www.wildriftfire.com/guide/lillia"},"10136":{"n":"오른","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10136.png","g":"https://www.wildriftfire.com/guide/ornn"},"10137":{"n":"라이즈","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10137.png","g":"https://www.wildriftfire.com/guide/ryze"},"10138":{"n":"스몰더","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10138.png","g":"https://www.wildriftfire.com/guide/smolder"},"10139":{"n":"멜","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10139.png","g":"https://www.wildriftfire.com/guide/mel"},"10140":{"n":"럼블","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10140.png","g":"https://www.wildriftfire.com/guide/rumble"},"10141":{"n":"벡스","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10141.png","g":"https://www.wildriftfire.com/guide/vex"},"10144":{"n":"빅토르","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10144.png","g":"https://www.wildriftfire.com/guide/viktor"},"10145":{"n":"렉사이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10145.png","g":"https://www.wildriftfire.com/guide/reksai"},"10146":{"n":"탈리야","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10146.png","g":"https://www.wildriftfire.com/guide/taliyah"},"10147":{"n":"흐웨이","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10147.png","g":"https://www.wildriftfire.com/guide/hwei"},"10148":{"n":"유나라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10148.png","g":"https://www.wildriftfire.com/guide/yunara"},"10151":{"n":"녹턴","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10151.png","g":"https://www.wildriftfire.com/guide/nocturne"},"10152":{"n":"크산테","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10152.png","g":"https://www.wildriftfire.com/guide/ksante"},"10166":{"n":"노라","a":"https://game.gtimg.cn/images/lgamem/act/lrlib/img/HeadIcon/H_S_10166.png","g":"https://www.wildriftfire.com/guide/norra"}},"stats":{"1":{"2":[["10118",55.13,2.47,0.92],["10134",53.32,2.92,14.49],["10046",53.29,4.92,24.13],["10083",52.73,6.06,40.25],["10082",52.55,2.58,1.16],["10138",51.85,1.68,6.01],["10009",51.6,1.55,0.44],["10035",51.39,10.32,34.53],["10010",51.36,1.73,5.97],["10152",51.25,7.88,19.45],["10106",51.17,1.53,1.84],["10040",51.03,3.77,0.51],["10054",51.01,3.46,4.32],["10088",50.78,8.32,33.88],["10136",50.73,2.18,0.25],["10132",50.69,1.24,5.5],["10090",50.64,1.09,2.26],["10062",50.59,6.19,2.52],["10061",50.51,2.56,0.76],["10078",50.29,4.46,0.61],["10068",50.28,7.86,1.64],["10041",50.22,1.87,0.27],["10069",50.2,5.27,8.24],["10032",50.12,3.3,0.69],["10002",50.04,7.53,9.28],["10125",49.82,2.39,0.35],["10071",49.34,14.81,14.18],["10076",49.33,1.49,0.21],["10092",49.31,1.88,0.4],["10001",49.22,11.45,2.55],["10101",49.19,4.97,3.62],["10140",48.94,2.12,0.37],["10058",48.9,6.44,7.03],["10055",48.79,2.36,0.13],["10121",48.67,4.55,0.45],["10102",48.47,3.74,2.13],["10094",47.56,1.32,0.89],["10031",47.27,1.54,2.04],["10065",47.06,6.26,2.95],["10015",46.53,2.42,25.91],["10037",45.84,1.84,9.89]],"5":[["10064",56.48,4.19,6.59],["10118",56.0,1.44,0.92],["10004",55.11,2.49,0.1],["10117",53.55,1.56,0.54],["10054",53.03,2.48,4.32],["10008",52.99,1.55,0.67],["10049",52.79,6.11,1.47],["10011",52.77,3.23,2.34],["10082",52.46,1.69,1.16],["10056",52.39,6.94,0.59],["10151",52.37,6.55,59.96],["10133",52.33,1.57,0.71],["10135",52.32,2.69,1.03],["10062",51.63,1.72,2.52],["10005",51.48,6.01,3.29],["10106",51.17,2.07,1.84],["10073",51.0,2.28,0.4],["10039",50.87,2.44,2.77],["10071",50.61,6.08,14.18],["10016",50.52,9.42,1.83],["10030",50.39,6.71,4.67],["10088",50.39,7.64,33.88],["10009",50.06,3.59,0.44],["10131",50.05,1.82,0.53],["10101",50.0,1.17,3.62],["10017",49.81,5.23,0.49],["10128",49.63,2.57,1.45],["10084",49.38,2.34,2.69],["10013",49.38,1.17,0.16],["10040",49.36,2.07,0.51],["10015",49.3,7.94,25.91],["10019",49.28,1.55,1.41],["10058",49.15,3.66,7.03],["10050",48.97,5.11,0.85],["10069",48.45,2.33,8.24],["10059",48.44,16.61,11.2],["10006",48.39,2.17,1.78],["10086",48.27,1.9,3.04],["10070",48.09,9.78,54.27],["10029",47.87,2.44,1.21],["10053",47.63,1.8,4.51],["10072",47.62,7.49,0.77],["10092",47.46,1.25,0.4],["10057",46.81,4.56,2.74],["10002",45.08,1.12,9.28]],"1":[["10046",52.8,2.12,24.13],["10119",52.58,10.87,12.49],["10147",52.4,5.01,38.39],["10063",52.38,3.07,37.3],["10028",52.35,5.86,40.82],["10024",52.2,6.53,18.13],["10090",52.08,4.31,2.26],["10012",52.04,6.2,0.52],["10099",51.57,11.37,4.18],["10109",51.23,4.31,5.94],["10166",51.21,1.19,6.81],["10023",51.14,5.26,2.64],["10038",50.92,7.44,0.33],["10103",50.73,1.57,0.43],["10126",50.7,2.4,3.84],["10039",50.64,4.14,2.77],["10085",50.6,4.3,4.86],["10011",50.4,2.84,2.34],["10146",50.36,2.35,0.93],["10122",50.21,8.86,13.06],["10129",50.18,3.12,0.8],["10144",50.04,3.57,0.72],["10061",50.01,1.53,0.76],["10025",49.86,4.73,0.71],["10036",49.8,2.69,0.19],["10141",49.39,2.1,0.59],["10065",49.39,1.03,2.95],["10127",49.26,1.67,1.72],["10069",48.86,4.68,8.24],["10003",48.82,5.68,17.39],["10087",48.41,5.23,2.57],["10101",48.3,2.44,3.62],["10031",48.14,6.97,2.04],["10045",47.85,1.28,0.37],["10037",47.78,8.14,9.89],["10086",47.71,2.34,3.04],["10095",47.37,1.43,0.49],["10137",47.33,2.67,1.32],["10139",46.41,7.21,26.71]],"3":[["10138",53.05,9.85,6.01],["10110",52.99,2.68,0.26],["10079",52.48,6.49,0.19],["10093",51.19,6.41,0.49],["10134",50.91,7.36,14.49],["10051",50.88,5.07,0.28],["10026",50.75,20.5,1.1],["10053",50.73,7.88,4.51],["10098",50.54,10.39,0.39],["10107",50.51,4.91,0.1],["10060",50.14,1.12,0.02],["10067",49.89,1.37,0.02],["10022",49.72,15.93,1.18],["10112",49.68,19.7,4.66],["10018",49.65,12.41,0.58],["10148",49.36,7.6,7.68],["10066",49.15,10.75,2.07],["10104",49.01,6.82,8.48],["10045",48.48,9.34,0.37],["10010",48.13,5.8,5.97],["10042",47.33,3.86,0.05],["10077",47.19,5.18,3.14]],"4":[["10021",53.24,4.78,1.66],["10047",52.78,3.3,0.32],["10147",52.71,1.46,38.39],["10119",52.49,3.41,12.49],["10099",52.0,3.03,4.18],["10044",51.81,10.87,8.18],["10075",51.36,2.18,0.22],["10116",51.19,3.3,1.57],["10097",51.18,4.6,1.83],["10130",51.15,15.23,14.81],["10063",51.06,4.96,37.3],["10080",50.91,1.01,0.84],["10068",50.9,1.58,1.64],["10074",50.82,4.61,0.66],["10028",50.72,6.48,40.82],["10083",50.7,9.27,40.25],["10091",50.62,4.12,0.12],["10007",50.01,4.64,0.48],["10129",49.98,1.68,0.8],["10034",49.95,6.85,1.29],["10123",49.73,5.34,5.53],["10003",49.71,9.02,17.39],["10132",49.64,14.7,5.5],["10136",49.64,1.45,0.25],["10052",49.51,3.54,0.37],["10108",49.41,3.18,3.69],["10081",49.13,4.3,0.72],["10033",49.01,7.17,2.57],["10048",48.56,9.08,10.36],["10020",48.4,7.63,34.3],["10124",48.27,4.22,3.03],["10122",47.97,3.41,13.06],["10126",46.86,3.45,3.84]]},"2":{"2":[["10118",55.26,2.63,1.01],["10046",53.52,4.93,22.5],["10134",53.29,2.69,13.35],["10083",52.71,6.47,41.04],["10082",52.31,2.62,1.13],["10138",51.64,1.74,6.03],["10010",51.59,1.69,5.36],["10009",51.58,1.64,0.42],["10035",51.38,10.26,35.21],["10152",51.31,8.0,19.38],["10106",51.3,1.55,1.82],["10054",51.08,3.53,4.67],["10040",50.93,3.79,0.43],["10136",50.92,2.28,0.2],["10090",50.9,1.09,2.24],["10088",50.72,8.18,36.19],["10132",50.59,1.34,5.23],["10061",50.37,2.66,0.7],["10062",50.32,6.17,2.25],["10069",50.26,5.26,7.89],["10078",50.26,4.48,0.6],["10041",50.14,1.75,0.21],["10068",50.08,8.0,1.51],["10032",50.07,3.36,0.66],["10002",50.05,7.48,8.46],["10125",49.78,2.53,0.32],["10092",49.47,1.81,0.32],["10076",49.33,1.58,0.21],["10071",49.32,14.61,13.79],["10101",49.1,5.11,3.96],["10001",49.1,11.6,2.43],["10140",48.91,2.12,0.33],["10058",48.71,6.09,6.34],["10121",48.62,4.42,0.34],["10055",48.55,2.41,0.13],["10102",48.53,3.73,1.93],["10094",47.74,1.29,0.8],["10031",47.11,1.55,1.91],["10065",47.1,6.05,2.91],["10015",46.57,2.28,24.1],["10037",46.05,1.77,8.91]],"5":[["10064",56.61,4.49,7.25],["10118",55.76,1.56,1.01],["10004",55.17,2.63,0.09],["10117",54.02,1.52,0.5],["10008",53.41,1.61,0.78],["10054",52.87,2.51,4.67],["10049",52.81,6.04,1.41],["10011",52.56,3.39,2.56],["10082",52.53,1.73,1.13],["10133",52.48,1.63,0.75],["10056",52.32,7.17,0.57],["10151",52.27,6.41,66.31],["10135",52.17,2.8,1.03],["10062",51.25,1.66,2.25],["10005",51.24,6.16,3.63],["10106",50.98,2.08,1.82],["10073",50.92,2.26,0.41],["10039",50.87,2.61,2.8],["10071",50.63,6.42,13.79],["10016",50.56,9.32,1.73],["10131",50.45,1.82,0.53],["10030",50.3,6.84,4.63],["10088",50.27,7.64,36.19],["10009",49.85,3.7,0.42],["10017",49.77,5.07,0.45],["10084",49.76,2.33,2.86],["10019",49.61,1.61,1.51],["10128",49.61,2.69,1.6],["10101",49.55,1.22,3.96],["10040",49.4,2.01,0.43],["10015",49.16,7.66,24.1],["10013",49.08,1.21,0.13],["10058",48.99,3.35,6.34],["10050",48.79,5.08,0.87],["10059",48.49,16.44,10.98],["10006",48.49,2.19,1.79],["10069",48.32,2.29,7.89],["10086",48.3,1.92,2.37],["10029",48.0,2.44,1.21],["10070",47.73,9.4,53.07],["10053",47.65,1.93,5.11],["10072",47.46,7.26,0.64],["10092",47.43,1.26,0.32],["10057",46.43,4.19,2.42],["10002",45.61,1.07,8.46]],"1":[["10046",52.89,2.17,22.5],["10119",52.66,10.94,11.71],["10147",52.5,4.93,40.58],["10028",52.26,5.97,41.96],["10063",52.2,3.1,36.4],["10024",52.12,6.8,19.89],["10090",52.0,4.48,2.24],["10012",51.82,6.28,0.5],["10099",51.41,11.55,4.2],["10166",51.29,1.18,6.52],["10109",51.21,4.49,6.31],["10023",51.14,5.44,2.76],["10038",51.01,7.31,0.28],["10126",50.69,2.45,2.94],["10103",50.68,1.63,0.47],["10039",50.64,4.17,2.8],["10085",50.43,4.37,5.03],["10011",50.39,2.89,2.56],["10146",50.35,2.37,0.93],["10122",50.2,8.71,11.6],["10129",50.11,3.16,0.77],["10036",50.0,2.74,0.17],["10061",49.96,1.58,0.7],["10025",49.91,4.91,0.77],["10144",49.69,3.47,0.57],["10065",49.5,1.07,2.91],["10141",49.26,2.07,0.51],["10127",49.2,1.61,1.47],["10069",49.0,4.52,7.89],["10003",48.8,5.65,15.56],["10087",48.35,5.31,2.37],["10031",48.01,6.7,1.91],["10101",47.97,2.44,3.96],["10086",47.86,2.26,2.37],["10045",47.7,1.28,0.33],["10037",47.65,7.72,8.91],["10095",47.64,1.45,0.42],["10137",47.23,2.61,1.21],["10139",46.3,7.25,26.2]],"3":[["10138",53.02,10.37,6.03],["10110",52.84,2.7,0.23],["10079",52.6,6.32,0.16],["10093",51.18,6.56,0.43],["10051",50.9,5.1,0.26],["10134",50.7,7.06,13.35],["10026",50.61,21.08,1.16],["10053",50.61,8.41,5.11],["10098",50.53,10.42,0.34],["10107",50.4,5.06,0.09],["10060",50.28,1.15,0.02],["10067",49.82,1.37,0.02],["10112",49.68,19.21,4.19],["10018",49.68,12.73,0.52],["10022",49.65,15.95,1.04],["10066",49.19,10.49,1.92],["10148",49.13,7.34,7.29],["10104",49.06,6.91,8.2],["10045",48.56,9.26,0.33],["10010",48.07,5.79,5.36],["10042",47.66,3.62,0.04],["10077",47.33,4.82,2.12]],"4":[["10147",53.36,1.37,40.58],["10021",53.32,4.89,1.58],["10047",52.75,3.58,0.31],["10119",52.1,3.23,11.71],["10099",51.77,2.96,4.2],["10044",51.76,10.81,7.79],["10097",51.44,4.75,1.78],["10080",51.32,1.05,0.84],["10075",51.13,2.33,0.22],["10116",50.99,3.32,1.53],["10130",50.96,15.47,14.88],["10068",50.84,1.61,1.51],["10063",50.82,4.94,36.4],["10028",50.71,6.53,41.96],["10074",50.71,4.81,0.62],["10083",50.69,9.08,41.04],["10091",50.56,4.33,0.1],["10129",49.95,1.66,0.77],["10034",49.91,6.55,0.93],["10136",49.89,1.42,0.2],["10007",49.86,4.83,0.47],["10052",49.8,3.43,0.33],["10003",49.68,8.74,15.56],["10123",49.65,5.2,5.82],["10132",49.63,14.44,5.23],["10108",49.4,3.53,4.15],["10081",49.12,4.33,0.64],["10033",49.09,6.98,2.14],["10124",48.78,3.91,2.73],["10048",48.43,9.66,11.3],["10020",48.41,8.17,35.94],["10122",47.89,3.13,11.6],["10126",46.97,3.26,2.94]]},"3":{"2":[["10118",55.04,3.34,1.56],["10046",53.2,4.58,14.63],["10082",52.26,3.01,1.54],["10083",52.16,7.44,45.38],["10090",51.85,1.08,2.52],["10040",51.78,4.07,0.31],["10035",51.57,10.08,36.38],["10106",51.57,1.69,2.13],["10138",51.52,2.34,7.92],["10009",51.35,1.95,0.41],["10152",51.18,9.01,19.59],["10134",51.03,2.05,7.54],["10136",50.98,2.69,0.14],["10096",50.86,1.03,0.51],["10069",50.81,5.47,6.77],["10054",50.67,3.78,6.53],["10088",50.62,7.63,39.69],["10132",50.55,1.57,4.13],["10010",50.53,1.41,3.77],["10032",50.52,3.88,0.75],["10002",50.38,8.18,7.09],["10092",50.29,1.96,0.29],["10125",49.87,3.12,0.25],["10071",49.83,13.84,11.51],["10076",49.75,1.9,0.23],["10078",49.71,4.3,0.5],["10062",49.59,5.43,1.2],["10101",49.59,5.92,6.46],["10068",49.41,8.65,1.16],["10117",49.37,1.09,0.43],["10094",49.13,1.39,0.61],["10061",49.11,3.1,0.8],["10041",49.07,1.36,0.09],["10121",48.87,4.41,0.22],["10102",48.82,3.05,0.93],["10055",48.67,2.84,0.16],["10058",48.43,5.34,3.99],["10001",48.36,11.16,1.78],["10140",48.03,2.04,0.21],["10065",47.13,5.29,2.39],["10031",47.06,1.66,1.76],["10037",46.1,1.59,6.09],["10015",45.84,1.93,13.41]],"5":[["10064",56.54,5.59,12.31],["10004",55.25,3.18,0.1],["10118",55.03,1.96,1.56],["10008",53.08,2.05,1.68],["10133",52.91,2.01,0.95],["10117",52.82,1.55,0.43],["10054",52.78,2.67,6.53],["10082",52.48,2.2,1.54],["10011",52.4,4.14,3.61],["10151",52.02,4.98,83.14],["10049",51.86,5.64,1.04],["10135",51.84,3.25,1.07],["10084",51.72,2.6,4.47],["10131",51.72,1.99,0.56],["10056",51.64,7.73,0.57],["10019",51.63,2.25,2.39],["10073",51.49,2.23,0.47],["10106",51.16,2.05,2.13],["10016",51.05,8.74,1.47],["10005",50.84,6.74,5.47],["10039",50.81,3.36,3.72],["10101",50.76,1.47,6.46],["10040",50.43,1.75,0.31],["10071",50.36,7.0,11.51],["10088",50.2,7.06,39.69],["10030",50.13,6.78,4.06],["10009",49.89,3.98,0.41],["10128",49.79,3.75,3.33],["10017",49.51,4.63,0.33],["10013",49.14,1.39,0.08],["10059",48.97,17.32,12.83],["10050",48.77,4.95,1.06],["10069",48.73,2.24,6.77],["10006",48.64,2.29,2.04],["10029",48.55,2.56,1.32],["10062",48.53,1.15,1.2],["10015",48.42,6.11,13.41],["10086",48.3,1.89,1.19],["10058",47.53,2.42,3.99],["10092",47.27,1.7,0.29],["10002",46.65,1.1,7.09],["10070",46.63,8.3,40.31],["10057",46.16,3.73,1.53],["10072",45.9,6.24,0.35],["10053",45.21,1.95,7.93]],"1":[["10046",53.15,2.24,14.63],["10147",52.46,5.22,47.89],["10024",52.24,7.55,32.0],["10028",52.14,5.31,44.14],["10090",51.98,5.75,2.52],["10119",51.81,10.11,7.49],["10063",51.67,2.99,25.67],["10126",51.6,2.88,1.49],["10061",51.34,1.85,0.8],["10085",51.29,5.02,5.71],["10129",51.23,2.76,0.44],["10099",51.2,12.02,4.83],["10036",51.19,2.99,0.19],["10038",51.18,7.16,0.22],["10109",51.16,5.51,9.12],["10012",51.05,6.64,0.48],["10103",50.87,2.05,0.81],["10025",50.66,6.04,1.22],["10039",50.62,4.76,3.72],["10011",50.61,3.11,3.61],["10023",50.33,6.38,3.18],["10146",50.18,2.38,0.85],["10141",50.07,1.94,0.33],["10166",50.07,1.12,4.89],["10095",49.65,1.72,0.34],["10122",49.54,7.69,5.83],["10069",49.23,4.25,6.77],["10065",48.79,1.24,2.39],["10101",48.72,2.61,6.46],["10144",48.24,3.04,0.32],["10045",48.14,1.09,0.16],["10003",48.13,5.07,7.47],["10087",48.04,4.93,1.42],["10127",48.03,1.32,0.68],["10086",47.87,2.02,1.19],["10037",47.63,6.75,6.09],["10031",47.61,6.57,1.76],["10137",46.79,2.61,0.97],["10139",46.05,6.88,19.49]],"3":[["10138",53.29,12.77,7.92],["10110",52.81,2.81,0.15],["10079",52.02,5.51,0.1],["10098",51.02,10.27,0.23],["10060",50.96,1.36,0.01],["10051",50.82,5.96,0.31],["10093",50.8,6.92,0.33],["10026",50.66,24.49,1.61],["10053",50.49,10.14,7.93],["10067",50.35,1.56,0.01],["10107",50.01,5.79,0.07],["10134",49.86,6.29,7.54],["10112",49.85,16.08,2.34],["10022",49.65,14.94,0.59],["10104",49.63,7.45,6.54],["10018",49.06,14.06,0.47],["10148",48.72,7.78,7.21],["10066",48.45,7.79,0.75],["10045",48.36,8.26,0.16],["10042",48.09,3.76,0.03],["10010",47.89,5.88,3.77],["10077",47.67,4.51,0.57]],"4":[["10147",54.33,1.24,47.89],["10047",52.91,5.67,0.5],["10021",52.87,4.93,1.51],["10097",51.32,5.53,1.44],["10099",51.28,2.57,4.83],["10130",51.2,15.66,15.32],["10044",51.16,9.3,5.35],["10119",51.11,2.45,7.49],["10028",50.88,6.04,44.14],["10075",50.85,3.38,0.32],["10052",50.79,3.61,0.31],["10080",50.77,1.21,0.93],["10068",50.74,1.71,1.16],["10074",50.63,4.99,0.52],["10129",50.41,1.26,0.44],["10091",50.36,5.87,0.11],["10123",50.27,4.17,4.83],["10034",50.26,5.85,0.32],["10136",50.1,1.42,0.14],["10083",50.07,6.78,45.38],["10063",49.97,4.24,25.67],["10116",49.96,3.15,1.12],["10124",49.84,3.78,1.9],["10108",49.65,6.51,7.62],["10132",49.37,12.7,4.13],["10081",49.37,4.44,0.54],["10033",49.3,6.36,1.26],["10003",49.28,6.91,7.47],["10007",49.24,5.69,0.39],["10048",48.63,14.17,17.77],["10020",48.41,11.42,49.1],["10126",47.28,2.38,1.49],["10122",47.21,1.94,5.83]]},"4":{"2":[["10118",54.44,2.92,1.7],["10082",53.62,4.25,3.32],["10096",52.97,1.78,1.22],["10152",52.51,9.54,20.33],["10088",52.03,6.57,41.36],["10092",51.98,2.32,0.74],["10094",51.6,1.96,0.9],["10035",51.32,10.62,30.77],["10002",51.2,9.93,7.05],["10134",51.09,1.37,5.1],["10061",50.96,2.5,0.62],["10083",50.82,7.09,39.73],["10078",50.81,3.66,0.41],["10136",50.61,2.51,0.11],["10068",50.31,9.76,0.81],["10054",50.31,4.08,6.88],["10046",50.28,3.81,8.84],["10140",50.25,1.87,0.12],["10040",50.17,4.62,0.42],["10117",50.04,1.29,0.38],["10032",49.98,4.66,1.17],["10071",49.93,13.9,11.64],["10065",49.93,4.36,2.26],["10076",49.72,1.86,0.21],["10101",49.7,7.09,13.04],["10138",49.59,2.15,13.81],["10069",49.48,6.62,7.57],["10055",49.44,4.21,0.29],["10106",49.01,1.81,2.26],["10041",48.95,1.7,0.08],["10125",48.89,3.4,0.27],["10132",48.87,1.59,2.99],["10062",48.74,4.77,0.74],["10058",48.6,5.5,3.41],["10121",47.68,4.88,0.37],["10009",47.61,2.12,0.32],["10037",47.57,1.94,6.64],["10001",47.0,9.58,1.14],["10015",46.91,1.99,9.83],["10102",46.8,2.4,0.55],["10031",46.46,1.56,2.65]],"5":[["10117",55.93,1.21,0.38],["10064",55.82,4.63,14.72],["10004",54.42,2.79,0.12],["10133",54.29,2.35,1.3],["10151",53.83,3.69,83.83],["10118",53.74,1.63,1.7],["10008",53.23,2.22,2.78],["10054",52.79,3.04,6.88],["10135",52.32,3.79,1.15],["10006",52.16,2.82,2.79],["10019",52.14,3.35,4.05],["10084",51.93,3.13,9.48],["10073",51.67,2.98,0.96],["10128",51.53,5.3,8.27],["10039",51.45,4.14,5.09],["10011",51.11,5.53,4.44],["10082",50.78,2.77,3.32],["10029",50.64,3.06,1.37],["10049",50.55,6.05,0.96],["10056",50.49,6.61,0.6],["10016",50.48,9.55,1.44],["10101",50.41,1.26,13.04],["10030",50.37,6.61,3.25],["10106",50.29,1.78,2.26],["10040",50.23,1.78,0.42],["10005",50.12,7.19,5.5],["10071",50.05,6.64,11.64],["10131",50.0,3.13,0.74],["10017",49.81,5.07,0.21],["10009",49.58,3.9,0.32],["10088",49.41,5.16,41.36],["10013",49.22,1.85,0.07],["10059",49.22,15.66,23.17],["10069",48.86,2.82,7.57],["10057",48.68,4.83,1.69],["10050",48.4,5.18,1.18],["10015",48.39,4.95,9.83],["10092",47.65,2.42,0.74],["10055",47.61,1.05,0.29],["10058",47.17,2.23,3.41],["10070",46.99,7.42,31.63],["10072",46.08,5.29,0.25],["10086",45.54,1.86,0.79],["10053",45.1,1.51,5.89],["10002",44.32,1.13,7.05]],"1":[["10147",53.68,6.28,55.72],["10024",52.83,8.24,47.2],["10046",52.79,2.3,8.84],["10014",52.37,1.32,0.51],["10036",52.35,3.06,0.16],["10109",52.19,5.57,10.48],["10103",52.14,3.32,2.47],["10012",51.89,7.22,0.55],["10011",51.85,3.08,4.44],["10090",51.84,6.63,2.67],["10141",51.65,1.92,0.22],["10028",51.15,4.22,45.31],["10061",51.09,2.27,0.62],["10023",50.93,7.7,2.92],["10063",50.87,2.42,16.33],["10127",50.78,1.44,0.44],["10039",50.64,5.45,5.09],["10099",50.6,11.4,5.14],["10065",50.46,1.34,2.26],["10146",50.44,2.67,0.9],["10126",50.38,3.67,1.45],["10038",50.32,7.62,0.31],["10119",50.14,7.85,4.49],["10085",50.12,5.74,6.26],["10166",50.05,1.03,3.71],["10129",50.0,1.81,0.26],["10025",49.97,7.22,2.08],["10101",49.93,3.0,13.04],["10095",49.2,1.92,0.22],["10031",49.14,7.41,2.65],["10069",48.84,5.68,7.57],["10144",48.75,2.84,0.2],["10137",48.53,2.82,0.99],["10122",48.0,5.38,3.61],["10037",47.59,7.46,6.64],["10086",47.56,1.77,0.79],["10100",47.45,1.33,0.05],["10087",46.97,4.22,0.73],["10003",46.51,3.09,4.4],["10139",44.86,5.95,14.91]],"3":[["10110",53.09,2.29,0.12],["10138",52.88,16.15,13.81],["10079",51.62,5.04,0.09],["10134",51.11,5.18,5.1],["10026",50.9,28.05,2.52],["10051",50.89,7.21,0.43],["10098",50.62,11.46,0.55],["10067",50.53,2.3,0.01],["10060",50.52,1.68,0.01],["10018",50.39,12.18,0.43],["10093",49.96,6.87,0.31],["10104",49.84,9.22,5.81],["10107",49.77,6.12,0.07],["10053",49.6,8.86,5.89],["10010",49.24,6.05,3.67],["10112",49.08,14.1,2.36],["10066",49.03,5.82,0.48],["10022",48.74,14.46,0.67],["10148",48.51,9.13,7.74],["10077",48.42,5.0,0.57],["10045",48.35,6.59,0.1],["10042",47.62,3.61,0.01]],"4":[["10109",55.35,1.27,10.48],["10047",54.4,8.76,1.04],["10021",53.28,5.41,1.43],["10099",52.74,3.59,5.14],["10080",52.24,1.76,1.11],["10097",52.18,5.15,0.87],["10044",52.0,7.06,2.3],["10075",51.64,5.01,0.36],["10052",51.61,4.88,0.37],["10130",51.56,16.22,13.41],["10034",50.98,6.37,0.31],["10123",50.59,5.77,4.5],["10147",50.45,1.37,55.72],["10105",50.42,1.33,0.23],["10124",50.27,4.91,2.18],["10136",50.2,2.5,0.11],["10083",50.13,5.79,39.73],["10091",50.13,6.71,0.09],["10116",49.82,3.44,0.82],["10132",49.75,10.92,2.99],["10074",49.75,5.56,0.4],["10028",49.23,7.41,45.31],["10033",49.2,5.96,0.9],["10007",49.12,8.88,0.54],["10108",48.79,4.55,5.19],["10048",48.73,11.01,14.18],["10063",48.08,4.42,16.33],["10119",48.08,1.68,4.49],["10081",47.67,4.55,0.39],["10003",47.67,5.58,4.4],["10068",46.92,1.81,0.81],["10020",46.84,8.37,41.07],["10126",46.51,2.46,1.45],["10122",45.88,1.42,3.61]]}},"builds":{"10001":{"s":[0],"c":[1,2,3],"b":[4],"f":[4,1,2,3,5,6],"r":[7,8,9,10,11],"sp":[12,13],"p":"7.3e"},"10002":{"s":[0],"c":[14,15,16],"b":[4,17],"f":[4,14,15,16,3,18,17],"r":[19,20,9,10,21],"sp":[12,13],"p":"7.3e"},"10003":{"s":[22],"c":[23,24,25],"b":[26],"f":[27,26,23,24,25,28],"r":[29,30,31,32,33],"sp":[12,34],"p":"7.3e"},"10004":{"s":[35],"c":[36,37,38],"b":[4],"f":[36,4,37,38,39,6],"r":[40,8,9,10,41],"sp":[12,42],"p":"7.3e"},"10005":{"s":[43],"c":[44,45,46],"b":[47],"f":[47,48,45,46,16,18],"r":[49,21,50,51,52],"sp":[12,42],"p":"7.3e"},"10006":{"s":[43],"c":[53,54,55],"b":[56],"f":[56,53,54,55,57,18],"r":[49,58,59,60,61],"sp":[12,42],"p":"7.3e"},"10007":{"s":[22],"c":[62,63,64],"b":[65],"f":[27,65,62,63,64,66],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10008":{"s":[0],"c":[6,5,70],"b":[4],"f":[4,6,5,70,71,39],"r":[40,20,9,72,31],"sp":[12,42],"p":"7.3e"},"10009":{"s":[43],"c":[73,74,1],"b":[4,17],"f":[73,4,74,1,15,39,17],"r":[19,8,9,10,21],"sp":[12,42],"p":"7.3e"},"10010":{"s":[43],"c":[75,76,77],"b":[78],"f":[75,78,76,77,79,39],"r":[80,58,59,41,33],"sp":[12,81],"p":"7.3e"},"10011":{"s":[35],"c":[82,83,28],"b":[26],"f":[26,82,83,28,25,24],"r":[84,21,50,51,61],"sp":[12,13],"p":"7.3e"},"10012":{"s":[35],"c":[85,86,28],"b":[26],"f":[26,87,86,28,25,24],"r":[19,30,31,11,33],"sp":[12,81],"p":"7.3e"},"10013":{"s":[35],"c":[88,24,28],"b":[26],"f":[26,88,24,28,25,89],"r":[84,21,90,51,61],"sp":[12,13],"p":"7.3e"},"10014":{"s":[35],"c":[88,28,24],"b":[26],"f":[26,88,28,24,91,89],"r":[84,92,31,11,60],"sp":[12,13],"p":"7.3e"},"10015":{"s":[43],"c":[79,93,55],"b":[78],"f":[78,79,93,55,57,18],"r":[80,58,94,95,11],"sp":[81,42],"p":"7.3e"},"10016":{"s":[43],"c":[73,46,96],"b":[56,97],"f":[73,56,46,96,15,18,97],"r":[98,99,59,95,61],"sp":[12,42],"p":"7.3e"},"10017":{"s":[43],"c":[45,46,16],"b":[56],"f":[56,45,46,16,14,18],"r":[100,21,50,51,61],"sp":[12,42],"p":"7.3e"},"10018":{"s":[43],"c":[93,101,57],"b":[78,102],"f":[93,78,101,57,103,104,102],"r":[80,58,59,41,33],"sp":[12,81],"p":"7.3e"},"10019":{"s":[43],"c":[44,1,15],"b":[65],"f":[48,65,1,15,3,18],"r":[98,105,31,11,60],"sp":[81,42],"p":"7.3e"},"10020":{"s":[22],"c":[62,63,66],"b":[65],"f":[27,62,63,65,66,106],"r":[67,30,31,32,69],"sp":[13,34],"p":"7.3e"},"10021":{"s":[107],"c":[106,70,108],"b":[4],"f":[109,4,106,70,108,110],"r":[111,68,9,10,31],"sp":[12,34],"p":"7.3e"},"10022":{"s":[43],"c":[54,93,57],"b":[47,102],"f":[54,47,93,57,55,104,102],"r":[100,112,59,41,52],"sp":[12,81],"p":"7.3e"},"10023":{"s":[35],"c":[113,36,91],"b":[26],"f":[26,113,36,91,28,89],"r":[100,30,31,114,60],"sp":[12,115],"p":"7.3e"},"10024":{"s":[35],"c":[116,24,28],"b":[26],"f":[26,116,24,28,91,89],"r":[117,118,61,32,60],"sp":[12,13],"p":"7.3e"},"10025":{"s":[35],"c":[88,83,28],"b":[26],"f":[26,88,83,28,25,89],"r":[84,30,61,11,33],"sp":[12,81],"p":"7.3e"},"10026":{"s":[43],"c":[75,76,77],"b":[78],"f":[75,78,76,77,103,79],"r":[80,58,59,41,33],"sp":[12,81],"p":"7.3e"},"10027":{"s":[43],"c":[53,54,55],"b":[56],"f":[56,53,54,55,57,18],"r":[84,58,59,95,61],"sp":[12,42],"p":"7.3e"},"10028":{"s":[22],"c":[36,113,86],"b":[26],"f":[27,26,36,113,86,89],"r":[29,30,31,32,33],"sp":[12,34],"p":"7.3e"},"10029":{"s":[35],"c":[88,116,28],"b":[26],"f":[26,88,116,28,25,24],"r":[117,21,90,51,61],"sp":[12,42],"p":"7.3e"},"10030":{"s":[43],"c":[45,79,16],"b":[47,102],"f":[47,45,79,16,119,18,102],"r":[19,99,59,95,61],"sp":[12,42],"p":"7.3e"},"10031":{"s":[35],"c":[116,24,28],"b":[26],"f":[26,116,24,28,25,89],"r":[117,21,90,51,9],"sp":[12,13],"p":"7.3e"},"10032":{"s":[0],"c":[73,14,120],"b":[4,97],"f":[4,73,14,120,15,18,97],"r":[7,121,9,10,21],"sp":[12,13],"p":"7.3e"},"10033":{"s":[107],"c":[122,123,70],"b":[4],"f":[109,122,4,123,70,71],"r":[40,20,9,10,118],"sp":[12,13],"p":"7.3e"},"10034":{"s":[22],"c":[124,64,63],"b":[65],"f":[27,65,125,64,63,62],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10035":{"s":[0],"c":[36,126,127],"b":[26],"f":[26,36,126,127,128,28],"r":[19,121,9,72,31],"sp":[12,13],"p":"7.3e"},"10036":{"s":[35],"c":[129,127,28],"b":[26],"f":[26,129,127,28,25,24],"r":[117,118,31,11,33],"sp":[12,13],"p":"7.3e"},"10037":{"s":[43],"c":[79,130,57],"b":[78,102],"f":[78,79,130,57,55,18,102],"r":[7,20,9,10,95],"sp":[12,13],"p":"7.3e"},"10038":{"s":[35],"c":[23,88,28],"b":[26],"f":[26,23,88,28,24,89],"r":[117,131,90,51,33],"sp":[12,13],"p":"7.3e"},"10039":{"s":[43],"c":[14,73,16],"b":[65],"f":[14,65,73,16,3,18],"r":[19,112,59,60,9],"sp":[12,13],"p":"7.3e"},"10040":{"s":[0],"c":[82,79,120],"b":[4],"f":[4,82,79,120,89,39],"r":[7,58,94,60,9],"sp":[12,13],"p":"7.3e"},"10041":{"s":[35],"c":[83,82,28],"b":[26],"f":[26,83,82,28,25,24],"r":[19,92,61,114,33],"sp":[12,115],"p":"7.3e"},"10042":{"s":[43],"c":[53,93,57],"b":[56,102],"f":[53,56,93,57,55,104,102],"r":[132,58,59,95,33],"sp":[12,115],"p":"7.3e"},"10044":{"s":[107],"c":[70,108,133],"b":[4],"f":[109,4,70,108,133,39],"r":[40,8,9,10,21],"sp":[12,13],"p":"7.3e"},"10045":{"s":[43],"c":[101,55,57],"b":[78],"f":[101,78,55,57,134,104],"r":[80,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10046":{"s":[35],"c":[36,83,28],"b":[26],"f":[26,36,83,28,25,116],"r":[84,21,135,51,33],"sp":[12,13],"p":"7.3e"},"10047":{"s":[22],"c":[124,64,63],"b":[65],"f":[27,65,125,64,63,62],"r":[67,30,31,32,33],"sp":[12,34],"p":"7.3e"},"10048":{"s":[22],"c":[62,63,66],"b":[65],"f":[27,62,65,63,66,106],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10049":{"s":[43],"c":[73,79,15],"b":[78],"f":[78,73,79,15,5,39],"r":[84,8,9,72,60],"sp":[12,42],"p":"7.3e"},"10050":{"s":[43],"c":[73,74,15],"b":[4],"f":[73,4,74,15,96,18],"r":[19,99,59,95,61],"sp":[12,42],"p":"7.3e"},"10051":{"s":[43],"c":[93,101,57],"b":[78,102],"f":[93,78,101,57,55,104,102],"r":[19,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10052":{"s":[107],"c":[136,123,70],"b":[65],"f":[109,65,136,123,70,106],"r":[40,8,33,10,31],"sp":[12,34],"p":"7.3e"},"10053":{"s":[43],"c":[54,137,57],"b":[78],"f":[54,78,137,57,55,103],"r":[80,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10054":{"s":[0],"c":[82,83,28],"b":[4],"f":[4,82,83,28,24,89],"r":[19,112,94,41,9],"sp":[12,13],"p":"7.3e"},"10055":{"s":[0],"c":[73,120,14],"b":[4,97],"f":[4,73,120,14,15,3,97],"r":[7,121,9,10,32],"sp":[12,13],"p":"7.3e"},"10056":{"s":[43],"c":[73,108,5],"b":[4,97],"f":[73,4,108,5,71,39,97],"r":[19,8,33,10,99],"sp":[12,42],"p":"7.3e"},"10057":{"s":[43],"c":[54,55,57],"b":[78],"f":[78,54,55,57,130,104],"r":[19,58,59,95,61],"sp":[12,42],"p":"7.3e"},"10058":{"s":[35],"c":[82,138,126],"b":[4],"f":[82,4,138,126,39,6],"r":[80,99,94,60,72],"sp":[12,42],"p":"7.3e"},"10059":{"s":[43],"c":[45,73,16],"b":[56],"f":[56,45,73,16,46,18],"r":[19,112,59,95,61],"sp":[12,42],"p":"7.3e"},"10060":{"s":[43],"c":[53,93,57],"b":[56],"f":[53,56,93,57,55,104],"r":[19,58,59,95,33],"sp":[12,115],"p":"7.3e"},"10061":{"s":[35],"c":[116,127,28],"b":[26],"f":[26,116,127,28,24,25],"r":[117,112,59,41,33],"sp":[12,13],"p":"7.3e"},"10062":{"s":[0],"c":[138,6,139],"b":[4],"f":[4,138,6,139,39,5],"r":[7,121,9,72,94],"sp":[12,140],"p":"7.3e"},"10063":{"s":[22],"c":[36,113,91],"b":[26],"f":[27,26,36,113,91,89],"r":[67,30,31,32,33],"sp":[12,34],"p":"7.3e"},"10064":{"s":[141],"c":[6,142,39],"b":[4],"f":[6,4,142,39,133,143],"r":[40,8,9,72,52],"sp":[12,42],"p":"7.3e"},"10065":{"s":[43],"c":[73,74,16],"b":[65],"f":[65,73,74,16,39,144],"r":[84,8,9,10,31],"sp":[12,81],"p":"7.3e"},"10066":{"s":[43],"c":[54,93,57],"b":[47],"f":[54,47,93,57,55,104],"r":[19,58,59,95,33],"sp":[12,115],"p":"7.3e"},"10067":{"s":[43],"c":[53,101,57],"b":[78],"f":[53,78,101,57,55,104],"r":[19,58,59,41,105],"sp":[12,115],"p":"7.3e"},"10068":{"s":[0],"c":[138,145,17],"b":[4,102],"f":[138,4,145,17,1,3,102],"r":[19,58,94,95,9],"sp":[12,13],"p":"7.3e"},"10069":{"s":[43],"c":[79,130,57],"b":[78],"f":[78,79,130,57,55,18],"r":[7,20,9,10,95],"sp":[12,115],"p":"7.3e"},"10070":{"s":[43],"c":[75,76,79],"b":[78],"f":[75,78,76,79,77,15],"r":[80,99,59,95,10],"sp":[12,42],"p":"7.3e"},"10071":{"s":[0],"c":[17,146,39],"b":[4],"f":[4,17,146,39,5,143],"r":[19,8,9,10,11],"sp":[12,81],"p":"7.3e"},"10072":{"s":[43],"c":[54,93,57],"b":[56,102],"f":[56,54,93,57,55,104,102],"r":[84,21,135,51,61],"sp":[12,42],"p":"7.3e"},"10073":{"s":[43],"c":[75,54,57],"b":[78],"f":[78,75,54,57,93,147],"r":[19,58,59,95,61],"sp":[12,42],"p":"7.3e"},"10074":{"s":[107],"c":[108,6,5],"b":[4],"f":[109,4,108,6,5,71],"r":[40,20,9,10,31],"sp":[12,13],"p":"7.3e"},"10075":{"s":[22],"c":[148,63,124],"b":[65],"f":[27,125,65,63,62,149],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10076":{"s":[0],"c":[138,37,6],"b":[4],"f":[138,4,37,6,5,39],"r":[7,121,9,10,32],"sp":[12,13],"p":"7.3e"},"10077":{"s":[43],"c":[104,147,57],"b":[78],"f":[104,78,147,57,55,93],"r":[19,58,59,95,33],"sp":[12,115],"p":"7.3e"},"10078":{"s":[0],"c":[73,1,146],"b":[4],"f":[4,73,1,146,39,18],"r":[84,121,33,10,58],"sp":[12,13],"p":"7.3e"},"10079":{"s":[43],"c":[93,101,57],"b":[78,102],"f":[93,78,101,57,55,104,102],"r":[80,58,59,41,33],"sp":[12,81],"p":"7.3e"},"10080":{"s":[22],"c":[64,62,63],"b":[65],"f":[27,65,64,62,63,106],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10081":{"s":[107],"c":[123,108,70],"b":[4],"f":[109,4,123,108,70,71],"r":[40,20,9,10,118],"sp":[12,13],"p":"7.3e"},"10082":{"s":[0],"c":[14,15,16],"b":[4,97],"f":[4,14,15,16,3,18,97],"r":[19,121,9,10,21],"sp":[12,13],"p":"7.3e"},"10083":{"s":[0],"c":[142,6,71],"b":[4],"f":[4,142,6,71,5,39],"r":[7,8,9,72,131],"sp":[12,13],"p":"7.3e"},"10084":{"s":[35],"c":[88,24,28],"b":[26],"f":[26,88,24,28,25,89],"r":[100,21,135,51,31],"sp":[12,42],"p":"7.3e"},"10085":{"s":[35],"c":[116,24,28],"b":[26],"f":[26,116,24,28,25,89],"r":[117,21,90,51,61],"sp":[12,13],"p":"7.3e"},"10086":{"s":[35],"c":[88,28,25],"b":[26],"f":[26,88,28,25,24,89],"r":[84,21,90,51,61],"sp":[12,13],"p":"7.3e"},"10087":{"s":[35],"c":[23,150,28],"b":[26],"f":[26,23,150,28,91,36],"r":[49,30,61,114,33],"sp":[12,115],"p":"7.3e"},"10088":{"s":[0],"c":[138,37,6],"b":[4],"f":[4,138,37,6,139,39],"r":[7,121,9,72,31],"sp":[12,140],"p":"7.3e"},"10089":{"s":[35],"c":[88,24,28],"b":[26],"f":[26,88,24,28,25,89],"r":[49,21,90,51,31],"sp":[12,42],"p":"7.3e"},"10090":{"s":[35],"c":[116,24,28],"b":[26],"f":[26,116,24,28,25,151],"r":[98,112,94,60,31],"sp":[12,81],"p":"7.3e"},"10091":{"s":[22],"c":[148,64,124],"b":[65],"f":[27,125,65,64,62,63],"r":[67,30,31,32,33],"sp":[12,34],"p":"7.3e"},"10092":{"s":[0],"c":[14,74,15],"b":[4,97],"f":[4,14,74,15,16,18,97],"r":[19,112,94,60,9],"sp":[12,13],"p":"7.3e"},"10093":{"s":[43],"c":[152,76,77],"b":[78,102],"f":[152,78,76,77,103,39,102],"r":[80,58,59,95,33],"sp":[12,81],"p":"7.3e"},"10094":{"s":[43],"c":[79,120,73],"b":[56],"f":[79,56,120,73,15,18],"r":[19,121,9,10,94],"sp":[12,115],"p":"7.3e"},"10095":{"s":[35],"c":[24,116,28],"b":[26],"f":[26,24,116,28,25,89],"r":[49,21,90,51,33],"sp":[12,13],"p":"7.3e"},"10096":{"s":[35],"c":[36,2,113],"b":[26],"f":[26,36,2,113,128,126],"r":[98,92,52,11,33],"sp":[12,81],"p":"7.3e"},"10097":{"s":[22],"c":[124,62,63],"b":[65],"f":[27,65,125,62,63,66],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10098":{"s":[43],"c":[44,73,16],"b":[56],"f":[48,56,73,16,3,18],"r":[19,58,59,41,61],"sp":[12,115],"p":"7.3e"},"10099":{"s":[0],"c":[153,6,139],"b":[154],"f":[154,153,6,139,126,39],"r":[40,20,9,72,21],"sp":[12,13],"p":"7.3e"},"10100":{"s":[43],"c":[54,93,55],"b":[56,102],"f":[56,54,93,55,57,104,102],"r":[132,58,59,41,33],"sp":[12,13],"p":"7.3e"},"10101":{"s":[43],"c":[44,46,16],"b":[47],"f":[48,47,46,16,119,18],"r":[49,21,90,51,33],"sp":[12,13],"p":"7.3e"},"10102":{"s":[0],"c":[1,6,155],"b":[4],"f":[4,1,6,155,39,18],"r":[132,121,33,10,58],"sp":[12,13],"p":"7.3e"},"10103":{"s":[35],"c":[156,85,28],"b":[26],"f":[26,156,87,28,129,24],"r":[49,30,31,114,21],"sp":[12,13],"p":"7.3e"},"10104":{"s":[43],"c":[54,55,57],"b":[56],"f":[54,56,55,57,104,130],"r":[19,21,50,51,41],"sp":[12,115],"p":"7.3e"},"10105":{"s":[22],"c":[88,24,28],"b":[26],"f":[27,26,88,24,28,89],"r":[117,157,90,158,33],"sp":[12,13],"p":"7.3e"},"10106":{"s":[43],"c":[73,15,5],"b":[4],"f":[73,4,15,5,146,39],"r":[19,99,94,95,11],"sp":[81,42],"p":"7.3e"},"10107":{"s":[43],"c":[101,134,57],"b":[56],"f":[101,56,134,57,55,104],"r":[80,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10108":{"s":[107],"c":[62,63,66],"b":[65],"f":[109,62,65,63,66,106],"r":[67,68,33,69,31],"sp":[12,34],"p":"7.3e"},"10109":{"s":[35],"c":[129,91,28],"b":[26],"f":[26,129,91,28,24,89],"r":[117,157,90,51,33],"sp":[12,13],"p":"7.3e"},"10110":{"s":[43],"c":[76,134,103],"b":[78],"f":[78,76,134,103,77,79],"r":[80,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10112":{"s":[43],"c":[93,147,57],"b":[78,102],"f":[93,78,147,57,55,104,102],"r":[80,58,59,41,33],"sp":[12,81],"p":"7.3e"},"10116":{"s":[107],"c":[70,108,6],"b":[4],"f":[109,4,70,108,6,39],"r":[40,8,9,10,118],"sp":[12,13],"p":"7.3e"},"10117":{"s":[0],"c":[139,70,39],"b":[4],"f":[139,4,70,39,6,71],"r":[40,8,33,72,60],"sp":[12,42],"p":"7.3e"},"10118":{"s":[0],"c":[138,37,6],"b":[4],"f":[138,4,37,6,139,133],"r":[7,20,9,72,21],"sp":[12,140],"p":"7.3e"},"10119":{"s":[35],"c":[86,36,28],"b":[26],"f":[26,86,36,28,25,89],"r":[117,30,31,32,33],"sp":[12,13],"p":"7.3e"},"10120":{"s":[35],"c":[88,24,28],"b":[26],"f":[26,88,24,28,25,89],"r":[117,21,90,51,60],"sp":[12,13],"p":"7.3e"},"10121":{"s":[0],"c":[79,120,96],"b":[4,97],"f":[4,79,120,96,146,18,97],"r":[19,121,9,10,32],"sp":[12,13],"p":"7.3e"},"10122":{"s":[35],"c":[116,28,150],"b":[26],"f":[26,116,28,150,91,89],"r":[117,105,31,11,33],"sp":[12,13],"p":"7.3e"},"10123":{"s":[22],"c":[152,147,96],"b":[47,102],"f":[27,152,47,147,96,55,102],"r":[84,58,59,95,33],"sp":[12,34],"p":"7.3e"},"10124":{"s":[22],"c":[45,46,119],"b":[65],"f":[27,65,45,46,119,18],"r":[40,8,9,10,31],"sp":[12,13],"p":"7.3e"},"10125":{"s":[0],"c":[37,6,139],"b":[4],"f":[4,37,6,139,110,39],"r":[7,121,9,72,30],"sp":[12,140],"p":"7.3e"},"10126":{"s":[35],"c":[129,113,38],"b":[26],"f":[26,129,113,38,128,89],"r":[19,105,31,11,60],"sp":[12,81],"p":"7.3e"},"10127":{"s":[35],"c":[129,116,28],"b":[26],"f":[26,129,116,28,24,89],"r":[49,157,90,51,61],"sp":[12,13],"p":"7.3e"},"10128":{"s":[43],"c":[45,46,16],"b":[56],"f":[56,45,46,16,73,18],"r":[117,21,50,51,61],"sp":[12,42],"p":"7.3e"},"10129":{"s":[35],"c":[23,24,28],"b":[26],"f":[26,23,24,28,25,89],"r":[49,157,90,51,31],"sp":[12,115],"p":"7.3e"},"10130":{"s":[107],"c":[70,5,6],"b":[4],"f":[109,4,70,5,6,71],"r":[40,20,33,10,118],"sp":[12,13],"p":"7.3e"},"10131":{"s":[43],"c":[75,79,82],"b":[78],"f":[78,75,79,82,77,18],"r":[132,105,31,11,60],"sp":[12,42],"p":"7.3e"},"10132":{"s":[107],"c":[70,71,5],"b":[4],"f":[109,4,70,71,5,6],"r":[40,20,9,10,118],"sp":[12,13],"p":"7.3e"},"10133":{"s":[35],"c":[129,127,24],"b":[26],"f":[26,129,127,24,25,28],"r":[100,105,61,114,21],"sp":[12,42],"p":"7.3e"},"10134":{"s":[43],"c":[79,76,103],"b":[78],"f":[78,79,76,103,77,39],"r":[80,58,59,95,33],"sp":[12,115],"p":"7.3e"},"10135":{"s":[35],"c":[36,126,28],"b":[26],"f":[26,36,126,28,128,39],"r":[98,112,59,41,31],"sp":[12,42],"p":"7.3e"},"10136":{"s":[0],"c":[138,37,6],"b":[4],"f":[138,4,37,6,139,144],"r":[7,121,9,72,60],"sp":[12,13],"p":"7.3e"},"10137":{"s":[148],"c":[85,156,28],"b":[26],"f":[26,87,156,28,24,25],"r":[98,30,31,11,60],"sp":[12,81],"p":"7.3e"},"10138":{"s":[43],"c":[44,73,16],"b":[56],"f":[48,56,73,16,3,18],"r":[84,112,59,41,31],"sp":[12,115],"p":"7.3e"},"10139":{"s":[35],"c":[23,24,28],"b":[26],"f":[26,23,24,28,91,36],"r":[29,30,31,11,33],"sp":[12,115],"p":"7.3e"},"10140":{"s":[35],"c":[36,127,128],"b":[26],"f":[26,36,127,128,126,24],"r":[98,112,59,60,11],"sp":[12,13],"p":"7.3e"},"10141":{"s":[35],"c":[116,24,28],"b":[26],"f":[26,116,24,28,25,89],"r":[117,157,90,51,33],"sp":[12,13],"p":"7.3e"},"10144":{"s":[35],"c":[23,28,24],"b":[26],"f":[26,23,28,24,25,89],"r":[29,105,31,11,33],"sp":[12,13],"p":"7.3e"},"10145":{"s":[43],"c":[14,3,15],"b":[56],"f":[56,14,3,15,146,145],"r":[19,21,90,51,61],"sp":[12,42],"p":"7.3e"},"10146":{"s":[35],"c":[23,24,28],"b":[26],"f":[26,23,24,28,25,89],"r":[100,157,135,51,31],"sp":[12,13],"p":"7.3e"},"10147":{"s":[35],"c":[86,24,36],"b":[26],"f":[26,86,24,36,91,28],"r":[29,30,31,32,60],"sp":[12,115],"p":"7.3e"},"10148":{"s":[43],"c":[93,101,57],"b":[78],"f":[93,78,101,57,55,104],"r":[80,58,59,41,33],"sp":[12,115],"p":"7.3e"},"10151":{"s":[43],"c":[159,46,16],"b":[47,17],"f":[47,159,46,16,14,18,17],"r":[117,105,31,11,60],"sp":[12,42],"p":"7.3e"},"10152":{"s":[0],"c":[142,139,6],"b":[4],"f":[4,142,139,6,39,155],"r":[7,121,9,10,94],"sp":[12,140],"p":"7.3e"},"10166":{"s":[35],"c":[23,116,28],"b":[26],"f":[26,23,116,28,91,24],"r":[49,21,135,51,33],"sp":[12,115],"p":"7.3e"}},"things":[["루비 수정","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hsj.png"],["칠흑의 양날 도끼","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hsqgz.png"],["망자의 갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_wzbj.png"],["쇼진의 창","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sjzm.png"],["판금 장화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_rzzj.png"],["대자연의 힘","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_zrzl.png"],["가시 갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_jjzj.png"],["착취의 손아귀","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_GraspoftheUndying.png"],["Unshakeable","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_jjbl.png"],["재생의 바람","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_Regeneration.png"],["Perseverance","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_tenacity.png"],["빛의 망토","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_NimbusCloak.png"],["점멸","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_09.png"],["점화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_10.png"],["월식","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_xingshi.png"],["죽음의 무도","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_swzw.png"],["세릴다의 원한","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/Seryldas_Grudge.png"],["발걸음 분쇄기","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_tjphz.png"],["수호 천사","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_shts.png"],["정복자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_Conqueror.png"],["거인의 용기","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defence_CourageOfTheColossus.png"],["돌발 일격","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_SuddenImpact.png"],["영혼의 낫","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_yhld.png"],["루덴의 메아리","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ldhs.png"],["무한의 구","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_InfinityOrb.png"],["공허의 지팡이","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_xkfz.png"],["Boots of Mana","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_fsx.png"],["검은 안개 낫","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hwjl.png"],["라바돈의 죽음모자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_mszdswzm.png"],["신비로운 유성","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_ArcaneComet.png"],["마나순환 팔찌","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_ManaflowBand.png"],["깨달음","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_Detached.png"],["주문 작열","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_Scorch.png"],["뼈 방패","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_BonePlating.png"],["회복","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_03.png"],["증폭의 고서","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_zfdj.png"],["리안드리의 고통","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ldldzm.png"],["태양불꽃 방패","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_rydp.png"],["심연의 가면","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_symj_new.png"],["Amaranth's Twinguard","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_zjtkz.png"],["Ice Overlord","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_FrostLord.png"],["전설: 핏빛 길","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Precision_LegendBloodline.png"],["강타","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_11.png"],["롱소드","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_cj.png"],["마나무네","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_mz.png"],["요우무의 유령검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ymzl.png"],["독사의 송곳니","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_jszy.png"],["Boots of Dynamism",""],["무라마나","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_mq.png"],["선제공격","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_FirstStrike.png"],["오만","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_Arrogant.png"],["안구 수집가","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Domination_EyeballCollection.png"],["기민함","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_Pathfinder.png"],["정수 약탈자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_dczl_new.png"],["징수의 총","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sjz.png"],["무한의 대검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_wjzr.png"],["탐욕의 군화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_tlzx.png"],["도미닉 경의 인사","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_dmnklz.png"],["Brutal","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_Brutal.png"],["체력차 극복","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_CutDown.png"],["전설: 가속","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Precision_LegendHaste.png"],["절대 집중","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_AbsoluteFocus.png"],["불타는 향로","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_crxl.png"],["Harmonic Echo","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_zlld.png"],["헬리아의 메아리","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hlydhx.png"],["명석함의 아이오니아 장화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_mlzx.png"],["구원","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/t3x_jsss.png"],["콩콩이 소환","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_Aery.png"],["생명의 샘","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_FontofLife.png"],["소생","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defencs_Revitalize.png"],["워모그의 갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ktkj.png"],["얼어붙은 심장","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_bszx.png"],["과잉성장","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_Overgrowth.png"],["삼위일체","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sxzl.png"],["갈라진 하늘","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ft.png"],["크라켄 학살자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_KrakenSlayer.png"],["구인수의 격노검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/Guinsoos_Rageblade.png"],["경계","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_jg.png"],["광전사의 군화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_gsx.png"],["몰락한 왕의 검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_pbwzzr.png"],["치명적 속도","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_LethalTempo.png"],["유체화","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_01.png"],["황혼과 새벽","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hhylm.png"],["내셔의 이빨","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_nszy.png"],["기민한 발놀림","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_FleetofFoot.png"],["대천사의 지팡이","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_dtszz.png"],["어둠불꽃 횃불","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ayhj.png"],["대천사의 포옹","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ctszy.png"],["리치베인","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_wyzh.png"],["존야의 모래시계","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/t3x_zysl.png"],["Chain Assault","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Domination_lp.png"],["무덤꽃","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ts.png"],["Botanist","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_572416001.png"],["폭풍갈퀴","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_lq.png"],["최후의 저항","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Precision_LastStand.png"],["전설: 민첩함","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Precision_LegendAlacrity.png"],["필멸자의 운명","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_fxdtx.png"],["선혈포식자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_kxzf.png"],["난입","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_PhaseRush.png"],["승전보","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_Triumph.png"],["어둠의 수확","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_hasg.png"],["윤 탈 야생화살","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_yetehyj.png"],["돌풍","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_kfzl.png"],["루난의 허리케인","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_lanj.png"],["피바라기","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_yxj.png"],["액시옴 비전 마법사","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_glms.png"],["기사의 맹세","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_KnightsVow.png"],["고대유물 방패","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_swzd.png"],["광휘의 미덕","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hymd.png"],["타곤 산의 방벽","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_smbl.png"],["Mantle of the Twelfth Hour","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_wsdp.png"],["수호자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_Guardian.png"],["Battle Zeal","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Precision_572225001.png"],["라일라이의 수정홀","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_rldbjjz.png"],["폭풍의 결집","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_572215001.png"],["방어막","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_05.png"],["폭풍 쇄도","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_fbky.png"],["감전","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Keystone_Electrocute.png"],["마법공학 점멸기","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Utility_HextechFlashtraption.png"],["밤의 끝자락","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_yzfr.png"],["선체파괴자","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_pjz.png"],["철거","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Defense_Demolish.png"],["Yordle Trap","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_yordle_ybq.png"],["지크의 융합","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_jkdjh.png"],["속삭이는 머리띠","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_eyth.png"],["악곡의 왕관","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_gzqg.png"],["균열 생성기","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_xgzzz.png"],["마법공학 로켓 벨트","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/t3x_hjyd.png"],["핏빛 저주","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_fxzdzz_new.png"],["악의","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_cy.png"],["불멸의 철갑궁","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_bxdg.png"],["Empowered Attack","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Offense_EmpoweredAttack.png"],["Empowerment",""],["Dawnshroud",""],["나보리 신속검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_xr_new.png"],["Tyrant","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Domination_lr.png"],["제국의 명령","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_dgzl.png"],["악마사냥꾼의 화살","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_lmrnj.png"],["강철심장","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_Heartsteel.png"],["끝없는 절망","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_wzhy.png"],["순간이동","https://game.gtimg.cn/images/lgamem/act/lrlib/img/SummonerSkillIcons/zhs_teleport.png"],["천 갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_bj.png"],["얼어붙은 건틀릿","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_bmhs.png"],["란두인의 예언","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_ldzz.png"],["케이닉 루컨","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_bm.png"],["지배자의 피갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_3464.png"],["스테락의 도전","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_tzhs.png"],["마법광학 장치 C44","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_hksjp.png"],["여신의 눈물","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_nszl.png"],["흐르는 물의 지팡이","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/Staff_Of_Flowing_Waters.png"],["지평선의 초점","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sjzz.png"],["우주의 추진력","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_xjqc.png"],["스태틱의 단검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sttkdr_new.png"],["공허한 광휘","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_cchx.png"],["헤르메스의 발걸음","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sycx.png"],["가고일 돌갑옷","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/t3x_sxg.png"],["영겁의 지팡이","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_sgzz.png"],["비열한 한 방","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Domination_CheapSho.png"],["좀비 와드","https://game.gtimg.cn/images/lgamem/act/lrlib/img/RuneIcons/Domination_ZombieWard.png"],["드락사르의 황혼검","https://game.gtimg.cn/images/lgamem/act/lrlib/img/EquipIcons/lol_dlks.png"]]}</script>
+<script>
+(function () {
+  var D = JSON.parse(document.getElementById('data').textContent);
+  var POS = [['2', '탑'], ['5', '정글'], ['1', '미드'], ['3', '원딜'], ['4', '서폿']];
+  var TIER = [['1', '다이아+'], ['2', '마스터+'], ['3', '챌린저'], ['4', '최상위 큐']];
+  var POSNAME = {}, TIERNAME = {};
+  POS.forEach(function (p) { POSNAME[p[0]] = p[1]; });
+  TIER.forEach(function (t) { TIERNAME[t[0]] = t[1]; });
+
+  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null };
+  try {
+    var saved = JSON.parse(localStorage.getItem('wr-state') || '{}');
+    if (POSNAME[saved.pos]) state.pos = saved.pos;
+    if (TIERNAME[saved.tier]) state.tier = saved.tier;
+  } catch (e) {}
+  function save() {
+    try { localStorage.setItem('wr-state', JSON.stringify({ pos: state.pos, tier: state.tier })); } catch (e) {}
+  }
+
+  function el(tag, cls, text) {
+    var e = document.createElement(tag);
+    if (cls) e.className = cls;
+    if (text != null) e.textContent = text;
+    return e;
+  }
+  function pct(v) { return v.toFixed(2) + '%'; }
+  function avatar(id) {
+    var h = D.heroes[id], box = el('span', 'ava');
+    var img = new Image();
+    img.alt = ''; img.loading = 'lazy';
+    img.onerror = function () { box.textContent = h.n.charAt(0); };
+    img.src = h.a;
+    box.appendChild(img);
+    return box;
+  }
+  function winBar(w) {
+    var bar = el('span', 'bar'), i = el('i', w >= 50 ? 'up' : 'down');
+    i.style.width = Math.min(Math.abs(w - 50) / 8, 1) * 50 + '%';
+    bar.appendChild(i);
+    return bar;
+  }
+  function sorted(tier, pos, col) {
+    return (D.stats[tier][pos] || []).slice().sort(function (a, b) { return b[col] - a[col]; });
+  }
+
+  // 컨트롤
+  var tabs = document.getElementById('tabs');
+  POS.forEach(function (p) {
+    var b = el('button', '', p[1]);
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.pos = p[0];
+    b.onclick = function () { state.pos = p[0]; save(); render(); };
+    tabs.appendChild(b);
+  });
+  var tiers = document.getElementById('tiers');
+  TIER.forEach(function (t) {
+    var b = el('button', '', t[1]);
+    b.type = 'button'; b.dataset.tier = t[0];
+    b.onclick = function () { state.tier = t[0]; save(); render(); };
+    tiers.appendChild(b);
+  });
+  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderList(); });
+  Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+    b.onclick = function () { state.sort = +b.dataset.sort; render(); };
+  });
+  document.getElementById('meta').textContent = '중국 서버 랭크 게임 기준 · ' + D.date + ' 집계';
+
+  function render() {
+    Array.prototype.forEach.call(tabs.children, function (b) {
+      b.setAttribute('aria-selected', b.dataset.pos === state.pos ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(tiers.children, function (b) {
+      b.setAttribute('aria-pressed', b.dataset.tier === state.tier ? 'true' : 'false');
+    });
+    Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+      if (+b.dataset.sort === state.sort) b.setAttribute('aria-sort', 'descending');
+      else b.removeAttribute('aria-sort');
+    });
+    renderList();
+  }
+
+  function renderList() {
+    var list = document.getElementById('list');
+    list.textContent = '';
+    var rows = sorted(state.tier, state.pos, state.sort);
+    var q = state.q.toLowerCase(), shown = 0;
+    rows.forEach(function (r, idx) {
+      var h = D.heroes[r[0]];
+      if (q && h.n.toLowerCase().indexOf(q) === -1) return;
+      shown++;
+      var li = el('li', idx < 3 ? 'top3' : '');
+      var b = el('button', 'rowbtn grid');
+      b.type = 'button';
+      b.setAttribute('aria-label', h.n + ' 상세 보기');
+      b.appendChild(el('span', 'rank', idx + 1));
+      b.appendChild(avatar(r[0]));
+      b.appendChild(el('span', 'name', h.n));
+      var win = el('span', 'win');
+      win.appendChild(el('b', r[1] >= 50 ? 'up' : 'down', pct(r[1])));
+      win.appendChild(winBar(r[1]));
+      b.appendChild(win);
+      b.appendChild(el('span', 'num', pct(r[2])));
+      b.appendChild(el('span', 'num', pct(r[3])));
+      b.onclick = function () { openHero(r[0], state.pos); };
+      li.appendChild(b);
+      list.appendChild(li);
+    });
+    if (!shown) list.appendChild(el('li', 'empty', q ? '"' + state.q + '" 검색 결과가 없습니다.' : '이 구간에는 통계가 없습니다.'));
+  }
+
+  // 상세 시트
+  var scrim = document.getElementById('scrim'), sheet = document.getElementById('sheet');
+  function find(tier, pos, id) {
+    var rows = sorted(tier, pos, 1);
+    for (var i = 0; i < rows.length; i++) if (rows[i][0] === id) return { row: rows[i], rank: i + 1, total: rows.length };
+    return null;
+  }
+  function openHero(id, pos) {
+    state.hero = id; state.hpos = pos;
+    renderSheet();
+    scrim.classList.add('open');
+    sheet.scrollTop = 0;
+    sheet.focus();
+    try { if (location.hash !== '#c-' + id) location.hash = 'c-' + id; } catch (e) {}
+  }
+  function closeHero() {
+    state.hero = null;
+    scrim.classList.remove('open');
+    try { if (location.hash) history.replaceState(null, '', location.pathname + location.search); } catch (e) {}
+  }
+  function renderSheet() {
+    var id = state.hero, h = D.heroes[id];
+    sheet.textContent = '';
+
+    var head = el('div', 'sheet-head');
+    head.appendChild(avatar(id));
+    var t = el('h2', '', h.n); t.id = 'sheet-title';
+    head.appendChild(t);
+    var c = el('button', 'close', '닫기'); c.type = 'button'; c.onclick = closeHero;
+    head.appendChild(c);
+    sheet.appendChild(head);
+
+    // 포지션별 요약 (선택한 랭크 구간)
+    var played = POS.filter(function (p) { return find(state.tier, p[0], id); });
+    if (played.length && !find(state.tier, state.hpos, id)) state.hpos = played[0][0];
+    var s1 = el('section');
+    s1.appendChild(el('h3', '', '포지션별 성적 · ' + TIERNAME[state.tier]));
+    if (!played.length) {
+      s1.appendChild(el('p', 'empty', '이 구간에는 통계가 없습니다.'));
+    } else {
+      var pg = el('div', 'posgrid');
+      played.forEach(function (p) {
+        var f = find(state.tier, p[0], id);
+        var card = el('button', 'poscard');
+        card.type = 'button';
+        card.setAttribute('aria-pressed', p[0] === state.hpos ? 'true' : 'false');
+        card.appendChild(el('span', 'p', p[1]));
+        card.appendChild(el('span', 'w ' + (f.row[1] >= 50 ? 'up' : 'down'), pct(f.row[1])));
+        card.appendChild(el('span', 's', '승률 ' + f.rank + '위 / ' + f.total + '명'));
+        card.appendChild(el('span', 's', '픽 ' + pct(f.row[2]) + ' · 밴 ' + pct(f.row[3])));
+        card.onclick = function () { state.hpos = p[0]; renderSheet(); };
+        pg.appendChild(card);
+      });
+      s1.appendChild(pg);
+    }
+    sheet.appendChild(s1);
+
+    // 랭크 구간별 비교 (선택한 포지션)
+    var s2 = el('section');
+    s2.appendChild(el('h3', '', POSNAME[state.hpos] + ' · 랭크 구간별 비교'));
+    var wrap = el('div', 'tablewrap'), table = el('table'), thead = el('thead'), trh = el('tr');
+    ['구간', '승률', '순위', '픽률', '밴률'].forEach(function (x) { trh.appendChild(el('th', '', x)); });
+    thead.appendChild(trh); table.appendChild(thead);
+    var tb = el('tbody');
+    TIER.forEach(function (tr) {
+      var f = find(tr[0], state.hpos, id), row = el('tr', tr[0] === state.tier ? 'cur' : '');
+      row.appendChild(el('td', '', tr[1]));
+      if (f) {
+        row.appendChild(el('td', f.row[1] >= 50 ? 'up' : 'down', pct(f.row[1])));
+        row.appendChild(el('td', '', f.rank + ' / ' + f.total));
+        row.appendChild(el('td', '', pct(f.row[2])));
+        row.appendChild(el('td', '', pct(f.row[3])));
+      } else {
+        var td = el('td', '', '통계 없음'); td.colSpan = 4; td.style.color = 'var(--mute)';
+        row.appendChild(td);
+      }
+      tb.appendChild(row);
+    });
+    table.appendChild(tb); wrap.appendChild(table); s2.appendChild(wrap);
+    sheet.appendChild(s2);
+
+    // 빌드
+    var s3 = el('section');
+    s3.appendChild(el('h3', '', '추천 빌드'));
+    var build = el('div', 'build');
+    var B = (D.builds || {})[id];
+    // 아이콘에 마우스를 올리면 이름이 뜨고, 누르면(터치 화면) 묶음 제목 옆에 이름이 표시된다.
+    function group(label, refs, numbered, round) {
+      if (!refs || !refs.length) return;
+      var g = el('div', 'bgroup');
+      var head = el('div', 'bhead');
+      head.appendChild(el('span', 'blabel', label));
+      var picked = el('span', 'bpicked');
+      picked.setAttribute('aria-live', 'polite');
+      head.appendChild(picked);
+      g.appendChild(head);
+      var chips = el(numbered ? 'ol' : 'ul', 'chips');
+      refs.forEach(function (ref, i) {
+        var thing = D.things[ref] || ['?', ''], name = thing[0], src = thing[1];
+        var li = el('li');
+        var b = el('button', 'icon' + (round ? ' round' : ''));
+        b.type = 'button'; b.title = name; b.setAttribute('aria-label', name);
+        function asText() { b.className = 'chip'; b.textContent = name; }
+        if (src) {
+          var img = new Image();
+          img.alt = ''; img.loading = 'lazy';
+          img.onerror = asText;
+          img.src = src;
+          b.appendChild(img);
+          if (numbered) b.appendChild(el('span', 'no', i + 1));
+        } else asText();
+        b.onclick = function () {
+          Array.prototype.forEach.call(chips.querySelectorAll('.on'), function (x) { x.classList.remove('on'); });
+          b.classList.add('on');
+          picked.textContent = name;
+        };
+        li.appendChild(b);
+        chips.appendChild(li);
+      });
+      g.appendChild(chips);
+      build.appendChild(g);
+    }
+    if (B) {
+      group('시작', B.s);
+      group('핵심', B.c, true);
+      group('신발', B.b);
+      group('최종 빌드', B.f, true);
+      group('핵심 룬', B.r.slice(0, 1), false, true);
+      group('보조 룬', B.r.slice(1), false, true);
+      group('소환사 주문', B.sp);
+      build.appendChild(el('p', '', '아이콘에 마우스를 올리거나 누르면 이름이 나옵니다. 가이드 사이트 wildriftfire.com의 추천 빌드입니다' + (B.p ? ' (패치 ' + B.p + ')' : '') + '. 승률 통계로 뽑은 빌드가 아니며, 공식 통계에는 빌드별 승률이 없습니다.'));
+    } else {
+      build.appendChild(el('p', '', '이 챔피언의 추천 빌드를 가져오지 못했습니다.'));
+    }
+    if (h.g) {
+      var a = el('a', 'go', '상황별 아이템·스킬 순서 보기');
+      a.href = h.g; a.target = '_blank'; a.rel = 'noopener';
+      build.appendChild(a);
+    }
+    s3.appendChild(build);
+    sheet.appendChild(s3);
+  }
+  scrim.addEventListener('click', function (e) { if (e.target === scrim) closeHero(); });
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.hero) closeHero(); });
+  function fromHash() {
+    var m = /^#c-(\d+)$/.exec(location.hash || '');
+    if (m && D.heroes[m[1]]) { if (state.hero !== m[1]) openHero(m[1], state.pos); }
+    else if (state.hero) { state.hero = null; scrim.classList.remove('open'); }
+  }
+  window.addEventListener('hashchange', fromHash);
+
+  render();
+  fromHash();
+})();
+</script>
+</body>
+</html>
