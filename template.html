@@ -275,42 +275,69 @@ tr.cur td:first-child { color: var(--gold); }
   .ava { width: 36px; height: 36px; }
   h1 { font-size: 24px; }
 }
+/* 언어 선택 */
+header.top { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; flex-wrap: wrap; }
+.langs { display: flex; gap: 4px; padding-top: 4px; }
+.langs button {
+  background: transparent; border: 1px solid var(--line); border-radius: 6px;
+  padding: 3px 8px; font-size: 12px; color: var(--mute);
+}
+.langs button[aria-pressed="true"] { border-color: var(--gold); color: var(--gold); }
+details.patch > summary::after { content: var(--t-open, "펼치기"); }
+details.patch[open] > summary::after { content: var(--t-close, "접기"); }
+html:lang(zh) {
+  --font-display: "Do Hyeon", "Noto Sans SC", "Microsoft YaHei", "PingFang SC", sans-serif;
+  --font-body: "Noto Sans SC", "Microsoft YaHei", "PingFang SC", "Noto Sans KR", sans-serif;
+}
+/* 영어 이름처럼 긴 이름이 단어 중간에서 끊기지 않게 */
+.name { overflow-wrap: break-word; }
+@media (max-width: 400px) {
+  .grid { grid-template-columns: 20px 34px minmax(0, 1fr) 70px 44px 44px; }
+  .name { font-size: 14px; }
+}
 </style>
 </head>
 <body>
 <div class="wrap">
   <header class="top">
-    <h1>와일드리프트 <span>정보</span></h1>
-    <p class="meta" id="meta"></p>
+    <div>
+      <h1><span id="h1a" style="color:inherit">와일드리프트</span> <span id="h1b">정보</span></h1>
+      <p class="meta" id="meta"></p>
+    </div>
+    <div class="langs" id="langs" role="group" aria-label="Language">
+      <button type="button" data-lang="ko" lang="ko">한국어</button>
+      <button type="button" data-lang="en" lang="en">English</button>
+      <button type="button" data-lang="zh" lang="zh">中文</button>
+    </div>
   </header>
 
-  <nav class="views" aria-label="화면 전환">
-    <button type="button" data-view="stats">승률표</button>
-    <button type="button" data-view="patch">패치 노트</button>
+  <nav class="views" id="views">
+    <button type="button" data-view="stats"></button>
+    <button type="button" data-view="patch"></button>
   </nav>
 
   <div id="view-patch" hidden></div>
 
   <div id="view-stats">
   <div class="controls">
-    <div class="tabs" role="tablist" aria-label="포지션" id="tabs"></div>
+    <div class="tabs" role="tablist" id="tabs"></div>
     <div class="row2">
-      <div class="tiers" id="tiers" aria-label="랭크 구간"></div>
-      <input id="q" type="search" placeholder="챔피언 검색" aria-label="챔피언 검색" autocomplete="off">
+      <div class="tiers" id="tiers"></div>
+      <input id="q" type="search" autocomplete="off">
     </div>
   </div>
 
   <div class="grid head" id="head">
-    <span style="text-align:center">#</span><span></span><span>챔피언</span>
-    <button type="button" data-sort="1">승률</button>
-    <button type="button" data-sort="2">픽률</button>
-    <button type="button" data-sort="3">밴률</button>
+    <span style="text-align:center">#</span><span></span><span id="col-champ"></span>
+    <button type="button" data-sort="1"></button>
+    <button type="button" data-sort="2"></button>
+    <button type="button" data-sort="3"></button>
   </div>
   <ol id="list"></ol>
 
   <footer>
-    <span>출처: 텐센트 리그 오브 레전드 모바일(중국 서버) 공식 랭크 통계. 한국 서버 통계는 공개되지 않아 중국 서버 수치를 보여줍니다.</span>
-    <span>순위 옆 숫자는 선택한 포지션·구간 안에서의 순위입니다. 행을 누르면 챔피언 상세가 열립니다.</span>
+    <span id="foot1"></span>
+    <span id="foot2"></span>
   </footer>
   </div>
 </div>
@@ -323,17 +350,109 @@ tr.cur td:first-child { color: var(--gold); }
 <script>
 (function () {
   var D = JSON.parse(document.getElementById('data').textContent);
-  var POS = [['2', '탑'], ['5', '정글'], ['1', '미드'], ['3', '원딜'], ['4', '서폿']];
-  var TIER = [['1', '다이아+'], ['2', '마스터+'], ['3', '챌린저'], ['4', '최상위 큐']];
-  var POSNAME = {}, TIERNAME = {};
-  POS.forEach(function (p) { POSNAME[p[0]] = p[1]; });
-  TIER.forEach(function (t) { TIERNAME[t[0]] = t[1]; });
 
-  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null };
+  // ── 다국어 ──────────────────────────────────────────────
+  // 이름 데이터는 [한국어, 영어, 중국어] 순서의 배열이다.
+  var LANGS = ['ko', 'en', 'zh'];
+  var T = {
+    ko: {
+      title: '와일드리프트 정보', h1a: '와일드리프트', h1b: '정보',
+      meta: '중국 서버 랭크 게임 기준 · {d} 집계',
+      vStats: '승률표', vPatch: '패치 노트',
+      pos: { 2: '탑', 5: '정글', 1: '미드', 3: '원딜', 4: '서폿' },
+      tier: { 1: '다이아+', 2: '마스터+', 3: '챌린저', 4: '최상위 큐' },
+      posLabel: '포지션', tierLabel: '랭크 구간',
+      search: '챔피언 검색', champ: '챔피언', win: '승률', pick: '픽률', ban: '밴률',
+      foot1: '출처: 텐센트 리그 오브 레전드 모바일(중국 서버) 공식 랭크 통계. 한국 서버 통계는 공개되지 않아 중국 서버 수치를 보여줍니다.',
+      foot2: '순위 옆 숫자는 선택한 포지션·구간 안에서의 순위입니다. 행을 누르면 챔피언 상세가 열립니다.',
+      detail: '{n} 상세 보기', noResult: '"{q}" 검색 결과가 없습니다.', noStats: '이 구간에는 통계가 없습니다.',
+      close: '닫기', byPos: '포지션별 성적 · {t}', rankOf: '승률 {r}위 / {n}명', pickBan: '픽 {p} · 밴 {b}',
+      byTier: '{p} · 랭크 구간별 비교', thTier: '구간', thRank: '순위', none: '통계 없음',
+      build: '추천 빌드', bStart: '시작', bCore: '핵심', bBoots: '신발', bFinal: '최종 빌드',
+      bKey: '핵심 룬', bRunes: '보조 룬', bSpells: '소환사 주문',
+      buildNote: '아이콘에 마우스를 올리거나 누르면 이름이 나옵니다. 가이드 사이트 wildriftfire.com의 추천 빌드입니다{v}. 승률 통계로 뽑은 빌드가 아니며, 공식 통계에는 빌드별 승률이 없습니다.',
+      buildPatch: ' (패치 {v})', noBuild: '이 챔피언의 추천 빌드를 가져오지 못했습니다.',
+      guide: '상황별 아이템·스킬 순서 보기 (영문)',
+      patchIntro: '공식 한국어 패치 노트에서 바뀐 항목과 수치만 추렸습니다. 개발자 설명과 긴 안내문은 원문에서 볼 수 있습니다.',
+      noPatch: '패치 노트를 가져오지 못했습니다.', nChamp: '챔피언 {n}', nEtc: '기타 {n}',
+      glance: '한눈에 보기', more: ' 외 {n}개', count: '{n}개', viewWin: '{n} 승률 보기',
+      cut: '설명이 더 있습니다. 원문에서 확인하세요.', orig: '{v} 패치 노트 원문 보기',
+      open: '펼치기', shut: '접기'
+    },
+    en: {
+      title: 'Wild Rift Info', h1a: 'Wild Rift', h1b: 'Info',
+      meta: 'China server ranked games · data for {d}',
+      vStats: 'Win Rates', vPatch: 'Patch Notes',
+      pos: { 2: 'Top', 5: 'Jungle', 1: 'Mid', 3: 'Bot', 4: 'Support' },
+      tier: { 1: 'Diamond+', 2: 'Master+', 3: 'Challenger', 4: 'Peak of the Rift' },
+      posLabel: 'Position', tierLabel: 'Rank tier',
+      search: 'Search champion', champ: 'Champion', win: 'Win', pick: 'Pick', ban: 'Ban',
+      foot1: 'Source: official ranked statistics for League of Legends Mobile (China server) from Tencent. Other regions do not publish statistics, so these are China server numbers.',
+      foot2: 'The number on the left is the rank within the selected position and tier. Tap a row to open the champion details.',
+      detail: 'Details for {n}', noResult: 'No results for "{q}".', noStats: 'No data for this tier.',
+      close: 'Close', byPos: 'By position · {t}', rankOf: 'Win rate #{r} of {n}', pickBan: 'Pick {p} · Ban {b}',
+      byTier: '{p} · by rank tier', thTier: 'Tier', thRank: 'Rank', none: 'No data',
+      build: 'Recommended build', bStart: 'Starting', bCore: 'Core', bBoots: 'Boots', bFinal: 'Final build',
+      bKey: 'Keystone', bRunes: 'Runes', bSpells: 'Summoner spells',
+      buildNote: 'Hover over or tap an icon to see its name. This is the build recommended by the guide site wildriftfire.com{v}. It is not derived from win-rate data; the official statistics have no per-build win rates.',
+      buildPatch: ' (patch {v})', noBuild: 'No recommended build is available for this champion.',
+      guide: 'Situational items and skill order',
+      patchIntro: 'Only the changed entries and numbers are taken from the official patch notes. Developer comments and longer explanations are in the original.',
+      noPatch: 'Patch notes could not be loaded.', nChamp: 'Champions {n}', nEtc: 'Other {n}',
+      glance: 'At a glance', more: ' and {n} more', count: '{n}', viewWin: 'Win rates for {n}',
+      cut: 'More details in the original.', orig: 'Read the full {v} patch notes',
+      open: 'Show', shut: 'Hide'
+    },
+    zh: {
+      title: '英雄联盟手游资讯', h1a: '英雄联盟手游', h1b: '资讯',
+      meta: '国服排位赛数据 · {d} 统计',
+      vStats: '胜率榜', vPatch: '版本更新',
+      pos: { 2: '上单', 5: '打野', 1: '中路', 3: '下路', 4: '辅助' },
+      tier: { 1: '钻石以上', 2: '大师以上', 3: '王者', 4: '峡谷之巅' },
+      posLabel: '位置', tierLabel: '段位',
+      search: '搜索英雄', champ: '英雄', win: '胜率', pick: '登场率', ban: '禁用率',
+      foot1: '数据来源：腾讯《英雄联盟手游》（国服）官方排位统计。其他地区未公开统计数据，因此显示的是国服数据。',
+      foot2: '左侧数字是所选位置和段位内的排名。点击某一行可查看英雄详情。',
+      detail: '查看{n}详情', noResult: '没有找到“{q}”。', noStats: '该段位暂无数据。',
+      close: '关闭', byPos: '各位置表现 · {t}', rankOf: '胜率第{r}名 / 共{n}名', pickBan: '登场 {p} · 禁用 {b}',
+      byTier: '{p} · 各段位对比', thTier: '段位', thRank: '排名', none: '暂无数据',
+      build: '推荐出装', bStart: '出门装', bCore: '核心装备', bBoots: '鞋子', bFinal: '最终出装',
+      bKey: '基石符文', bRunes: '其他符文', bSpells: '召唤师技能',
+      buildNote: '将鼠标移到图标上或点击图标可查看名称。出装推荐来自攻略网站 wildriftfire.com{v}，并非根据胜率统计得出；官方数据不提供各出装的胜率。',
+      buildPatch: '（版本 {v}）', noBuild: '未能获取该英雄的推荐出装。',
+      guide: '查看针对性出装与加点顺序（英文）',
+      patchIntro: '仅整理官方更新公告中的改动项目和数值。官方公告只有繁体中文版，英雄和装备名称为台服译名。设计师说明和较长的介绍请查看原文。',
+      noPatch: '未能获取更新公告。', nChamp: '英雄 {n}', nEtc: '其他 {n}',
+      glance: '概览', more: ' 等另外{n}项', count: '{n}项', viewWin: '查看{n}胜率',
+      cut: '更多说明请查看原文。', orig: '查看 {v} 更新公告原文',
+      open: '展开', shut: '收起'
+    }
+  };
+  var lang = 'ko';
+  try {
+    var savedLang = localStorage.getItem('wr-lang');
+    var nav = (navigator.language || 'ko').toLowerCase();
+    lang = LANGS.indexOf(savedLang) >= 0 ? savedLang : nav.indexOf('ko') === 0 ? 'ko' : nav.indexOf('zh') === 0 ? 'zh' : 'en';
+  } catch (e) {}
+  function t(key, vars) {
+    var s = T[lang][key];
+    if (vars) Object.keys(vars).forEach(function (k) { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  }
+  // [한국어, 영어, 중국어] 배열에서 현재 언어의 이름을 고른다. 없으면 영어, 그다음 한국어.
+  function nm(arr) {
+    if (typeof arr === 'string') return arr;
+    return arr[LANGS.indexOf(lang)] || arr[1] || arr[0];
+  }
+
+  var POS = ['2', '5', '1', '3', '4'];
+  var TIER = ['1', '2', '3', '4'];
+
+  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null, view: 'stats' };
   try {
     var saved = JSON.parse(localStorage.getItem('wr-state') || '{}');
-    if (POSNAME[saved.pos]) state.pos = saved.pos;
-    if (TIERNAME[saved.tier]) state.tier = saved.tier;
+    if (POS.indexOf(saved.pos) >= 0) state.pos = saved.pos;
+    if (TIER.indexOf(saved.tier) >= 0) state.tier = saved.tier;
   } catch (e) {}
   function save() {
     try { localStorage.setItem('wr-state', JSON.stringify({ pos: state.pos, tier: state.tier })); } catch (e) {}
@@ -345,12 +464,14 @@ tr.cur td:first-child { color: var(--gold); }
     if (text != null) e.textContent = text;
     return e;
   }
+  function $(id) { return document.getElementById(id); }
+  function each(list, fn) { Array.prototype.forEach.call(list, fn); }
   function pct(v) { return v.toFixed(2) + '%'; }
   function avatar(id) {
     var h = D.heroes[id], box = el('span', 'ava');
     var img = new Image();
     img.alt = ''; img.loading = 'lazy';
-    img.onerror = function () { box.textContent = h.n.charAt(0); };
+    img.onerror = function () { box.textContent = nm(h.n).charAt(0); };
     img.src = h.a;
     box.appendChild(img);
     return box;
@@ -366,34 +487,64 @@ tr.cur td:first-child { color: var(--gold); }
   }
 
   // 컨트롤
-  var tabs = document.getElementById('tabs');
+  var tabs = $('tabs');
   POS.forEach(function (p) {
-    var b = el('button', '', p[1]);
-    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.pos = p[0];
-    b.onclick = function () { state.pos = p[0]; save(); render(); };
+    var b = el('button');
+    b.type = 'button'; b.setAttribute('role', 'tab'); b.dataset.pos = p;
+    b.onclick = function () { state.pos = p; save(); render(); };
     tabs.appendChild(b);
   });
-  var tiers = document.getElementById('tiers');
-  TIER.forEach(function (t) {
-    var b = el('button', '', t[1]);
-    b.type = 'button'; b.dataset.tier = t[0];
-    b.onclick = function () { state.tier = t[0]; save(); render(); };
+  var tiers = $('tiers');
+  TIER.forEach(function (tr) {
+    var b = el('button');
+    b.type = 'button'; b.dataset.tier = tr;
+    b.onclick = function () { state.tier = tr; save(); render(); };
     tiers.appendChild(b);
   });
-  document.getElementById('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderList(); });
-  Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+  $('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderList(); });
+  each(document.querySelectorAll('#head button'), function (b) {
     b.onclick = function () { state.sort = +b.dataset.sort; render(); };
   });
-  document.getElementById('meta').textContent = '중국 서버 랭크 게임 기준 · ' + D.date + ' 집계';
+  each($('langs').children, function (b) {
+    b.onclick = function () {
+      lang = b.dataset.lang;
+      try { localStorage.setItem('wr-lang', lang); } catch (e) {}
+      applyLang();
+    };
+  });
+
+  // 고정 문구를 현재 언어로 바꾸고 화면을 다시 그린다
+  function applyLang() {
+    document.documentElement.lang = lang;
+    document.title = t('title');
+    document.documentElement.style.setProperty('--t-open', JSON.stringify(t('open')));
+    document.documentElement.style.setProperty('--t-close', JSON.stringify(t('shut')));
+    $('h1a').textContent = t('h1a'); $('h1b').textContent = t('h1b');
+    $('meta').textContent = t('meta', { d: D.date });
+    each($('langs').children, function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
+    each($('views').children, function (b) { b.textContent = t(b.dataset.view === 'stats' ? 'vStats' : 'vPatch'); });
+    tabs.setAttribute('aria-label', t('posLabel'));
+    tiers.setAttribute('aria-label', t('tierLabel'));
+    each(tabs.children, function (b) { b.textContent = T[lang].pos[b.dataset.pos]; });
+    each(tiers.children, function (b) { b.textContent = T[lang].tier[b.dataset.tier]; });
+    $('q').placeholder = t('search'); $('q').setAttribute('aria-label', t('search'));
+    $('col-champ').textContent = t('champ');
+    var cols = { 1: 'win', 2: 'pick', 3: 'ban' };
+    each(document.querySelectorAll('#head button'), function (b) { b.textContent = t(cols[b.dataset.sort]); });
+    $('foot1').textContent = t('foot1'); $('foot2').textContent = t('foot2');
+    render();
+    if (state.hero) renderSheet();
+    if (patchBuilt) buildPatches();
+  }
 
   function render() {
-    Array.prototype.forEach.call(tabs.children, function (b) {
+    each(tabs.children, function (b) {
       b.setAttribute('aria-selected', b.dataset.pos === state.pos ? 'true' : 'false');
     });
-    Array.prototype.forEach.call(tiers.children, function (b) {
+    each(tiers.children, function (b) {
       b.setAttribute('aria-pressed', b.dataset.tier === state.tier ? 'true' : 'false');
     });
-    Array.prototype.forEach.call(document.querySelectorAll('#head button'), function (b) {
+    each(document.querySelectorAll('#head button'), function (b) {
       if (+b.dataset.sort === state.sort) b.setAttribute('aria-sort', 'descending');
       else b.removeAttribute('aria-sort');
     });
@@ -401,21 +552,22 @@ tr.cur td:first-child { color: var(--gold); }
   }
 
   function renderList() {
-    var list = document.getElementById('list');
+    var list = $('list');
     list.textContent = '';
     var rows = sorted(state.tier, state.pos, state.sort);
     var q = state.q.toLowerCase(), shown = 0;
     rows.forEach(function (r, idx) {
-      var h = D.heroes[r[0]];
-      if (q && h.n.toLowerCase().indexOf(q) === -1) return;
+      var h = D.heroes[r[0]], name = nm(h.n);
+      // 검색은 어느 언어 이름으로든 된다
+      if (q && h.n.join('\n').toLowerCase().indexOf(q) === -1) return;
       shown++;
       var li = el('li', idx < 3 ? 'top3' : '');
       var b = el('button', 'rowbtn grid');
       b.type = 'button';
-      b.setAttribute('aria-label', h.n + ' 상세 보기');
+      b.setAttribute('aria-label', t('detail', { n: name }));
       b.appendChild(el('span', 'rank', idx + 1));
       b.appendChild(avatar(r[0]));
-      b.appendChild(el('span', 'name', h.n));
+      b.appendChild(el('span', 'name', name));
       var win = el('span', 'win');
       win.appendChild(el('b', r[1] >= 50 ? 'up' : 'down', pct(r[1])));
       win.appendChild(winBar(r[1]));
@@ -426,11 +578,11 @@ tr.cur td:first-child { color: var(--gold); }
       li.appendChild(b);
       list.appendChild(li);
     });
-    if (!shown) list.appendChild(el('li', 'empty', q ? '"' + state.q + '" 검색 결과가 없습니다.' : '이 구간에는 통계가 없습니다.'));
+    if (!shown) list.appendChild(el('li', 'empty', q ? t('noResult', { q: state.q }) : t('noStats')));
   }
 
   // 상세 시트
-  var scrim = document.getElementById('scrim'), sheet = document.getElementById('sheet');
+  var scrim = $('scrim'), sheet = $('sheet');
   function find(tier, pos, id) {
     var rows = sorted(tier, pos, 1);
     for (var i = 0; i < rows.length; i++) if (rows[i][0] === id) return { row: rows[i], rank: i + 1, total: rows.length };
@@ -455,31 +607,31 @@ tr.cur td:first-child { color: var(--gold); }
 
     var head = el('div', 'sheet-head');
     head.appendChild(avatar(id));
-    var t = el('h2', '', h.n); t.id = 'sheet-title';
-    head.appendChild(t);
-    var c = el('button', 'close', '닫기'); c.type = 'button'; c.onclick = closeHero;
+    var ttl = el('h2', '', nm(h.n)); ttl.id = 'sheet-title';
+    head.appendChild(ttl);
+    var c = el('button', 'close', t('close')); c.type = 'button'; c.onclick = closeHero;
     head.appendChild(c);
     sheet.appendChild(head);
 
     // 포지션별 요약 (선택한 랭크 구간)
-    var played = POS.filter(function (p) { return find(state.tier, p[0], id); });
-    if (played.length && !find(state.tier, state.hpos, id)) state.hpos = played[0][0];
+    var played = POS.filter(function (p) { return find(state.tier, p, id); });
+    if (played.length && !find(state.tier, state.hpos, id)) state.hpos = played[0];
     var s1 = el('section');
-    s1.appendChild(el('h3', '', '포지션별 성적 · ' + TIERNAME[state.tier]));
+    s1.appendChild(el('h3', '', t('byPos', { t: T[lang].tier[state.tier] })));
     if (!played.length) {
-      s1.appendChild(el('p', 'empty', '이 구간에는 통계가 없습니다.'));
+      s1.appendChild(el('p', 'empty', t('noStats')));
     } else {
       var pg = el('div', 'posgrid');
       played.forEach(function (p) {
-        var f = find(state.tier, p[0], id);
+        var f = find(state.tier, p, id);
         var card = el('button', 'poscard');
         card.type = 'button';
-        card.setAttribute('aria-pressed', p[0] === state.hpos ? 'true' : 'false');
-        card.appendChild(el('span', 'p', p[1]));
+        card.setAttribute('aria-pressed', p === state.hpos ? 'true' : 'false');
+        card.appendChild(el('span', 'p', T[lang].pos[p]));
         card.appendChild(el('span', 'w ' + (f.row[1] >= 50 ? 'up' : 'down'), pct(f.row[1])));
-        card.appendChild(el('span', 's', '승률 ' + f.rank + '위 / ' + f.total + '명'));
-        card.appendChild(el('span', 's', '픽 ' + pct(f.row[2]) + ' · 밴 ' + pct(f.row[3])));
-        card.onclick = function () { state.hpos = p[0]; renderSheet(); };
+        card.appendChild(el('span', 's', t('rankOf', { r: f.rank, n: f.total })));
+        card.appendChild(el('span', 's', t('pickBan', { p: pct(f.row[2]), b: pct(f.row[3]) })));
+        card.onclick = function () { state.hpos = p; renderSheet(); };
         pg.appendChild(card);
       });
       s1.appendChild(pg);
@@ -488,21 +640,21 @@ tr.cur td:first-child { color: var(--gold); }
 
     // 랭크 구간별 비교 (선택한 포지션)
     var s2 = el('section');
-    s2.appendChild(el('h3', '', POSNAME[state.hpos] + ' · 랭크 구간별 비교'));
+    s2.appendChild(el('h3', '', t('byTier', { p: T[lang].pos[state.hpos] })));
     var wrap = el('div', 'tablewrap'), table = el('table'), thead = el('thead'), trh = el('tr');
-    ['구간', '승률', '순위', '픽률', '밴률'].forEach(function (x) { trh.appendChild(el('th', '', x)); });
+    ['thTier', 'win', 'thRank', 'pick', 'ban'].forEach(function (k) { trh.appendChild(el('th', '', t(k))); });
     thead.appendChild(trh); table.appendChild(thead);
     var tb = el('tbody');
     TIER.forEach(function (tr) {
-      var f = find(tr[0], state.hpos, id), row = el('tr', tr[0] === state.tier ? 'cur' : '');
-      row.appendChild(el('td', '', tr[1]));
+      var f = find(tr, state.hpos, id), row = el('tr', tr === state.tier ? 'cur' : '');
+      row.appendChild(el('td', '', T[lang].tier[tr]));
       if (f) {
         row.appendChild(el('td', f.row[1] >= 50 ? 'up' : 'down', pct(f.row[1])));
         row.appendChild(el('td', '', f.rank + ' / ' + f.total));
         row.appendChild(el('td', '', pct(f.row[2])));
         row.appendChild(el('td', '', pct(f.row[3])));
       } else {
-        var td = el('td', '', '통계 없음'); td.colSpan = 4; td.style.color = 'var(--mute)';
+        var td = el('td', '', t('none')); td.colSpan = 4; td.style.color = 'var(--mute)';
         row.appendChild(td);
       }
       tb.appendChild(row);
@@ -512,22 +664,22 @@ tr.cur td:first-child { color: var(--gold); }
 
     // 빌드
     var s3 = el('section');
-    s3.appendChild(el('h3', '', '추천 빌드'));
+    s3.appendChild(el('h3', '', t('build')));
     var build = el('div', 'build');
     var B = (D.builds || {})[id];
     // 아이콘에 마우스를 올리면 이름이 뜨고, 누르면(터치 화면) 묶음 제목 옆에 이름이 표시된다.
     function group(label, refs, numbered, round) {
       if (!refs || !refs.length) return;
       var g = el('div', 'bgroup');
-      var head = el('div', 'bhead');
-      head.appendChild(el('span', 'blabel', label));
+      var ghead = el('div', 'bhead');
+      ghead.appendChild(el('span', 'blabel', label));
       var picked = el('span', 'bpicked');
       picked.setAttribute('aria-live', 'polite');
-      head.appendChild(picked);
-      g.appendChild(head);
+      ghead.appendChild(picked);
+      g.appendChild(ghead);
       var chips = el(numbered ? 'ol' : 'ul', 'chips');
       refs.forEach(function (ref, i) {
-        var thing = D.things[ref] || ['?', ''], name = thing[0], src = thing[1];
+        var thing = D.things[ref] || [['?'], ''], name = nm(thing[0]), src = thing[1];
         var li = el('li');
         var b = el('button', 'icon' + (round ? ' round' : ''));
         b.type = 'button'; b.title = name; b.setAttribute('aria-label', name);
@@ -541,7 +693,7 @@ tr.cur td:first-child { color: var(--gold); }
           if (numbered) b.appendChild(el('span', 'no', i + 1));
         } else asText();
         b.onclick = function () {
-          Array.prototype.forEach.call(chips.querySelectorAll('.on'), function (x) { x.classList.remove('on'); });
+          each(chips.querySelectorAll('.on'), function (x) { x.classList.remove('on'); });
           b.classList.add('on');
           picked.textContent = name;
         };
@@ -552,19 +704,19 @@ tr.cur td:first-child { color: var(--gold); }
       build.appendChild(g);
     }
     if (B) {
-      group('시작', B.s);
-      group('핵심', B.c, true);
-      group('신발', B.b);
-      group('최종 빌드', B.f, true);
-      group('핵심 룬', B.r.slice(0, 1), false, true);
-      group('보조 룬', B.r.slice(1), false, true);
-      group('소환사 주문', B.sp);
-      build.appendChild(el('p', '', '아이콘에 마우스를 올리거나 누르면 이름이 나옵니다. 가이드 사이트 wildriftfire.com의 추천 빌드입니다' + (B.p ? ' (패치 ' + B.p + ')' : '') + '. 승률 통계로 뽑은 빌드가 아니며, 공식 통계에는 빌드별 승률이 없습니다.'));
+      group(t('bStart'), B.s);
+      group(t('bCore'), B.c, true);
+      group(t('bBoots'), B.b);
+      group(t('bFinal'), B.f, true);
+      group(t('bKey'), B.r.slice(0, 1), false, true);
+      group(t('bRunes'), B.r.slice(1), false, true);
+      group(t('bSpells'), B.sp);
+      build.appendChild(el('p', '', t('buildNote', { v: B.p ? t('buildPatch', { v: B.p }) : '' })));
     } else {
-      build.appendChild(el('p', '', '이 챔피언의 추천 빌드를 가져오지 못했습니다.'));
+      build.appendChild(el('p', '', t('noBuild')));
     }
     if (h.g) {
-      var a = el('a', 'go', '상황별 아이템·스킬 순서 보기');
+      var a = el('a', 'go', t('guide'));
       a.href = h.g; a.target = '_blank'; a.rel = 'noopener';
       build.appendChild(a);
     }
@@ -584,27 +736,32 @@ tr.cur td:first-child { color: var(--gold); }
   window.addEventListener('hashchange', fromHash);
 
   // 화면 전환: 승률표 / 패치 노트
-  var viewStats = document.getElementById('view-stats'), viewPatch = document.getElementById('view-patch');
-  var viewBtns = document.querySelectorAll('.views button'), patchBuilt = false;
+  var viewStats = $('view-stats'), viewPatch = $('view-patch');
+  var viewBtns = $('views').children, patchBuilt = false;
   function showView(v) {
     state.view = v;
     viewStats.hidden = v !== 'stats';
     viewPatch.hidden = v !== 'patch';
-    Array.prototype.forEach.call(viewBtns, function (b) {
+    each(viewBtns, function (b) {
       if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
     if (v === 'patch' && !patchBuilt) { buildPatches(); patchBuilt = true; }
   }
-  Array.prototype.forEach.call(viewBtns, function (b) {
+  each(viewBtns, function (b) {
     b.onclick = function () {
       showView(b.dataset.view);
       try { history.replaceState(null, '', location.pathname + location.search + (b.dataset.view === 'patch' ? '#patch-notes' : '')); } catch (e) {}
     };
   });
 
+  // 패치 노트 속 챔피언 이름(어느 언어든, 대만 표기 포함)으로 챔피언을 찾는다
   var heroByName = {};
-  Object.keys(D.heroes).forEach(function (id) { heroByName[D.heroes[id].n.replace(/\s/g, '')] = id; });
-  function heroId(name) { return heroByName[String(name).replace(/\s/g, '')]; }
+  function key(s) { return String(s).toLowerCase().replace(/[\s'’.·&]/g, ''); }
+  Object.keys(D.heroes).forEach(function (id) {
+    var h = D.heroes[id];
+    h.n.concat(h.x ? [h.x] : []).forEach(function (n) { if (n) heroByName[key(n)] = id; });
+  });
+  function heroId(name) { return heroByName[key(name)]; }
 
   // "A → B" 줄은 바뀐 뒤 값(B)을 강조한다
   function changeLine(text) {
@@ -620,19 +777,25 @@ tr.cur td:first-child { color: var(--gold); }
     return (real.length ? real : sec.g).map(function (g) { return g.n; });
   }
   function buildPatches() {
-    var P = D.patches || [];
+    var all = D.patches || {};
+    if (Array.isArray(all)) all = { ko: all };
+    var P = all[lang] && all[lang].length ? all[lang] : (all.en || all.ko || []);
+    // 다시 그릴 때 펼쳐 둔 패치는 그대로 둔다
+    var wasOpen = {};
+    each(viewPatch.querySelectorAll('details.patch'), function (d) { wasOpen[d.dataset.v] = d.open; });
     viewPatch.textContent = '';
-    if (!P.length) { viewPatch.appendChild(el('p', 'empty', '패치 노트를 가져오지 못했습니다.')); return; }
-    viewPatch.appendChild(el('p', 'pnote', '공식 한국어 패치 노트에서 바뀐 항목과 수치만 추렸습니다. 개발자 설명과 긴 안내문은 원문에서 볼 수 있습니다.'));
+    if (!P.length) { viewPatch.appendChild(el('p', 'empty', t('noPatch'))); return; }
+    viewPatch.appendChild(el('p', 'pnote', t('patchIntro')));
     P.forEach(function (p, idx) {
       var d = el('details', 'patch');
-      if (idx === 0) d.open = true;
+      d.dataset.v = p.v;
+      d.open = p.v in wasOpen ? wasOpen[p.v] : idx === 0;
       var sum = el('summary');
       sum.appendChild(el('span', 'pver', p.v));
       sum.appendChild(el('span', 'pdate', p.date));
       var nChamp = 0, nEtc = 0;
       p.s.forEach(function (s) { if (s.k === 'champ') nChamp += s.g.length; else nEtc += namesOf(s).length; });
-      sum.appendChild(el('span', 'pcount', (nChamp ? '챔피언 ' + nChamp + ' · ' : '') + '기타 ' + nEtc));
+      sum.appendChild(el('span', 'pcount', (nChamp ? t('nChamp', { n: nChamp }) + ' · ' : '') + t('nEtc', { n: nEtc })));
       d.appendChild(sum);
 
       var body = el('div', 'pbody');
@@ -640,7 +803,7 @@ tr.cur td:first-child { color: var(--gold); }
 
       // 한눈에 보기
       var glance = el('div', 'glance');
-      glance.appendChild(el('h3', '', '한눈에 보기'));
+      glance.appendChild(el('h3', '', t('glance')));
       p.s.forEach(function (s) {
         var row = el('div', 'grow');
         var names = namesOf(s);
@@ -649,19 +812,20 @@ tr.cur td:first-child { color: var(--gold); }
           var box = el('div', 'champs');
           s.g.forEach(function (g) {
             var id = heroId(g.n);
+            var label = id ? nm(D.heroes[id].n) : g.n;
             var c = el(id ? 'button' : 'span', 'champ');
             if (id) {
-              c.type = 'button'; c.title = g.n + ' 승률 보기';
+              c.type = 'button'; c.title = t('viewWin', { n: label });
               c.appendChild(avatar(id));
               c.onclick = function () { openHero(id, state.pos); };
             } else c.style.paddingLeft = '10px';
-            c.appendChild(document.createTextNode(g.n));
+            c.appendChild(document.createTextNode(label));
             box.appendChild(c);
           });
           row.appendChild(box);
         } else {
           var shown = names.slice(0, 12).join(', ');
-          row.appendChild(el('span', 'names', shown + (names.length > 12 ? ' 외 ' + (names.length - 12) + '개' : '')));
+          row.appendChild(el('span', 'names', shown + (names.length > 12 ? t('more', { n: names.length - 12 }) : '')));
         }
         glance.appendChild(row);
       });
@@ -672,7 +836,7 @@ tr.cur td:first-child { color: var(--gold); }
       p.s.forEach(function (s) {
         var sd = el('details', 'sec'), ss = el('summary');
         ss.appendChild(el('span', '', s.t));
-        ss.appendChild(el('span', 'n', namesOf(s).length + '개'));
+        ss.appendChild(el('span', 'n', t('count', { n: namesOf(s).length })));
         sd.appendChild(ss);
         var sb = el('div', 'secbody');
         s.g.forEach(function (g) {
@@ -680,7 +844,7 @@ tr.cur td:first-child { color: var(--gold); }
           var gn = el('div', 'gn');
           var id = s.k === 'champ' ? heroId(g.n) : null;
           if (id) gn.appendChild(avatar(id));
-          gn.appendChild(document.createTextNode(g.n));
+          gn.appendChild(document.createTextNode(id ? nm(D.heroes[id].n) : g.n));
           pg.appendChild(gn);
           g.c.forEach(function (c) {
             if (c.t) pg.appendChild(el('div', 'ct', c.t));
@@ -689,7 +853,7 @@ tr.cur td:first-child { color: var(--gold); }
               c.l.forEach(function (line) { ul.appendChild(changeLine(line)); });
               pg.appendChild(ul);
             }
-            if (c.x) pg.appendChild(el('div', 'cut', '설명이 더 있습니다. 원문에서 확인하세요.'));
+            if (c.x) pg.appendChild(el('div', 'cut', t('cut')));
           });
           sb.appendChild(pg);
         });
@@ -698,7 +862,7 @@ tr.cur td:first-child { color: var(--gold); }
       });
       body.appendChild(secs);
 
-      var a = el('a', 'orig', p.v + ' 패치 노트 원문 보기');
+      var a = el('a', 'orig', t('orig', { v: p.v }));
       a.href = p.url; a.target = '_blank'; a.rel = 'noopener';
       body.appendChild(a);
       d.appendChild(body);
@@ -706,7 +870,7 @@ tr.cur td:first-child { color: var(--gold); }
     });
   }
 
-  render();
+  applyLang();
   showView('stats');
   fromHash();
 })();

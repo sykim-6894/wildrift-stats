@@ -16,10 +16,12 @@ from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
 BASE = "https://wildrift.leagueoflegends.com"
-LIST_URL = BASE + "/ko-kr/news/game-updates/"
+LIST_PATH = "/{loc}/news/game-updates/"
+# 화면 언어 -> 공식 사이트 언어. 중국어는 공식 사이트에 번체(대만)만 있다.
+LOCALES = {"ko": "ko-kr", "en": "en-us", "zh": "zh-tw"}
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) wildrift-stats personal page"}
 KEEP = 8          # 보여줄 패치 개수
-LINE_MAX = 90     # 화살표(→)가 없는 줄은 이보다 짧을 때만 남긴다 (긴 설명문 제외)
+LINE_MAX = {"ko": 90, "en": 150, "zh": 60}  # 화살표(→)가 없는 줄은 이보다 짧을 때만 남긴다 (긴 설명문 제외)
 GROUP_MAX = 10    # 한 항목에 남기는 줄 수
 
 
@@ -38,8 +40,11 @@ def clean(s):
     return re.sub(r"\s+", " ", s).strip()
 
 
+CUR_MAX = 90      # 지금 처리 중인 언어의 기준 길이 (main 에서 바꾼다)
+
+
 def keep_line(s):
-    return bool(s) and ("→" in s or len(s) <= LINE_MAX)
+    return bool(s) and ("→" in s or len(s) <= CUR_MAX)
 
 
 class Outline(HTMLParser):
@@ -178,13 +183,13 @@ def find_patch_links(page):
     return sorted(found.values(), key=lambda x: x["date"], reverse=True)[:KEEP]
 
 
-def main():
-    path = HERE / "patches.json"
-    old = {p["url"]: p for p in json.loads(path.read_text(encoding="utf-8"))} if path.exists() else {}
-    links = find_patch_links(next_data(LIST_URL))
+def fetch_locale(lang, loc, old):
+    """한 언어의 패치 노트 목록. old 는 {주소: 이미 받아 둔 패치}."""
+    global CUR_MAX
+    CUR_MAX = LINE_MAX[lang]
+    links = find_patch_links(next_data(BASE + LIST_PATH.format(loc=loc)))
     if not links:
-        sys.exit("패치 노트 목록을 찾지 못했습니다.")
-
+        raise ValueError("패치 노트 목록을 찾지 못했습니다: " + loc)
     out = []
     for i, item in enumerate(links):
         full = BASE + item["url"]
@@ -201,15 +206,35 @@ def main():
                 "url": full,
                 "s": parse_article(page),
             })
-            print(f"받음: {item['title']}")
+            print(f"받음[{lang}]: {item['title']}")
         except Exception as e:
-            print(f"실패: {item['title']}: {e}", file=sys.stderr)
+            print(f"실패[{lang}]: {item['title']}: {e}", file=sys.stderr)
             if full in old:
                 out.append(old[full])
         time.sleep(1)
+    return out
 
-    path.write_text(json.dumps(out, ensure_ascii=False, indent=1), encoding="utf-8")
-    print(f"patches.json 저장: {len(out)}개")
+
+def main():
+    path = HERE / "patches.json"
+    saved = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    if isinstance(saved, list):            # 예전 형식(한국어만)
+        saved = {"ko": saved}
+
+    result, ok = {}, 0
+    for lang, loc in LOCALES.items():
+        old = {p["url"]: p for p in saved.get(lang, [])}
+        try:
+            result[lang] = fetch_locale(lang, loc, old)
+            ok += 1
+        except Exception as e:             # 한 언어가 실패해도 나머지는 계속, 기존 내용 유지
+            print(f"실패[{lang}]: {e}", file=sys.stderr)
+            result[lang] = saved.get(lang, [])
+    if not ok:
+        sys.exit("패치 노트를 하나도 받지 못했습니다.")
+
+    path.write_text(json.dumps(result, ensure_ascii=False, indent=1), encoding="utf-8")
+    print("patches.json 저장: " + ", ".join(f"{k} {len(v)}개" for k, v in result.items()))
 
 
 if __name__ == "__main__":

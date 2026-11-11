@@ -24,7 +24,7 @@ TIERS = ["1", "2", "3", "4"]          # 다이아+, 마스터+, 챌린저, 峡�
 POSITIONS = ["2", "5", "1", "3", "4"]  # 탑, 정글, 미드, 원딜, 서폿
 
 # PC 롤에 없는 와일드리프트 전용 챔피언
-EXTRA = {"norra": {"ko": "노라", "en": "Norra"}}
+EXTRA = {"norra": {"ko": "노라", "en": "Norra", "tw": "諾拉"}}
 
 # 빌드 가이드(wildriftfire) 주소가 영어 이름과 다르게 생긴 경우
 GUIDE_SLUG_FIX = {"nunuwillump": "nunu-amp-willump"}
@@ -135,7 +135,8 @@ class Names:
         icon = self.cn_icon[kind].get(zh) or self.dd_icon[kind].get(n) or ""
         if not icon:
             self.no_icon.add(name)
-        return ko or name, icon
+        # [한국어, 영어, 중국어(간체)] 이름. 번역이 없으면 영어 이름을 쓴다.
+        return [ko or name, name, zh or name], icon
 
 
 def load_builds(ver, heroes):
@@ -179,8 +180,11 @@ def load_patches():
     if not path.exists():
         return []
     patches = json.loads(path.read_text(encoding="utf-8"))
-    for p in patches:
-        p.pop("title", None)
+    if isinstance(patches, list):      # 예전 형식(한국어만)
+        patches = {"ko": patches}
+    for plist in patches.values():
+        for p in plist:
+            p.pop("title", None)
     return patches
 
 
@@ -208,7 +212,8 @@ def main():
     ver = get_json(DD_VERSIONS)[0]
     ko = get_json(DD_CHAMPS.format(v=ver, lang="ko_KR"))["data"]
     en = get_json(DD_CHAMPS.format(v=ver, lang="en_US"))["data"]
-    names = {k.lower(): {"ko": ko[k]["name"], "en": en[k]["name"]} for k in ko}
+    tw = get_json(DD_CHAMPS.format(v=ver, lang="zh_TW"))["data"]
+    names = {k.lower(): {"ko": ko[k]["name"], "en": en[k]["name"], "tw": tw.get(k, {}).get("name", "")} for k in ko}
     names.update(EXTRA)
 
     heroes = {}
@@ -220,7 +225,10 @@ def main():
             unknown.append(h["name"])
             n = {"ko": h["name"], "en": ""}
         heroes[hid] = {
-            "n": n["ko"],
+            # [한국어, 영어, 중국어(간체, 중국 서버 표기)]
+            "n": [n["ko"], n["en"] or h["name"], h["name"]],
+            # 패치 노트(번체)에서 챔피언을 찾기 위한 대만 표기
+            "x": n.get("tw", ""),
             "a": h["avatar"],
             "g": GUIDE_URL.format(slug=guide_slug(n["en"])) if n["en"] else "",
         }
