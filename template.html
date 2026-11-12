@@ -303,6 +303,29 @@ a.orig:hover { color: var(--text); }
   .grid { grid-template-columns: 20px 36px minmax(0, 1fr) 76px 44px 44px; }
   .tiers { gap: 12px; }
 }
+
+/* 승률표 안의 보기 전환: 전체 순위 / 추천 / 변동 */
+.modes { display: flex; gap: 16px; padding: 12px 4px 0; }
+.modes button { font-size: 13px; color: var(--mute); padding: 4px 0; transition: color 140ms var(--ease); }
+.modes button:hover { color: var(--sub); }
+.modes button[aria-pressed="true"] { color: var(--text); font-weight: 500; }
+.head.static button { pointer-events: none; }
+#list li.sect { border-bottom: 1px solid var(--line); padding: 24px 0 8px; display: flex; flex-direction: column; gap: 4px; }
+#list li.sect:first-child { padding-top: 12px; }
+.sect .st { font-size: 15px; font-weight: 500; }
+.sect .sd { font-size: 12px; line-height: 16px; color: var(--mute); }
+#list li.none { padding: 12px 0; color: var(--mute); font-size: 13px; }
+.num.up { color: var(--up); }
+.num.down { color: var(--down); }
+/* 승률 추이 그래프 */
+.trend svg { display: block; width: 100%; height: auto; overflow: visible; }
+.trend text { font-family: var(--mono); font-size: 10px; fill: var(--mute); }
+.trend .ref { stroke: var(--mute); stroke-width: 1; stroke-dasharray: 2 3; }
+.trend .ln { fill: none; stroke: var(--text); stroke-width: 1.5; stroke-linejoin: round; stroke-linecap: round; }
+.trend .pt { fill: var(--sub); }
+.trend .end { fill: var(--text); }
+.trend .val { fill: var(--text); font-size: 11px; }
+.trend p { margin: 0; font-size: 12px; color: var(--mute); }
 </style>
 </head>
 <body>
@@ -327,6 +350,7 @@ a.orig:hover { color: var(--text); }
   <div id="view-patch" hidden></div>
 
   <div id="view-stats">
+  <div class="modes" id="modes"></div>
   <div class="controls">
     <div class="tabs" role="tablist" id="tabs"></div>
     <div class="row2">
@@ -385,6 +409,13 @@ a.orig:hover { color: var(--text); }
       noPatch: '패치 노트를 가져오지 못했습니다', nChamp: '챔피언 {n}', nEtc: '기타 {n}',
       glance: '한눈에 보기', more: ' 외 {n}개', count: '{n}개', viewWin: '{n} 승률 보기',
       cut: '설명이 더 있음 · 원문 참고', orig: '{v} 패치 노트 원문 보기',
+      mAll: '전체 순위', mPick: '추천', mMove: '변동', delta: '변동',
+      sSleep: '꿀챔', sSleepD: '승률은 높은데 픽률이 낮은 챔피언',
+      sBan: '밴 추천', sBanD: '승률과 픽률이 모두 높은 챔피언',
+      sTrap: '함정 픽', sTrapD: '픽률은 높은데 승률이 낮은 챔피언',
+      sUp: '오른 챔피언', sDown: '떨어진 챔피언', moveD: '{a} → {b} 승률 변화, 단위 %p',
+      noneList: '해당 없음', moveWait: '기록이 이틀 이상 쌓이면 표시됩니다',
+      trend: '승률 추이 · {p} · {t}',
       open: '펼치기', shut: '접기'
     },
     en: {
@@ -409,6 +440,13 @@ a.orig:hover { color: var(--text); }
       noPatch: 'Patch notes could not be loaded', nChamp: 'Champions {n}', nEtc: 'Other {n}',
       glance: 'At a glance', more: ' and {n} more', count: '{n}', viewWin: 'Win rates for {n}',
       cut: 'More in the original', orig: 'Read the full {v} patch notes',
+      mAll: 'All', mPick: 'Picks', mMove: 'Movers', delta: 'Change',
+      sSleep: 'Sleeper picks', sSleepD: 'High win rate, low pick rate',
+      sBan: 'Worth banning', sBanD: 'High win rate and high pick rate',
+      sTrap: 'Trap picks', sTrapD: 'Popular but losing',
+      sUp: 'Rising', sDown: 'Falling', moveD: 'Win rate change from {a} to {b}, in points',
+      noneList: 'None', moveWait: 'Shown once two days of data exist',
+      trend: 'Win rate trend · {p} · {t}',
       open: 'Show', shut: 'Hide'
     },
     zh: {
@@ -433,6 +471,13 @@ a.orig:hover { color: var(--text); }
       noPatch: '未能获取更新公告', nChamp: '英雄 {n}', nEtc: '其他 {n}',
       glance: '概览', more: ' 等另外{n}项', count: '{n}项', viewWin: '查看{n}胜率',
       cut: '更多说明见原文', orig: '查看 {v} 更新公告原文',
+      mAll: '全部排名', mPick: '推荐', mMove: '变动', delta: '变化',
+      sSleep: '冷门强势', sSleepD: '胜率高但登场率低的英雄',
+      sBan: '建议禁用', sBanD: '胜率和登场率都高的英雄',
+      sTrap: '陷阱选择', sTrapD: '登场率高但胜率低的英雄',
+      sUp: '上升', sDown: '下降', moveD: '{a} → {b} 胜率变化（百分点）',
+      noneList: '暂无', moveWait: '累积两天以上数据后显示',
+      trend: '胜率走势 · {p} · {t}',
       open: '展开', shut: '收起'
     }
   };
@@ -456,7 +501,7 @@ a.orig:hover { color: var(--text); }
   var POS = ['2', '5', '1', '3', '4'];
   var TIER = ['1', '2', '3', '4'];
 
-  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null, view: 'stats' };
+  var state = { pos: '2', tier: '1', sort: 1, q: '', hero: null, hpos: null, view: 'stats', mode: 'all' };
   try {
     var saved = JSON.parse(localStorage.getItem('wr-state') || '{}');
     if (POS.indexOf(saved.pos) >= 0) state.pos = saved.pos;
@@ -509,9 +554,17 @@ a.orig:hover { color: var(--text); }
     b.onclick = function () { state.tier = tr; save(); render(); };
     tiers.appendChild(b);
   });
+  var MODES = [['all', 'mAll'], ['pick', 'mPick'], ['move', 'mMove']];
+  var modes = $('modes');
+  MODES.forEach(function (m) {
+    var b = el('button');
+    b.type = 'button'; b.dataset.mode = m[0]; b.dataset.key = m[1];
+    b.onclick = function () { state.mode = m[0]; render(); };
+    modes.appendChild(b);
+  });
   $('q').addEventListener('input', function (e) { state.q = e.target.value.trim(); renderList(); });
   each(document.querySelectorAll('#head button'), function (b) {
-    b.onclick = function () { state.sort = +b.dataset.sort; render(); };
+    b.onclick = function () { if (state.mode === 'all') { state.sort = +b.dataset.sort; render(); } };
   });
   each($('langs').children, function (b) {
     b.onclick = function () {
@@ -537,8 +590,7 @@ a.orig:hover { color: var(--text); }
     each(tiers.children, function (b) { b.textContent = T[lang].tier[b.dataset.tier]; });
     $('q').placeholder = t('search'); $('q').setAttribute('aria-label', t('search'));
     $('col-champ').textContent = t('champ');
-    var cols = { 1: 'win', 2: 'pick', 3: 'ban' };
-    each(document.querySelectorAll('#head button'), function (b) { b.textContent = t(cols[b.dataset.sort]); });
+    each(modes.children, function (b) { b.textContent = t(b.dataset.key); });
     $('foot1').textContent = t('foot1'); $('foot2').textContent = t('foot2');
     render();
     if (state.hero) renderSheet();
@@ -552,41 +604,115 @@ a.orig:hover { color: var(--text); }
     each(tiers.children, function (b) {
       b.setAttribute('aria-pressed', b.dataset.tier === state.tier ? 'true' : 'false');
     });
+    each(modes.children, function (b) {
+      b.setAttribute('aria-pressed', b.dataset.mode === state.mode ? 'true' : 'false');
+    });
+    // 변동 보기에서는 가운데 열이 변동폭, 오른쪽 열이 픽률이다
+    var cols = state.mode === 'move' ? { 1: 'win', 2: 'delta', 3: 'pick' } : { 1: 'win', 2: 'pick', 3: 'ban' };
+    $('head').classList.toggle('static', state.mode !== 'all');
     each(document.querySelectorAll('#head button'), function (b) {
-      if (+b.dataset.sort === state.sort) b.setAttribute('aria-sort', 'descending');
+      b.textContent = t(cols[b.dataset.sort]);
+      if (state.mode === 'all' && +b.dataset.sort === state.sort) b.setAttribute('aria-sort', 'descending');
       else b.removeAttribute('aria-sort');
     });
+    $('q').hidden = state.mode !== 'all';
     renderList();
   }
+
+  // 표의 한 줄. c2, c3 은 오른쪽 두 칸에 들어갈 글자, c2cls 는 가운데 칸의 색 표시(up/down)
+  function rowEl(r, no, c2, c3, c2cls) {
+    var h = D.heroes[r[0]], name = nm(h.n);
+    var li = el('li');
+    var b = el('button', 'rowbtn grid');
+    b.type = 'button';
+    b.setAttribute('aria-label', t('detail', { n: name }));
+    b.appendChild(el('span', 'rank', no));
+    b.appendChild(avatar(r[0]));
+    b.appendChild(el('span', 'name', name));
+    var win = el('span', 'win');
+    win.appendChild(el('b', '', pct(r[1])));
+    win.appendChild(winBar(r[1]));
+    b.appendChild(win);
+    b.appendChild(el('span', 'num' + (c2cls ? ' ' + c2cls : ''), c2));
+    b.appendChild(el('span', 'num', c3));
+    b.onclick = function () { openHero(r[0], state.pos); };
+    li.appendChild(b);
+    return li;
+  }
+  function section(list, title, desc, rows, make) {
+    var s = el('li', 'sect');
+    s.appendChild(el('span', 'st', title));
+    if (desc) s.appendChild(el('span', 'sd', desc));
+    list.appendChild(s);
+    if (!rows.length) { list.appendChild(el('li', 'none', t('noneList'))); return; }
+    rows.forEach(function (r, i) { list.appendChild(make(r, i)); });
+  }
+
+  // 추천: 지금 수치만으로 나눈 세 묶음
+  function picks(rows) {
+    var ps = rows.map(function (r) { return r[2]; }).sort(function (a, b) { return a - b; });
+    var median = ps.length ? ps[Math.floor(ps.length / 2)] : 0;
+    function top(filter, score) {
+      return rows.filter(filter).sort(function (a, b) { return score(b) - score(a); }).slice(0, 5);
+    }
+    return {
+      sleep: top(function (r) { return r[1] >= 51 && r[2] < median && r[2] >= 0.5; }, function (r) { return r[1]; }),
+      ban: top(function (r) { return r[1] >= 51 && r[2] >= median; }, function (r) { return (r[1] - 50) * r[2]; }),
+      trap: top(function (r) { return r[1] < 49.5 && r[2] >= median; }, function (r) { return r[2]; })
+    };
+  }
+  // 변동: 최근 기록(최대 7일 전)과 오늘의 승률 차이
+  function movers(rows) {
+    var H = D.hist || { d: [], w: {} }, days = H.d || [];
+    var w = ((H.w || {})[state.tier] || {})[state.pos] || {};
+    var last = days.length - 1, first = Math.max(0, last - 7), out = [];
+    if (last < 1) return null;
+    rows.forEach(function (r) {
+      var sr = w[r[0]];
+      if (!sr || sr[last] == null) return;
+      for (var i = first; i < last; i++) if (sr[i] != null) { out.push({ r: r, d: sr[last] - sr[i] }); break; }
+    });
+    out.sort(function (a, b) { return b.d - a.d; });
+    return {
+      from: days[first].slice(5), to: days[last].slice(5),
+      up: out.filter(function (x) { return x.d > 0; }).slice(0, 5),
+      down: out.filter(function (x) { return x.d < 0; }).reverse().slice(0, 5)
+    };
+  }
+  function signed(v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2); }
 
   function renderList() {
     var list = $('list');
     list.textContent = '';
-    var rows = sorted(state.tier, state.pos, state.sort);
+    var rows = sorted(state.tier, state.pos, state.mode === 'all' ? state.sort : 1);
+    if (!rows.length) { list.appendChild(el('li', 'empty', t('noStats'))); return; }
+
+    if (state.mode === 'pick') {
+      var p = picks(rows);
+      var plain = function (r, i) { return rowEl(r, i + 1, pct(r[2]), pct(r[3])); };
+      section(list, t('sBan'), t('sBanD'), p.ban, plain);
+      section(list, t('sSleep'), t('sSleepD'), p.sleep, plain);
+      section(list, t('sTrap'), t('sTrapD'), p.trap, plain);
+      return;
+    }
+    if (state.mode === 'move') {
+      var m = movers(rows);
+      if (!m) { list.appendChild(el('li', 'empty', t('moveWait'))); return; }
+      var desc = t('moveD', { a: m.from, b: m.to });
+      var moved = function (x, i) { return rowEl(x.r, i + 1, signed(x.d), pct(x.r[2]), x.d > 0 ? 'up' : 'down'); };
+      section(list, t('sUp'), desc, m.up, moved);
+      section(list, t('sDown'), desc, m.down, moved);
+      return;
+    }
+
     var q = state.q.toLowerCase(), shown = 0;
     rows.forEach(function (r, idx) {
-      var h = D.heroes[r[0]], name = nm(h.n);
       // 검색은 어느 언어 이름으로든 된다
-      if (q && h.n.join('\n').toLowerCase().indexOf(q) === -1) return;
+      if (q && D.heroes[r[0]].n.join('\n').toLowerCase().indexOf(q) === -1) return;
       shown++;
-      var li = el('li', idx < 3 ? 'top3' : '');
-      var b = el('button', 'rowbtn grid');
-      b.type = 'button';
-      b.setAttribute('aria-label', t('detail', { n: name }));
-      b.appendChild(el('span', 'rank', idx + 1));
-      b.appendChild(avatar(r[0]));
-      b.appendChild(el('span', 'name', name));
-      var win = el('span', 'win');
-      win.appendChild(el('b', '', pct(r[1])));
-      win.appendChild(winBar(r[1]));
-      b.appendChild(win);
-      b.appendChild(el('span', 'num', pct(r[2])));
-      b.appendChild(el('span', 'num', pct(r[3])));
-      b.onclick = function () { openHero(r[0], state.pos); };
-      li.appendChild(b);
-      list.appendChild(li);
+      list.appendChild(rowEl(r, idx + 1, pct(r[2]), pct(r[3])));
     });
-    if (!shown) list.appendChild(el('li', 'empty', q ? t('noResult', { q: state.q }) : t('noStats')));
+    if (!shown) list.appendChild(el('li', 'empty', t('noResult', { q: state.q })));
   }
 
   // 상세 시트
@@ -671,6 +797,19 @@ a.orig:hover { color: var(--text); }
     table.appendChild(tb); wrap.appendChild(table); s2.appendChild(wrap);
     sheet.appendChild(s2);
 
+    // 승률 추이 (선택한 포지션·구간)
+    var H = D.hist || { d: [], w: {} };
+    var series = (((H.w || {})[state.tier] || {})[state.hpos] || {})[id];
+    if (series) {
+      var s4 = el('section', 'trend');
+      s4.appendChild(el('h3', '', t('trend', { p: T[lang].pos[state.hpos], t: T[lang].tier[state.tier] })));
+      var pts = [];
+      series.forEach(function (v, i) { if (v != null) pts.push([i, v]); });
+      if (pts.length < 2) s4.appendChild(el('p', '', t('moveWait')));
+      else s4.appendChild(trendSvg(H.d, pts));
+      sheet.appendChild(s4);
+    }
+
     // 빌드
     var s3 = el('section');
     s3.appendChild(el('h3', '', t('build')));
@@ -731,6 +870,39 @@ a.orig:hover { color: var(--text); }
     }
     s3.appendChild(build);
     sheet.appendChild(s3);
+  }
+  // 승률 추이 선 그래프. 범위 안에 50%가 있으면 기준선을 긋는다.
+  function trendSvg(days, pts) {
+    var NS = 'http://www.w3.org/2000/svg', W = 328, Hh = 96, L = 4, R = 52, T0 = 12, B = 20;
+    function node(tag, attrs, text) {
+      var e = document.createElementNS(NS, tag);
+      Object.keys(attrs).forEach(function (k) { e.setAttribute(k, attrs[k]); });
+      if (text != null) e.textContent = text;
+      return e;
+    }
+    var vals = pts.map(function (p) { return p[1]; });
+    var lo = Math.min.apply(null, vals), hi = Math.max.apply(null, vals);
+    var pad = Math.max((hi - lo) * 0.25, 0.3);
+    lo -= pad; hi += pad;
+    var n = days.length - 1 || 1;
+    function x(i) { return L + (W - L - R) * i / n; }
+    function y(v) { return T0 + (Hh - T0 - B) * (hi - v) / (hi - lo); }
+    var svg = node('svg', { viewBox: '0 0 ' + W + ' ' + Hh, role: 'img' });
+    svg.setAttribute('aria-label', pts.map(function (p) { return days[p[0]].slice(5) + ' ' + p[1].toFixed(2) + '%'; }).join(', '));
+    if (lo < 50 && hi > 50) {
+      svg.appendChild(node('line', { 'class': 'ref', x1: L, x2: W - R, y1: y(50), y2: y(50) }));
+      svg.appendChild(node('text', { x: W - R + 8, y: y(50) + 3 }, '50%'));
+    }
+    svg.appendChild(node('polyline', { 'class': 'ln', points: pts.map(function (p) { return x(p[0]).toFixed(1) + ',' + y(p[1]).toFixed(1); }).join(' ') }));
+    pts.forEach(function (p, i) {
+      var end = i === pts.length - 1;
+      svg.appendChild(node('circle', { 'class': end ? 'end' : 'pt', cx: x(p[0]), cy: y(p[1]), r: end ? 3 : 1.5 }));
+    });
+    var lastP = pts[pts.length - 1], firstP = pts[0];
+    svg.appendChild(node('text', { 'class': 'val', x: W - R + 8, y: y(lastP[1]) + 4 }, lastP[1].toFixed(2) + '%'));
+    svg.appendChild(node('text', { x: x(firstP[0]), y: Hh - 4 }, days[firstP[0]].slice(5)));
+    svg.appendChild(node('text', { x: x(lastP[0]), y: Hh - 4, 'text-anchor': 'end' }, days[lastP[0]].slice(5)));
+    return svg;
   }
   scrim.addEventListener('click', function (e) { if (e.target === scrim) closeHero(); });
   document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && state.hero) closeHero(); });

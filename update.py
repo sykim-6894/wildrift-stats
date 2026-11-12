@@ -174,6 +174,34 @@ def load_builds(ver, heroes):
     return out, things, names
 
 
+HISTORY_KEEP = 30   # history.json 에 남기는 날짜 수
+HISTORY_SHOW = 14   # 페이지에 넣는 날짜 수 (추이 그래프, 변동 목록용)
+
+
+def update_history(date, stats):
+    """오늘 통계를 history.json 에 날짜별로 쌓고, 페이지에 넣을 승률 추이를 돌려준다.
+
+    history.json: {날짜: {구간: {포지션: {챔피언: [승률, 픽률, 밴률]}}}}
+    돌려주는 값: {"d": [날짜...], "w": {구간: {포지션: {챔피언: [날짜별 승률 또는 None]}}}}
+    """
+    path = HERE / "history.json"
+    hist = json.loads(path.read_text(encoding="utf-8")) if path.exists() else {}
+    hist[date] = {t: {p: {r[0]: r[1:] for r in rows} for p, rows in ps.items()} for t, ps in stats.items()}
+    hist = dict(sorted(hist.items())[-HISTORY_KEEP:])
+    path.write_text(json.dumps(hist, ensure_ascii=False, separators=(",", ":")), encoding="utf-8")
+
+    days = sorted(hist)[-HISTORY_SHOW:]
+    wins = {}
+    for t, ps in stats.items():
+        wins[t] = {}
+        for p, rows in ps.items():
+            wins[t][p] = {}
+            for r in rows:
+                series = [hist[d].get(t, {}).get(p, {}).get(r[0], [None])[0] for d in days]
+                wins[t][p][r[0]] = series
+    return {"d": days, "w": wins}
+
+
 def load_patches():
     """fetch_patches.py 가 만든 patches.json. 없으면 빈 목록."""
     path = HERE / "patches.json"
@@ -256,9 +284,11 @@ def main():
         sys.exit("통계 데이터를 받지 못했습니다.")
 
     builds, things, names = load_builds(ver, heroes)
+    date = f"{date[:4]}-{date[4:6]}-{date[6:]}"
 
     data = {
-        "date": f"{date[:4]}-{date[4:6]}-{date[6:]}",
+        "date": date,
+        "hist": update_history(date, stats),
         "heroes": heroes,
         "stats": stats,
         "builds": builds,
