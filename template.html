@@ -317,6 +317,26 @@ a.orig:hover { color: var(--text); }
 #list li.none { padding: 12px 0; color: var(--mute); font-size: 13px; }
 .num.up { color: var(--up); }
 .num.down { color: var(--down); }
+/* 스킬 */
+.skills { display: flex; flex-direction: column; gap: 12px; }
+.skbar { display: flex; gap: 8px; }
+.skbtn { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 44px; }
+.skbtn .ico {
+  display: block; width: 44px; height: 44px; border-radius: 8px;
+  background: var(--raise-2); overflow: hidden;
+  transition: box-shadow 140ms var(--ease);
+}
+.skbtn .ico img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.skbtn .key { font-family: var(--mono); font-size: 11px; line-height: 16px; color: var(--mute); }
+.skbtn[aria-pressed="true"] .ico { box-shadow: 0 0 0 2px var(--brass); }
+.skbtn[aria-pressed="true"] .key { color: var(--text); }
+.skinfo { background: var(--bg); border-radius: 10px; padding: 12px; display: flex; flex-direction: column; gap: 8px; }
+.skinfo .sn { font-size: 15px; font-weight: 500; }
+.skinfo .sn .k { font-family: var(--mono); font-size: 12px; font-weight: 400; color: var(--mute); margin-right: 8px; }
+.skinfo .nums { display: flex; gap: 16px; flex-wrap: wrap; font-size: 12px; line-height: 16px; color: var(--mute); }
+.skinfo .nums b { font-family: var(--mono); font-weight: 400; color: var(--sub); }
+.skinfo .sd { margin: 0; font-size: 13px; line-height: 20px; color: var(--sub); }
+.skills .note { margin: 0; font-size: 12px; line-height: 16px; color: var(--mute); }
 /* 승률 추이 그래프 */
 .trend svg { display: block; width: 100%; height: auto; overflow: visible; }
 .trend text { font-family: var(--mono); font-size: 10px; fill: var(--mute); }
@@ -416,6 +436,8 @@ a.orig:hover { color: var(--text); }
       sUp: '오른 챔피언', sDown: '떨어진 챔피언', moveD: '{a} → {b} 승률 변화, 단위 %p',
       noneList: '해당 없음', moveWait: '기록이 이틀 이상 쌓이면 표시됩니다',
       trend: '승률 추이 · {p} · {t}',
+      skills: '스킬', skCd: '재사용 대기시간', skCost: '소모', skSec: '초',
+      skNote: '재사용 대기시간과 소모값은 레벨별 수치이며 중국 서버 기준입니다. 스킬 설명은 공식 사이트에서 가져왔습니다',
       open: '펼치기', shut: '접기'
     },
     en: {
@@ -447,6 +469,8 @@ a.orig:hover { color: var(--text); }
       sUp: 'Rising', sDown: 'Falling', moveD: 'Win rate change from {a} to {b}, in points',
       noneList: 'None', moveWait: 'Shown once two days of data exist',
       trend: 'Win rate trend · {p} · {t}',
+      skills: 'Abilities', skCd: 'Cooldown', skCost: 'Cost', skSec: 's',
+      skNote: 'Cooldown and cost are listed per rank and come from the China server. Descriptions are from the official site',
       open: 'Show', shut: 'Hide'
     },
     zh: {
@@ -478,6 +502,8 @@ a.orig:hover { color: var(--text); }
       sUp: '上升', sDown: '下降', moveD: '{a} → {b} 胜率变化（百分点）',
       noneList: '暂无', moveWait: '累积两天以上数据后显示',
       trend: '胜率走势 · {p} · {t}',
+      skills: '技能', skCd: '冷却时间', skCost: '消耗', skSec: '秒',
+      skNote: '冷却时间和消耗为各等级数值，来自国服。技能说明取自官方网站',
       open: '展开', shut: '收起'
     }
   };
@@ -723,7 +749,7 @@ a.orig:hover { color: var(--text); }
     return null;
   }
   function openHero(id, pos) {
-    state.hero = id; state.hpos = pos;
+    state.hero = id; state.hpos = pos; state.skill = 0;
     renderSheet();
     scrim.classList.add('open');
     sheet.scrollTop = 0;
@@ -808,6 +834,49 @@ a.orig:hover { color: var(--text); }
       if (pts.length < 2) s4.appendChild(el('p', '', t('moveWait')));
       else s4.appendChild(trendSvg(H.d, pts));
       sheet.appendChild(s4);
+    }
+
+    // 스킬: 아이콘을 누르면 이름, 재사용 대기시간, 설명이 아래에 나온다
+    var SK = (D.skills || {})[id];
+    if (SK) {
+      var list = SK[lang] || SK.en || SK.ko;
+      var KEYS = ['P', '1', '2', '3', 'R'];
+      var s5 = el('section', 'skills');
+      s5.appendChild(el('h3', '', t('skills')));
+      var bar = el('div', 'skbar'), info = el('div', 'skinfo');
+      function showSkill(i) {
+        state.skill = i;
+        each(bar.children, function (b, j) { b.setAttribute('aria-pressed', j === i ? 'true' : 'false'); });
+        info.textContent = '';
+        var sn = el('div', 'sn');
+        sn.appendChild(el('span', 'k', KEYS[i]));
+        sn.appendChild(document.createTextNode(list[i][0]));
+        info.appendChild(sn);
+        var nums = SK.n && SK.n[i], row = el('div', 'nums');
+        if (nums && nums[0] && /[1-9]/.test(nums[0])) { var a = el('span', '', t('skCd') + ' '); a.appendChild(el('b', '', nums[0] + t('skSec'))); row.appendChild(a); }
+        if (nums && nums[1] && /[1-9]/.test(nums[1])) { var c = el('span', '', t('skCost') + ' '); c.appendChild(el('b', '', nums[1])); row.appendChild(c); }
+        if (row.children.length) info.appendChild(row);
+        info.appendChild(el('p', 'sd', list[i][1]));
+      }
+      list.forEach(function (sk, i) {
+        var b = el('button', 'skbtn');
+        b.type = 'button'; b.title = sk[0]; b.setAttribute('aria-label', sk[0]);
+        var ico = el('span', 'ico');
+        if (SK.i[i]) {
+          var im = new Image(); im.alt = ''; im.loading = 'lazy';
+          im.onerror = function () { ico.textContent = KEYS[i]; ico.style.cssText = 'display:grid;place-items:center;color:var(--sub)'; };
+          im.src = SK.i[i]; ico.appendChild(im);
+        }
+        b.appendChild(ico);
+        b.appendChild(el('span', 'key', KEYS[i]));
+        b.onclick = function () { showSkill(i); };
+        bar.appendChild(b);
+      });
+      s5.appendChild(bar);
+      s5.appendChild(info);
+      s5.appendChild(el('p', 'note', t('skNote')));
+      sheet.appendChild(s5);
+      showSkill(Math.min(state.skill || 0, list.length - 1));
     }
 
     // 빌드

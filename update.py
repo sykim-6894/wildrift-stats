@@ -202,6 +202,15 @@ def update_history(date, stats):
     return {"d": days, "w": wins}
 
 
+def load_skills(heroes):
+    """fetch_skills.py 가 만든 skills.json. 없으면 빈 값."""
+    path = HERE / "skills.json"
+    if not path.exists():
+        return {}
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    return {hid: v for hid, v in raw.items() if hid in heroes}
+
+
 def load_patches():
     """fetch_patches.py 가 만든 patches.json. 없으면 빈 목록."""
     path = HERE / "patches.json"
@@ -294,6 +303,7 @@ def main():
         "builds": builds,
         "things": things,
         "patches": load_patches(),
+        "skills": load_skills(heroes),
     }
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":")).replace("</", "<\\/")
     tpl = (HERE / "template.html").read_text(encoding="utf-8")
