@@ -317,6 +317,19 @@ a.orig:hover { color: var(--text); }
 #list li.none { padding: 12px 0; color: var(--mute); font-size: 13px; }
 .num.up { color: var(--up); }
 .num.down { color: var(--down); }
+/* 즐겨찾기 */
+.star { width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; display: block; }
+.star.on { fill: var(--brass); stroke: var(--brass); }
+.name .star { display: inline-block; width: 12px; height: 12px; margin-left: 6px; vertical-align: -1px; fill: var(--brass); stroke: var(--brass); }
+.favbtn { flex: none; padding: 8px; border-radius: 8px; color: var(--mute); transition: color 140ms var(--ease); }
+.favbtn:hover { color: var(--sub); }
+.favbtn[aria-pressed="true"] { color: var(--brass); }
+/* 패치 전후 승률 변화 */
+.pd { font-family: var(--mono); font-size: 12px; font-weight: 400; margin-left: 4px; }
+.pd.up { color: var(--up); }
+.pd.down { color: var(--down); }
+.gn .pd { margin-left: auto; }
+.pdnote { margin: 0; font-size: 12px; line-height: 16px; color: var(--mute); }
 /* 스킬 */
 .skills { display: flex; flex-direction: column; gap: 12px; }
 .skbar { display: flex; gap: 8px; }
@@ -429,6 +442,10 @@ a.orig:hover { color: var(--text); }
       noPatch: '패치 노트를 가져오지 못했습니다', nChamp: '챔피언 {n}', nEtc: '기타 {n}',
       glance: '한눈에 보기', more: ' 외 {n}개', count: '{n}개', viewWin: '{n} 승률 보기',
       cut: '설명이 더 있음 · 원문 참고', orig: '{v} 패치 노트 원문 보기',
+      mFav: '즐겨찾기', favAdd: '즐겨찾기에 추가', favDel: '즐겨찾기에서 빼기',
+      favEmpty: '챔피언 상세의 별표를 눌러 내 챔피언을 추가하세요',
+      pdNote: '패치 전 {a} → 최신 {b} 승률 변화 · {t} 구간 · 챔피언의 주 포지션 기준 (표본 변동 포함)',
+      pdWait: '패치 후 기록이 이틀 이상 쌓이면 승률 변화가 표시됩니다',
       mAll: '전체 순위', mPick: '추천', mMove: '변동', delta: '변동',
       sSleep: '꿀챔', sSleepD: '승률은 높은데 픽률이 낮은 챔피언',
       sBan: '밴 추천', sBanD: '승률과 픽률이 모두 높은 챔피언',
@@ -462,6 +479,10 @@ a.orig:hover { color: var(--text); }
       noPatch: 'Patch notes could not be loaded', nChamp: 'Champions {n}', nEtc: 'Other {n}',
       glance: 'At a glance', more: ' and {n} more', count: '{n}', viewWin: 'Win rates for {n}',
       cut: 'More in the original', orig: 'Read the full {v} patch notes',
+      mFav: 'Favorites', favAdd: 'Add to favorites', favDel: 'Remove from favorites',
+      favEmpty: 'Tap the star on a champion page to add your champions here',
+      pdNote: 'Win rate change from {a}, before the patch, to {b}, the latest · {t} · main position of each champion (includes sampling noise)',
+      pdWait: 'Win rate changes appear once two days of data follow the patch',
       mAll: 'All', mPick: 'Picks', mMove: 'Movers', delta: 'Change',
       sSleep: 'Sleeper picks', sSleepD: 'High win rate, low pick rate',
       sBan: 'Worth banning', sBanD: 'High win rate and high pick rate',
@@ -495,6 +516,10 @@ a.orig:hover { color: var(--text); }
       noPatch: '未能获取更新公告', nChamp: '英雄 {n}', nEtc: '其他 {n}',
       glance: '概览', more: ' 等另外{n}项', count: '{n}项', viewWin: '查看{n}胜率',
       cut: '更多说明见原文', orig: '查看 {v} 更新公告原文',
+      mFav: '收藏', favAdd: '加入收藏', favDel: '取消收藏',
+      favEmpty: '在英雄详情中点击星标即可添加',
+      pdNote: '版本更新前 {a} → 最新 {b} 的胜率变化 · {t} · 以英雄主要位置计算（含样本波动）',
+      pdWait: '版本更新后累积两天以上数据才会显示胜率变化',
       mAll: '全部排名', mPick: '推荐', mMove: '变动', delta: '变化',
       sSleep: '冷门强势', sSleepD: '胜率高但登场率低的英雄',
       sBan: '建议禁用', sBanD: '胜率和登场率都高的英雄',
@@ -545,6 +570,26 @@ a.orig:hover { color: var(--text); }
   }
   function $(id) { return document.getElementById(id); }
   function each(list, fn) { Array.prototype.forEach.call(list, fn); }
+  // 즐겨찾기는 이 기기의 브라우저에만 저장된다
+  var favs = [];
+  try { favs = JSON.parse(localStorage.getItem('wr-fav') || '[]') || []; } catch (e) {}
+  function isFav(id) { return favs.indexOf(id) >= 0; }
+  function toggleFav(id) {
+    var i = favs.indexOf(id);
+    if (i >= 0) favs.splice(i, 1); else favs.push(id);
+    try { localStorage.setItem('wr-fav', JSON.stringify(favs)); } catch (e) {}
+  }
+  function starSvg(on) {
+    var NS = 'http://www.w3.org/2000/svg';
+    var svg = document.createElementNS(NS, 'svg');
+    svg.setAttribute('viewBox', '0 0 24 24');
+    svg.setAttribute('class', 'star' + (on ? ' on' : ''));
+    svg.setAttribute('aria-hidden', 'true');
+    var poly = document.createElementNS(NS, 'polygon');
+    poly.setAttribute('points', '12 2.5 14.9 8.6 21.5 9.4 16.6 14 17.9 20.6 12 17.3 6.1 20.6 7.4 14 2.5 9.4 9.1 8.6');
+    svg.appendChild(poly);
+    return svg;
+  }
   function pct(v) { return v.toFixed(2) + '%'; }
   function avatar(id) {
     var h = D.heroes[id], box = el('span', 'ava');
@@ -580,7 +625,7 @@ a.orig:hover { color: var(--text); }
     b.onclick = function () { state.tier = tr; save(); render(); };
     tiers.appendChild(b);
   });
-  var MODES = [['all', 'mAll'], ['pick', 'mPick'], ['move', 'mMove']];
+  var MODES = [['all', 'mAll'], ['pick', 'mPick'], ['move', 'mMove'], ['fav', 'mFav']];
   var modes = $('modes');
   MODES.forEach(function (m) {
     var b = el('button');
@@ -642,11 +687,12 @@ a.orig:hover { color: var(--text); }
       else b.removeAttribute('aria-sort');
     });
     $('q').hidden = state.mode !== 'all';
+    tabs.hidden = state.mode === 'fav';
     renderList();
   }
 
   // 표의 한 줄. c2, c3 은 오른쪽 두 칸에 들어갈 글자, c2cls 는 가운데 칸의 색 표시(up/down)
-  function rowEl(r, no, c2, c3, c2cls) {
+  function rowEl(r, no, c2, c3, c2cls, pos) {
     var h = D.heroes[r[0]], name = nm(h.n);
     var li = el('li');
     var b = el('button', 'rowbtn grid');
@@ -654,14 +700,16 @@ a.orig:hover { color: var(--text); }
     b.setAttribute('aria-label', t('detail', { n: name }));
     b.appendChild(el('span', 'rank', no));
     b.appendChild(avatar(r[0]));
-    b.appendChild(el('span', 'name', name));
+    var nameEl = el('span', 'name', name);
+    if (isFav(r[0])) nameEl.appendChild(starSvg(true));
+    b.appendChild(nameEl);
     var win = el('span', 'win');
     win.appendChild(el('b', '', pct(r[1])));
     win.appendChild(winBar(r[1]));
     b.appendChild(win);
     b.appendChild(el('span', 'num' + (c2cls ? ' ' + c2cls : ''), c2));
     b.appendChild(el('span', 'num', c3));
-    b.onclick = function () { openHero(r[0], state.pos); };
+    b.onclick = function () { openHero(r[0], pos || state.pos); };
     li.appendChild(b);
     return li;
   }
@@ -710,6 +758,18 @@ a.orig:hover { color: var(--text); }
   function renderList() {
     var list = $('list');
     list.textContent = '';
+    if (state.mode === 'fav') {
+      // 즐겨찾기: 포지션별로 나눠 승률 순으로 보여준다
+      var any = false;
+      POS.forEach(function (pp) {
+        var rr = sorted(state.tier, pp, 1).filter(function (r) { return isFav(r[0]); });
+        if (!rr.length) return;
+        any = true;
+        section(list, T[lang].pos[pp], '', rr, function (r, i) { return rowEl(r, i + 1, pct(r[2]), pct(r[3]), '', pp); });
+      });
+      if (!any) list.appendChild(el('li', 'empty', t(favs.length ? 'noStats' : 'favEmpty')));
+      return;
+    }
     var rows = sorted(state.tier, state.pos, state.mode === 'all' ? state.sort : 1);
     if (!rows.length) { list.appendChild(el('li', 'empty', t('noStats'))); return; }
 
@@ -770,6 +830,18 @@ a.orig:hover { color: var(--text); }
     var ttl = el('h2', '', nm(h.n)); ttl.id = 'sheet-title';
     head.appendChild(ttl);
     var c = el('button', 'close', t('close')); c.type = 'button'; c.onclick = closeHero;
+    var fb = el('button', 'favbtn');
+    fb.type = 'button';
+    function paintFav() {
+      var on = isFav(id), lab = t(on ? 'favDel' : 'favAdd');
+      fb.textContent = '';
+      fb.appendChild(starSvg(on));
+      fb.setAttribute('aria-pressed', on ? 'true' : 'false');
+      fb.title = lab; fb.setAttribute('aria-label', lab);
+    }
+    paintFav();
+    fb.onclick = function () { toggleFav(id); paintFav(); renderList(); };
+    head.appendChild(fb);
     head.appendChild(c);
     sheet.appendChild(head);
 
@@ -995,7 +1067,8 @@ a.orig:hover { color: var(--text); }
     each(viewBtns, function (b) {
       if (b.dataset.view === v) b.setAttribute('aria-current', 'page'); else b.removeAttribute('aria-current');
     });
-    if (v === 'patch' && !patchBuilt) { buildPatches(); patchBuilt = true; }
+    // 승률표에서 고른 랭크 구간이 패치 전후 비교에 쓰이므로 열 때마다 다시 그린다
+    if (v === 'patch') { buildPatches(); patchBuilt = true; }
   }
   each(viewBtns, function (b) {
     b.onclick = function () {
@@ -1026,6 +1099,31 @@ a.orig:hover { color: var(--text); }
     var real = sec.g.filter(function (g) { return sec.k === 'champ' || g.c.length || g.lv !== 3; });
     return (real.length ? real : sec.g).map(function (g) { return g.n; });
   }
+  // 패치 전후 승률 변화: 패치일 전 마지막 기록과 최신 기록을 비교한다.
+  // 승률표에서 고른 랭크 구간, 그 챔피언이 가장 많이 쓰이는 포지션 기준이다.
+  function dayDiff(a, b) { return Math.round((Date.parse(b) - Date.parse(a)) / 86400000); }
+  function patchWindow(p) {
+    var days = (D.hist || {}).d || [], bi = -1;
+    for (var i = 0; i < days.length; i++) if (days[i] < p.date) bi = i;
+    var ai = days.length - 1;
+    if (bi < 0 || ai <= bi || dayDiff(p.date, days[ai]) < 2) return null;
+    return { bi: bi, ai: ai, from: days[bi], to: days[ai] };
+  }
+  function mainPos(hid) {
+    var best = null, top = -1;
+    POS.forEach(function (pp) {
+      (D.stats[state.tier][pp] || []).forEach(function (r) { if (r[0] === hid && r[2] > top) { top = r[2]; best = pp; } });
+    });
+    return best;
+  }
+  function patchDelta(win, hid) {
+    if (!win || !hid) return null;
+    var pp = mainPos(hid);
+    if (!pp) return null;
+    var ser = ((((D.hist || {}).w || {})[state.tier] || {})[pp] || {})[hid];
+    if (!ser || ser[win.bi] == null || ser[win.ai] == null) return null;
+    return { d: ser[win.ai] - ser[win.bi], pos: pp };
+  }
   function buildPatches() {
     var all = D.patches || {};
     if (Array.isArray(all)) all = { ko: all };
@@ -1054,6 +1152,10 @@ a.orig:hover { color: var(--text); }
       // 한눈에 보기
       var glance = el('div', 'glance');
       glance.appendChild(el('h3', '', t('glance')));
+      var win = patchWindow(p), hasChamp = p.s.some(function (x) { return x.k === 'champ'; });
+      var firstDay = ((D.hist || {}).d || [])[0];
+      if (hasChamp && win) glance.appendChild(el('p', 'pdnote', t('pdNote', { a: win.from.slice(5), b: win.to.slice(5), t: T[lang].tier[state.tier] })));
+      else if (hasChamp && firstDay && p.date >= firstDay) glance.appendChild(el('p', 'pdnote', t('pdWait')));
       p.s.forEach(function (s) {
         var row = el('div', 'grow');
         var names = namesOf(s);
@@ -1070,6 +1172,8 @@ a.orig:hover { color: var(--text); }
               c.onclick = function () { openHero(id, state.pos); };
             } else c.style.paddingLeft = '10px';
             c.appendChild(document.createTextNode(label));
+            var pdv = id ? patchDelta(win, id) : null;
+            if (pdv) c.appendChild(el('span', 'pd ' + (pdv.d >= 0 ? 'up' : 'down'), signed(pdv.d)));
             box.appendChild(c);
           });
           row.appendChild(box);
@@ -1095,6 +1199,8 @@ a.orig:hover { color: var(--text); }
           var id = s.k === 'champ' ? heroId(g.n) : null;
           if (id) gn.appendChild(avatar(id));
           gn.appendChild(document.createTextNode(id ? nm(D.heroes[id].n) : g.n));
+          var pdv2 = id ? patchDelta(win, id) : null;
+          if (pdv2) gn.appendChild(el('span', 'pd ' + (pdv2.d >= 0 ? 'up' : 'down'), T[lang].pos[pdv2.pos] + ' ' + signed(pdv2.d)));
           pg.appendChild(gn);
           g.c.forEach(function (c) {
             if (c.t) pg.appendChild(el('div', 'ct', c.t));
