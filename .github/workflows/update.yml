@@ -19,17 +19,23 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
-      - uses: actions/setup-python@v5
+      - uses: actions/setup-python@v6
         with:
           python-version: "3.12"
 
       - name: 새 패치 노트 받기 (실패해도 통계 갱신은 계속)
         run: python fetch_patches.py || echo "패치 노트를 받지 못해 기존 내용을 유지합니다"
 
-      - name: 통계 받아서 index.html 다시 만들기
-        run: python update.py
+      - name: 통계 받아서 index.html 다시 만들기 (접속 오류면 최대 3번 시도)
+        run: |
+          for i in 1 2 3; do
+            python update.py && exit 0
+            echo "::warning::통계 갱신 실패 ($i/3), 잠시 뒤 다시 시도합니다"
+            sleep 30
+          done
+          exit 1
 
       - name: 바뀐 내용이 있으면 커밋
         run: |
