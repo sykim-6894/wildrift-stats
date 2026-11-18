@@ -226,13 +226,13 @@ def load_patches():
     return patches
 
 
-def get_json(url, tries=4):
+def get_json(url, tries=3, timeout=60):
     """JSON 을 받는다. 일시적인 접속 오류나 시간 초과는 잠깐 쉬었다가 다시 시도한다."""
     last = None
     for i in range(tries):
         try:
             req = urllib.request.Request(url, headers=UA)
-            with urllib.request.urlopen(req, timeout=30) as r:
+            with urllib.request.urlopen(req, timeout=timeout) as r:
                 return json.loads(r.read().decode("utf-8"))
         except Exception as e:
             last = e
