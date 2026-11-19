@@ -305,8 +305,8 @@ a.orig:hover { color: var(--text); }
 }
 
 /* 승률표 안의 보기 전환: 전체 순위 / 추천 / 변동 */
-.modes { display: flex; gap: 16px; padding: 12px 4px 0; }
-.modes button { font-size: 13px; color: var(--mute); padding: 4px 0; transition: color 140ms var(--ease); }
+.modes { display: flex; flex-wrap: wrap; gap: 4px 16px; padding: 12px 4px 0; }
+.modes button { white-space: nowrap; font-size: 13px; color: var(--mute); padding: 4px 0; transition: color 140ms var(--ease); }
 .modes button:hover { color: var(--sub); }
 .modes button[aria-pressed="true"] { color: var(--text); font-weight: 500; }
 .head.static button { pointer-events: none; }
@@ -314,6 +314,7 @@ a.orig:hover { color: var(--text); }
 #list li.sect:first-child { padding-top: 12px; }
 .sect .st { font-size: 15px; font-weight: 500; }
 .sect .sd { font-size: 12px; line-height: 16px; color: var(--mute); }
+#list li.lnote { padding: 16px 0 0; color: var(--mute); font-size: 12px; line-height: 16px; }
 #list li.none { padding: 12px 0; color: var(--mute); font-size: 13px; }
 .num.up { color: var(--up); }
 .num.down { color: var(--down); }
@@ -458,6 +459,12 @@ a.orig:hover { color: var(--text); }
       favEmpty: '챔피언 상세의 별표를 눌러 내 챔피언을 추가하세요',
       pdNote: '패치 전 {a} → 최신 {b} 승률 변화 · {t} 구간 · 챔피언의 주 포지션 기준 (표본 변동 포함)',
       pdWait: '패치 후 기록이 이틀 이상 쌓이면 승률 변화가 표시됩니다',
+      mTier: '티어', mGap: '구간 차이', gapTop: '최상위 큐', gapDiff: '차이', gapBase: '다이아+',
+      tierRange: '상위 {a}~{b}%',
+      tierNote: '승률, 픽률, 밴률을 합친 점수로 같은 포지션 안에서 나눈 등급입니다. 픽률이 낮은 챔피언은 승률을 덜 반영합니다. 위의 랭크 구간 기준입니다',
+      sGapUp: '최상위 큐에서 더 강한 챔피언', sGapUpD: '최상위 큐 승률이 다이아+보다 높은 순 · 최상위 큐 픽률 2% 이상',
+      sGapDown: '최상위 큐에서 약해지는 챔피언', sGapDownD: '최상위 큐 승률이 다이아+보다 낮은 순 · 최상위 큐 픽률 2% 이상',
+      gapNote: '다이아+와 최상위 큐의 승률 차이입니다. 최상위 큐는 표본이 적어 차이에 오차가 섞입니다',
       mAll: '전체 순위', mPick: '추천', mMove: '변동', delta: '변동',
       sSleep: '꿀챔', sSleepD: '승률은 높은데 픽률이 낮은 챔피언',
       sBan: '밴 추천', sBanD: '승률과 픽률이 모두 높은 챔피언',
@@ -498,6 +505,12 @@ a.orig:hover { color: var(--text); }
       favEmpty: 'Tap the star on a champion page to add your champions here',
       pdNote: 'Win rate change from {a}, before the patch, to {b}, the latest · {t} · main position of each champion (includes sampling noise)',
       pdWait: 'Win rate changes appear once two days of data follow the patch',
+      mTier: 'Tiers', mGap: 'Rank gap', gapTop: 'Peak', gapDiff: 'Gap', gapBase: 'Diamond+',
+      tierRange: 'Top {a}-{b}%',
+      tierNote: 'Grades within one position from a score combining win, pick and ban rate. Low pick rate counts less toward win rate. Uses the rank tier chosen above',
+      sGapUp: 'Stronger at the top', sGapUpD: 'Peak of the Rift win rate above Diamond+ · Peak pick rate 2%+',
+      sGapDown: 'Weaker at the top', sGapDownD: 'Peak of the Rift win rate below Diamond+ · Peak pick rate 2%+',
+      gapNote: 'Win rate gap between Diamond+ and Peak of the Rift. Peak has fewer games, so the gap includes noise',
       mAll: 'All', mPick: 'Picks', mMove: 'Movers', delta: 'Change',
       sSleep: 'Sleeper picks', sSleepD: 'High win rate, low pick rate',
       sBan: 'Worth banning', sBanD: 'High win rate and high pick rate',
@@ -538,6 +551,12 @@ a.orig:hover { color: var(--text); }
       favEmpty: '在英雄详情中点击星标即可添加',
       pdNote: '版本更新前 {a} → 最新 {b} 的胜率变化 · {t} · 以英雄主要位置计算（含样本波动）',
       pdWait: '版本更新后累积两天以上数据才会显示胜率变化',
+      mTier: '梯队', mGap: '段位差异', gapTop: '峡谷之巅', gapDiff: '差值', gapBase: '钻石以上',
+      tierRange: '前{a}~{b}%',
+      tierNote: '按胜率、登场率、禁用率综合得分，在同一位置内划分的等级。登场率低的英雄胜率权重较小。以上方所选段位为准',
+      sGapUp: '峡谷之巅更强的英雄', sGapUpD: '峡谷之巅胜率高于钻石以上的排序 · 峡谷之巅登场率2%以上',
+      sGapDown: '峡谷之巅变弱的英雄', sGapDownD: '峡谷之巅胜率低于钻石以上的排序 · 峡谷之巅登场率2%以上',
+      gapNote: '钻石以上与峡谷之巅的胜率差。峡谷之巅样本较少，差值含有误差',
       mAll: '全部排名', mPick: '推荐', mMove: '变动', delta: '变化',
       sSleep: '冷门强势', sSleepD: '胜率高但登场率低的英雄',
       sBan: '建议禁用', sBanD: '胜率和登场率都高的英雄',
@@ -646,7 +665,7 @@ a.orig:hover { color: var(--text); }
     b.onclick = function () { state.tier = tr; save(); render(); };
     tiers.appendChild(b);
   });
-  var MODES = [['all', 'mAll'], ['pick', 'mPick'], ['move', 'mMove'], ['fav', 'mFav']];
+  var MODES = [['all', 'mAll'], ['tier', 'mTier'], ['pick', 'mPick'], ['move', 'mMove'], ['gap', 'mGap'], ['fav', 'mFav']];
   var modes = $('modes');
   MODES.forEach(function (m) {
     var b = el('button');
@@ -702,7 +721,9 @@ a.orig:hover { color: var(--text); }
       b.setAttribute('aria-pressed', b.dataset.mode === state.mode ? 'true' : 'false');
     });
     // 변동 보기에서는 가운데 열이 변동폭, 오른쪽 열이 픽률이다
-    var cols = state.mode === 'move' ? { 1: 'win', 2: 'delta', 3: 'pick' } : { 1: 'win', 2: 'pick', 3: 'ban' };
+    var cols = state.mode === 'move' ? { 1: 'win', 2: 'delta', 3: 'pick' }
+      : state.mode === 'gap' ? { 1: 'gapTop', 2: 'gapDiff', 3: 'gapBase' }
+      : { 1: 'win', 2: 'pick', 3: 'ban' };
     $('head').classList.toggle('static', state.mode !== 'all');
     each(document.querySelectorAll('#head button'), function (b) {
       b.textContent = t(cols[b.dataset.sort]);
@@ -711,7 +732,8 @@ a.orig:hover { color: var(--text); }
     });
     $('q').hidden = state.mode !== 'all';
     tabs.hidden = state.mode === 'fav';
-    $('minpick').hidden = state.mode === 'fav';
+    tiers.hidden = state.mode === 'gap';
+    $('minpick').hidden = state.mode === 'fav' || state.mode === 'gap';
     $('minpick').setAttribute('aria-pressed', state.minPick ? 'true' : 'false');
     renderList();
   }
@@ -779,6 +801,36 @@ a.orig:hover { color: var(--text); }
       down: out.filter(function (x) { return x.d < 0; }).reverse().slice(0, 5)
     };
   }
+  // 티어 등급: 같은 포지션 안에서 승률, 픽률, 밴률을 합친 점수로 줄을 세워 S/A/B/C 로 나눈다.
+  // 픽률이 낮으면 승률이 우연히 높거나 낮을 수 있어서, 승률의 50% 에서 벗어난 폭을 픽률에 비례해 줄인다.
+  var GRADES = [['S', 0, 10], ['A', 10, 40], ['B', 40, 80], ['C', 80, 100]];
+  function grade(rows) {
+    var scored = rows.map(function (r) {
+      var adj = (r[1] - 50) * r[2] / (r[2] + 1.5);
+      return { r: r, s: adj + 0.015 * r[3] + 0.015 * r[2] };
+    }).sort(function (a, b) { return b.s - a.s; });
+    var n = scored.length;
+    return GRADES.map(function (g) {
+      var from = g[1] === 0 ? 0 : Math.round(n * g[1] / 100), to = Math.round(n * g[2] / 100);
+      if (g[0] === 'S') to = Math.max(to, 1);
+      return { g: g, items: scored.slice(from, to).map(function (x, i) { x.no = from + i + 1; return x; }) };
+    });
+  }
+  // 구간 차이: 최상위 큐(4)와 다이아+(1)의 승률 차이, 같은 포지션 기준
+  function gaps() {
+    var base = {};
+    (D.stats['1'][state.pos] || []).forEach(function (r) { base[r[0]] = r; });
+    var out = [];
+    (D.stats['4'][state.pos] || []).forEach(function (r) {
+      if (!base[r[0]] || r[2] < MIN_PICK) return;
+      out.push({ r: r, d: r[1] - base[r[0]][1], b: base[r[0]][1] });
+    });
+    out.sort(function (a, b) { return b.d - a.d; });
+    return {
+      up: out.filter(function (x) { return x.d > 0; }).slice(0, 7),
+      down: out.filter(function (x) { return x.d < 0; }).reverse().slice(0, 7)
+    };
+  }
   function signed(v) { return (v > 0 ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(2); }
 
   function renderList() {
@@ -796,12 +848,28 @@ a.orig:hover { color: var(--text); }
       if (!any) list.appendChild(el('li', 'empty', t(favs.length ? 'noStats' : 'favEmpty')));
       return;
     }
+    if (state.mode === 'gap') {
+      var gp = gaps();
+      var gapRow = function (x) { return rowEl(x.r, '', signed(x.d), pct(x.b), x.d > 0 ? 'up' : 'down'); };
+      section(list, t('sGapUp'), t('sGapUpD'), gp.up, function (x, i) { var li = gapRow(x); li.querySelector('.rank').textContent = i + 1; return li; });
+      section(list, t('sGapDown'), t('sGapDownD'), gp.down, function (x, i) { var li = gapRow(x); li.querySelector('.rank').textContent = i + 1; return li; });
+      list.appendChild(el('li', 'lnote', t('gapNote')));
+      return;
+    }
     var rows = sorted(state.tier, state.pos, state.mode === 'all' ? state.sort : 1);
     var allRows = rows;
     // 픽률이 낮은 챔피언은 승률이 크게 흔들려서, 켜면 순위와 변동에서 뺀다
     if (state.minPick) rows = rows.filter(function (r) { return r[2] >= MIN_PICK; });
     if (!rows.length) { list.appendChild(el('li', 'empty', t('noStats'))); return; }
 
+    if (state.mode === 'tier') {
+      grade(rows).forEach(function (grp) {
+        var rng = t('tierRange', { a: grp.g[1], b: grp.g[2] });
+        section(list, grp.g[0], rng, grp.items, function (x) { return rowEl(x.r, x.no, pct(x.r[2]), pct(x.r[3])); });
+      });
+      list.appendChild(el('li', 'lnote', t('tierNote')));
+      return;
+    }
     if (state.mode === 'pick') {
       var p = picks(allRows);
       var plain = function (r, i) { return rowEl(r, i + 1, pct(r[2]), pct(r[3])); };
