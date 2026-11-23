@@ -34,26 +34,81 @@ def section(mod, cls):
     return rest[:nxt.start()] if nxt else rest
 
 
-def parse(page):
-    i = page.find('class="data-mod item-builds-mod"')
-    j = page.find('class="data-mod spells-mod"')
-    if i < 0:
-        return None
-    items = page[i:j if j > i else i + 20000]
+# 가이드 사이트의 라인 그림 이름 → 통계의 포지션 번호 (2 탑, 5 정글, 1 미드, 3 원딜, 4 서폿)
+LANE_POS = {"top": "2", "solo": "2", "baron": "2", "jungle": "5", "mid": "1", "middle": "1", "duo": "3", "adc": "3", "bot": "3", "support": "4"}
+UNKNOWN_LANES = set()
+
+
+def lane_pos(name):
+    pos = LANE_POS.get(name.lower())
+    if not pos:
+        UNKNOWN_LANES.add(name)
+    return pos
+
+
+def guide_blocks(page):
+    """페이지의 data-block 들을 {가이드번호: {"items": 글, "spells": 글}} 로 나눈다.
+
+    한 챔피언 페이지에 라인별 가이드(예: 서폿 빌드, 미드 빌드)가 함께 들어 있고,
+    화면에는 하나만 보이고 나머지는 inactive 로 숨겨져 있다.
+    """
+    starts = [(m.start(), m.group(0), m.group(1)) for m in re.finditer(r'<div class="[^"]*data-block[^"]*" data-guide-id="(\d+)"', page)]
+    out = {}
+    for n, (pos, tag, gid) in enumerate(starts):
+        end = starts[n + 1][0] if n + 1 < len(starts) else len(page)
+        text = page[pos:end]
+        kind = "items" if "wf-champion__data__items" in tag else "spells" if "wf-champion__data__spells" in tag else None
+        if kind:
+            out.setdefault(gid, {})[kind] = text
+    return out
+
+
+def parse_guide(items, spells):
     out = {
         "start": names_in(section(items, "starting")),
         "core": names_in(section(items, "core")),
         "boots": names_in(section(items, "boots")),
         "final": names_in(section(items, "final")),
     }
-    if j > 0:
-        k = page.find("data-block", j)
-        spells = page[j:k if k > j else j + 8000]
+    if spells:
         out["spells"] = names_in(section(spells, "spells"))
         out["runes"] = names_in(section(spells, "runes"))
-    m = re.search(r'<span class="title">Patch</span>\s*<span class="data">([^<]+)</span>', page)
-    out["patch"] = m.group(1).strip() if m else ""
     return out if out["core"] or out["final"] else None
+
+
+def parse(page):
+    """기본 가이드(화면에 처음 보이는 것)를 돌려주고, 라인별 가이드가 있으면 "lanes" 에 모두 담는다."""
+    blocks = guide_blocks(page)
+    if not blocks:
+        return None
+    m = re.search(r'<span class="title">Patch</span>\s*<span class="data">([^<]+)</span>', page)
+    patch = m.group(1).strip() if m else ""
+    # 가이드 선택 탭: 번호 → 라인
+    tabs = re.findall(r'<span( class="active")? data-guide-id="(\d+)">\s*<img src="/images/lanes/white-([\w-]+)\.png">', page)
+    lane_of = {gid: lane_pos(name) for _, gid, name in tabs}
+    active = next((gid for act, gid, _ in tabs if act), None)
+    if not tabs:
+        r = re.search(r'Recommended Role</span>\s*<span class="data">\s*<img src="/images/lanes/white-([\w-]+)\.png"', page)
+        gid0 = next(iter(blocks))
+        lane_of[gid0] = lane_pos(r.group(1)) if r else None
+        active = gid0
+    guides = {}
+    for gid, b in blocks.items():
+        if "items" not in b:
+            continue
+        g = parse_guide(b["items"], b.get("spells", ""))
+        if g:
+            g["patch"] = patch
+            guides[gid] = g
+    if not guides:
+        return None
+    first = active if active in guides else next(iter(guides))
+    out = dict(guides[first])
+    out["lane"] = lane_of.get(first)
+    lanes = {lane_of[gid]: g for gid, g in guides.items() if lane_of.get(gid)}
+    if len(lanes) > 1:
+        out["lanes"] = lanes
+    return out
 
 
 def main():
@@ -87,6 +142,8 @@ def main():
         time.sleep(DELAY)
 
     (HERE / "builds.json").write_text(json.dumps(builds, ensure_ascii=False, indent=1), encoding="utf-8")
+    if UNKNOWN_LANES:
+        print("알 수 없는 라인 이름:", sorted(UNKNOWN_LANES))
     print(f"builds.json 저장: {len(builds)}명 성공, 실패 {len(failed)}: {failed}")
 
 

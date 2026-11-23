@@ -159,11 +159,8 @@ def load_builds(ver, heroes):
             things.append(list(names.lookup(kind, name)))
         return index[key]
 
-    out = {}
-    for hid, b in raw.items():
-        if hid not in heroes:
-            continue
-        out[hid] = {
+    def compact(b):
+        return {
             "s": [ref("item", x) for x in b.get("start", [])],
             "c": [ref("item", x) for x in b.get("core", [])],
             "b": [ref("item", x) for x in b.get("boots", [])],
@@ -172,6 +169,17 @@ def load_builds(ver, heroes):
             "sp": [ref("spell", x) for x in b.get("spells", [])],
             "p": b.get("patch", ""),
         }
+
+    out = {}
+    for hid, b in raw.items():
+        if hid not in heroes:
+            continue
+        out[hid] = compact(b)
+        # l: 이 빌드가 만들어진 포지션, by: 포지션별 가이드가 따로 있을 때 그 목록 (예: 미드 빌드, 서폿 빌드)
+        if b.get("lane"):
+            out[hid]["l"] = b["lane"]
+        if b.get("lanes"):
+            out[hid]["by"] = {pos: compact(g) for pos, g in b["lanes"].items()}
     return out, things, names
 
 

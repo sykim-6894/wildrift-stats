@@ -30,7 +30,8 @@
    "Perseverance",
    "Nimbus Cloak"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10002": {
   "start": [
@@ -65,7 +66,80 @@
    "Perseverance",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Stridebreaker"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge",
+     "Spear of Shojin",
+     "Guardian Angel",
+     "Stridebreaker"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Courage of the Colossus",
+     "Second Wind",
+     "Perseverance",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Eclipse",
+     "Trinity Force",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Boots of Dynamism",
+     "Goredrinker"
+    ],
+    "final": [
+     "Boots of Dynamism",
+     "Eclipse",
+     "Trinity Force",
+     "Serylda's Grudge",
+     "Death's Dance",
+     "Guardian Angel",
+     "Goredrinker"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Alacrity",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10003": {
   "start": [
@@ -98,7 +172,76 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4",
+  "lanes": {
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Luden's Echo",
+     "Infinity Orb",
+     "Void Staff"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Boots of Mana",
+     "Luden's Echo",
+     "Infinity Orb",
+     "Void Staff",
+     "Rabadon's Deathcap"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Arcane Comet",
+     "Manaflow Band",
+     "Transcendence",
+     "Scorch",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Luden's Echo",
+     "Rabadon's Deathcap",
+     "Infinity Orb"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Luden's Echo",
+     "Rabadon's Deathcap",
+     "Infinity Orb",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "First Strike",
+     "Cheap Shot",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10004": {
   "start": [
@@ -131,7 +274,8 @@
    "Perseverance",
    "Legend: Bloodline"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10005": {
   "start": [
@@ -164,7 +308,8 @@
    "Eyeball Collector",
    "Celerity"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10006": {
   "start": [
@@ -197,7 +342,8 @@
    "Legend: Haste",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10007": {
   "start": [
@@ -230,7 +376,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10008": {
   "start": [
@@ -263,7 +410,8 @@
    "Overgrowth",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10009": {
   "start": [
@@ -298,7 +446,80 @@
    "Perseverance",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5",
+  "lanes": {
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Trinity Force",
+     "Sundered Sky",
+     "Black Cleaver"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Stridebreaker"
+    ],
+    "final": [
+     "Trinity Force",
+     "Plated Steelcaps",
+     "Sundered Sky",
+     "Black Cleaver",
+     "Death's Dance",
+     "Amaranth's Twinguard",
+     "Stridebreaker"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Unshakeable",
+     "Second Wind",
+     "Perseverance",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Hollow Radiance",
+     "Divine Sunderer",
+     "Thornmail"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Goredrinker"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Hollow Radiance",
+     "Divine Sunderer",
+     "Thornmail",
+     "Unending Despair",
+     "Amaranth's Twinguard",
+     "Goredrinker"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10010": {
   "start": [
@@ -331,7 +552,76 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3",
+  "lanes": {
+   "3": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Kraken Slayer",
+     "Guinsoo's Rageblade",
+     "Terminus"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Kraken Slayer",
+     "Berserker's Greaves",
+     "Guinsoo's Rageblade",
+     "Terminus",
+     "Blade of the Ruined King",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Ghost"
+    ],
+    "runes": [
+     "Lethal Tempo",
+     "Brutal",
+     "Cut Down",
+     "Legend: Bloodline",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Stormrazor",
+     "Yun Tal Wildarrows",
+     "Lord Dominik's Regard"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Stormrazor",
+     "Berserker's Greaves",
+     "Yun Tal Wildarrows",
+     "Lord Dominik's Regard",
+     "Infinity Edge",
+     "Blade of the Ruined King"
+    ],
+    "spells": [
+     "Flash",
+     "Ghost"
+    ],
+    "runes": [
+     "Lethal Tempo",
+     "Brutal",
+     "Cut Down",
+     "Legend: Alacrity",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10011": {
   "start": [
@@ -364,7 +654,76 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Dusk and Dawn",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Dusk and Dawn",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Hubris",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Hubris",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10012": {
   "start": [
@@ -397,7 +756,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10013": {
   "start": [
@@ -430,7 +790,76 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Lich Bane",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Lich Bane",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Lich Bane",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Lich Bane",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Hubris",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10014": {
   "start": [
@@ -463,7 +892,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10015": {
   "start": [
@@ -496,7 +926,76 @@
    "Legend: Alacrity",
    "Nimbus Cloak"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5",
+  "lanes": {
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Stormrazor",
+     "Infinity Edge"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Stormrazor",
+     "Infinity Edge",
+     "Lord Dominik's Regard",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Ghost",
+     "Smite"
+    ],
+    "runes": [
+     "Lethal Tempo",
+     "Brutal",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Stormrazor",
+     "Infinity Edge"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Stormrazor",
+     "Infinity Edge",
+     "Lord Dominik's Regard",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Ghost",
+     "Ignite"
+    ],
+    "runes": [
+     "Lethal Tempo",
+     "Brutal",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10016": {
   "start": [
@@ -531,7 +1030,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10017": {
   "start": [
@@ -564,7 +1064,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10018": {
   "start": [
@@ -599,7 +1100,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10019": {
   "start": [
@@ -632,7 +1134,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10020": {
   "start": [
@@ -665,7 +1168,8 @@
    "Scorch",
    "Revitalize"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10021": {
   "start": [
@@ -698,7 +1202,8 @@
    "Perseverance",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10022": {
   "start": [
@@ -733,7 +1238,8 @@
    "Legend: Bloodline",
    "Celerity"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10023": {
   "start": [
@@ -766,7 +1272,8 @@
    "Gathering Storm",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10024": {
   "start": [
@@ -799,7 +1306,8 @@
    "Scorch",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10025": {
   "start": [
@@ -832,7 +1340,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10026": {
   "start": [
@@ -865,7 +1374,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10027": {
   "start": [
@@ -898,7 +1408,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10028": {
   "start": [
@@ -931,7 +1442,76 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4",
+  "lanes": {
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Blackfire Torch"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Boots of Mana",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Blackfire Torch",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Arcane Comet",
+     "Manaflow Band",
+     "Transcendence",
+     "Scorch",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Zhonya's Hourglass",
+     "Rabadon's Deathcap"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Arcane Comet",
+     "Manaflow Band",
+     "Transcendence",
+     "Scorch",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10029": {
   "start": [
@@ -964,7 +1544,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10030": {
   "start": [
@@ -999,7 +1580,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10031": {
   "start": [
@@ -1032,7 +1614,76 @@
    "Eyeball Collector",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Stormsurge",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Stormsurge",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Electrocute",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Stormsurge",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Stormsurge",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10032": {
   "start": [
@@ -1067,7 +1718,8 @@
    "Perseverance",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10033": {
   "start": [
@@ -1100,7 +1752,8 @@
    "Perseverance",
    "Hextech Flashtraption"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10034": {
   "start": [
@@ -1133,7 +1786,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10035": {
   "start": [
@@ -1166,7 +1820,8 @@
    "Overgrowth",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10036": {
   "start": [
@@ -1199,7 +1854,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10037": {
   "start": [
@@ -1234,7 +1890,80 @@
    "Perseverance",
    "Legend: Alacrity"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard"
+    ],
+    "boots": [
+     "Berserker's Greaves",
+     "Galeforce"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard",
+     "Infinity Edge",
+     "Guardian Angel",
+     "Galeforce"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Courage of the Colossus",
+     "Second Wind",
+     "Perseverance",
+     "Legend: Alacrity"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard"
+    ],
+    "boots": [
+     "Berserker's Greaves",
+     "Galeforce"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard",
+     "Infinity Edge",
+     "Guardian Angel",
+     "Galeforce"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Brutal",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10038": {
   "start": [
@@ -1267,7 +1996,8 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10039": {
   "start": [
@@ -1300,7 +2030,76 @@
    "Legend: Haste",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Eclipse",
+     "Trinity Force",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Ionian Boots of Lucidity"
+    ],
+    "final": [
+     "Eclipse",
+     "Ionian Boots of Lucidity",
+     "Trinity Force",
+     "Serylda's Grudge",
+     "Spear of Shojin",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Haste",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Youmuu's Ghostblade",
+     "Eclipse",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Gluttonous Greaves"
+    ],
+    "final": [
+     "Youmuu's Ghostblade",
+     "Gluttonous Greaves",
+     "Eclipse",
+     "Serylda's Grudge",
+     "Serpent's Fang",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Haste",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10040": {
   "start": [
@@ -1333,7 +2132,76 @@
    "Legend: Haste",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Dusk and Dawn",
+     "Blade of the Ruined King",
+     "Hullbreaker"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Dusk and Dawn",
+     "Blade of the Ruined King",
+     "Hullbreaker",
+     "Zhonya's Hourglass",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Brutal",
+     "Last Stand",
+     "Legend: Haste",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Dusk and Dawn",
+     "Blade of the Ruined King",
+     "Riftmaker"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Dusk and Dawn",
+     "Plated Steelcaps",
+     "Blade of the Ruined King",
+     "Riftmaker",
+     "Zhonya's Hourglass",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Brutal",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10041": {
   "start": [
@@ -1366,7 +2234,76 @@
    "Gathering Storm",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "Conqueror",
+     "Botanist",
+     "Absolute Focus",
+     "Gathering Storm",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Botanist",
+     "Absolute Focus",
+     "Gathering Storm",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10042": {
   "start": [
@@ -1401,7 +2338,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10044": {
   "start": [
@@ -1434,7 +2372,8 @@
    "Perseverance",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10045": {
   "start": [
@@ -1467,7 +2406,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10046": {
   "start": [
@@ -1500,7 +2440,76 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Liandry's Torment",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Liandry's Torment",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Stormsurge"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Tyrant",
+     "Eyeball Collector",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Liandry's Torment",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Liandry's Torment",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Stormsurge"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Tyrant",
+     "Eyeball Collector",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10047": {
   "start": [
@@ -1533,7 +2542,8 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10048": {
   "start": [
@@ -1566,7 +2576,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10049": {
   "start": [
@@ -1599,7 +2610,8 @@
    "Overgrowth",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10050": {
   "start": [
@@ -1632,7 +2644,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10051": {
   "start": [
@@ -1667,7 +2680,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10052": {
   "start": [
@@ -1700,7 +2714,8 @@
    "Perseverance",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10053": {
   "start": [
@@ -1733,7 +2748,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10054": {
   "start": [
@@ -1766,7 +2782,76 @@
    "Legend: Bloodline",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Dusk and Dawn",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Dusk and Dawn",
+     "Nashor's Tooth",
+     "Rabadon's Deathcap",
+     "Infinity Orb",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Last Stand",
+     "Legend: Bloodline",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Nashor's Tooth",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Gluttonous Greaves"
+    ],
+    "final": [
+     "Nashor's Tooth",
+     "Gluttonous Greaves",
+     "Dusk and Dawn",
+     "Rabadon's Deathcap",
+     "Infinity Orb",
+     "Void Staff"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Axiom Arcanist",
+     "Absolute Focus",
+     "Nimbus Cloak",
+     "Legend: Bloodline"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10055": {
   "start": [
@@ -1801,7 +2886,78 @@
    "Perseverance",
    "Scorch"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Trinity Force",
+     "Hullbreaker",
+     "Eclipse"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Goredrinker"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Trinity Force",
+     "Hullbreaker",
+     "Eclipse",
+     "Death's Dance",
+     "Spear of Shojin",
+     "Goredrinker"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Perseverance",
+     "Scorch"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Trinity Force",
+     "Eclipse",
+     "Death's Dance"
+    ],
+    "boots": [
+     "Gluttonous Greaves"
+    ],
+    "final": [
+     "Trinity Force",
+     "Gluttonous Greaves",
+     "Eclipse",
+     "Death's Dance",
+     "Amaranth's Twinguard",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Alacrity",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10056": {
   "start": [
@@ -1836,7 +2992,8 @@
    "Perseverance",
    "Triumph"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10057": {
   "start": [
@@ -1869,7 +3026,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10058": {
   "start": [
@@ -1902,7 +3060,76 @@
    "Legend: Haste",
    "Overgrowth"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5",
+  "lanes": {
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Dusk and Dawn",
+     "Heartsteel",
+     "Riftmaker"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Dusk and Dawn",
+     "Plated Steelcaps",
+     "Heartsteel",
+     "Riftmaker",
+     "Amaranth's Twinguard",
+     "Thornmail"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Lethal Tempo",
+     "Triumph",
+     "Last Stand",
+     "Legend: Haste",
+     "Overgrowth"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Heartsteel",
+     "Dusk and Dawn",
+     "Hullbreaker"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Heartsteel",
+     "Plated Steelcaps",
+     "Dusk and Dawn",
+     "Hullbreaker",
+     "Unending Despair",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Last Stand"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10059": {
   "start": [
@@ -1935,7 +3162,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10060": {
   "start": [
@@ -1968,7 +3196,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10061": {
   "start": [
@@ -2001,7 +3230,76 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Stormsurge",
+     "Hextech Rocketbelt",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Stormsurge",
+     "Hextech Rocketbelt",
+     "Rabadon's Deathcap",
+     "Infinity Orb",
+     "Void Staff"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Electrocute",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Bloodline",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Stormsurge",
+     "Hextech Rocketbelt",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Stormsurge",
+     "Hextech Rocketbelt",
+     "Rabadon's Deathcap",
+     "Infinity Orb",
+     "Void Staff"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Electrocute",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Bloodline",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10062": {
   "start": [
@@ -2034,7 +3332,76 @@
    "Overgrowth",
    "Last Stand"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Heartsteel",
+     "Thornmail",
+     "Unending Despair"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Heartsteel",
+     "Thornmail",
+     "Unending Despair",
+     "Amaranth's Twinguard",
+     "Force of Nature"
+    ],
+    "spells": [
+     "Flash",
+     "Teleport"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Last Stand"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Heartsteel",
+     "Thornmail",
+     "Unending Despair"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Heartsteel",
+     "Plated Steelcaps",
+     "Thornmail",
+     "Unending Despair",
+     "Amaranth's Twinguard",
+     "Force of Nature"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Unshakeable",
+     "Second Wind",
+     "Overgrowth",
+     "Last Stand"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10063": {
   "start": [
@@ -2067,7 +3434,76 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4",
+  "lanes": {
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Cryptbloom"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Boots of Mana",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Cryptbloom",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Aery",
+     "Manaflow Band",
+     "Transcendence",
+     "Scorch",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Rabadon's Deathcap",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Aery",
+     "Manaflow Band",
+     "Transcendence",
+     "Nimbus Cloak",
+     "Legend: Haste"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10064": {
   "start": [
@@ -2100,7 +3536,8 @@
    "Overgrowth",
    "Celerity"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10065": {
   "start": [
@@ -2133,7 +3570,8 @@
    "Perseverance",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10066": {
   "start": [
@@ -2166,7 +3604,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10067": {
   "start": [
@@ -2199,7 +3638,8 @@
    "Legend: Bloodline",
    "Axiom Arcanist"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10068": {
   "start": [
@@ -2234,7 +3674,8 @@
    "Legend: Alacrity",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10069": {
   "start": [
@@ -2267,7 +3708,109 @@
    "Perseverance",
    "Legend: Alacrity"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Lord Dominik's Regard",
+     "Infinity Edge",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Courage of the Colossus",
+     "Second Wind",
+     "Perseverance",
+     "Legend: Alacrity"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Infinity Edge"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Immortal Shieldbow",
+     "Infinity Edge",
+     "Lord Dominik's Regard",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Alacrity",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Blade of the Ruined King",
+     "Essence Reaver",
+     "Lord Dominik's Regard"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Berserker's Greaves",
+     "Blade of the Ruined King",
+     "Essence Reaver",
+     "Lord Dominik's Regard",
+     "Infinity Edge",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Brutal",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10070": {
   "start": [
@@ -2300,7 +3843,8 @@
    "Legend: Alacrity",
    "Perseverance"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10071": {
   "start": [
@@ -2333,7 +3877,76 @@
    "Perseverance",
    "Nimbus Cloak"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Stridebreaker",
+     "Sterak's Gage",
+     "Amaranth's Twinguard"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Stridebreaker",
+     "Sterak's Gage",
+     "Amaranth's Twinguard",
+     "Force of Nature",
+     "Randuin's Omen"
+    ],
+    "spells": [
+     "Flash",
+     "Ghost"
+    ],
+    "runes": [
+     "Conqueror",
+     "Unshakeable",
+     "Second Wind",
+     "Perseverance",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Trinity Force",
+     "Sterak's Gage",
+     "Death's Dance"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Trinity Force",
+     "Plated Steelcaps",
+     "Sterak's Gage",
+     "Death's Dance",
+     "Amaranth's Twinguard",
+     "Force of Nature"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Phase Rush",
+     "Triumph",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10072": {
   "start": [
@@ -2368,7 +3981,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10073": {
   "start": [
@@ -2401,7 +4015,8 @@
    "Legend: Alacrity",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10074": {
   "start": [
@@ -2434,7 +4049,8 @@
    "Perseverance",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10075": {
   "start": [
@@ -2467,7 +4083,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10076": {
   "start": [
@@ -2500,7 +4117,8 @@
    "Perseverance",
    "Scorch"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10077": {
   "start": [
@@ -2533,7 +4151,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10078": {
   "start": [
@@ -2566,7 +4185,8 @@
    "Perseverance",
    "Brutal"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10079": {
   "start": [
@@ -2601,7 +4221,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10080": {
   "start": [
@@ -2634,7 +4255,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10081": {
   "start": [
@@ -2667,7 +4289,8 @@
    "Perseverance",
    "Hextech Flashtraption"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10082": {
   "start": [
@@ -2702,7 +4325,78 @@
    "Perseverance",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Goredrinker"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge",
+     "Spear of Shojin",
+     "Guardian Angel",
+     "Goredrinker"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Demolish",
+     "Second Wind",
+     "Perseverance",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Gluttonous Greaves"
+    ],
+    "final": [
+     "Gluttonous Greaves",
+     "Eclipse",
+     "Death's Dance",
+     "Serylda's Grudge",
+     "Spear of Shojin",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Sudden Impact",
+     "Hubris",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10083": {
   "start": [
@@ -2735,7 +4429,8 @@
    "Overgrowth",
    "Empowered Attack"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10084": {
   "start": [
@@ -2768,7 +4463,8 @@
    "Eyeball Collector",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10085": {
   "start": [
@@ -2801,7 +4497,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10086": {
   "start": [
@@ -2834,7 +4531,76 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Lich Bane",
+     "Rabadon's Deathcap",
+     "Void Staff"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Lich Bane",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Lich Bane",
+     "Rabadon's Deathcap",
+     "Void Staff"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Lich Bane",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Infinity Orb",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Sudden Impact",
+     "Hubris",
+     "Eyeball Collector",
+     "Absolute Focus"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10087": {
   "start": [
@@ -2867,7 +4633,8 @@
    "Gathering Storm",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10088": {
   "start": [
@@ -2900,7 +4667,76 @@
    "Overgrowth",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Heartsteel",
+     "Sunfire Aegis",
+     "Thornmail"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Heartsteel",
+     "Sunfire Aegis",
+     "Thornmail",
+     "Unending Despair",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Teleport"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Cosmic Drive",
+     "Riftmaker",
+     "Amaranth's Twinguard"
+    ],
+    "boots": [
+     "Ionian Boots of Lucidity"
+    ],
+    "final": [
+     "Ionian Boots of Lucidity",
+     "Cosmic Drive",
+     "Riftmaker",
+     "Amaranth's Twinguard",
+     "Unending Despair",
+     "Thornmail"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Phase Rush",
+     "Axiom Arcanist",
+     "Transcendence",
+     "Nimbus Cloak",
+     "Legend: Haste"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10089": {
   "start": [
@@ -2933,7 +4769,8 @@
    "Eyeball Collector",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10090": {
   "start": [
@@ -2966,7 +4803,8 @@
    "Legend: Haste",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10091": {
   "start": [
@@ -2999,7 +4837,8 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10092": {
   "start": [
@@ -3034,7 +4873,78 @@
    "Legend: Haste",
    "Second Wind"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Eclipse",
+     "Sundered Sky",
+     "Death's Dance"
+    ],
+    "boots": [
+     "Plated Steelcaps",
+     "Goredrinker"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Eclipse",
+     "Sundered Sky",
+     "Death's Dance",
+     "Serylda's Grudge",
+     "Guardian Angel",
+     "Goredrinker"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Last Stand",
+     "Legend: Haste",
+     "Second Wind"
+    ],
+    "patch": "7.3f"
+   },
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Eclipse",
+     "Trinity Force",
+     "Death's Dance"
+    ],
+    "boots": [
+     "Gluttonous Greaves"
+    ],
+    "final": [
+     "Gluttonous Greaves",
+     "Eclipse",
+     "Trinity Force",
+     "Death's Dance",
+     "Serylda's Grudge",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Battle Zeal",
+     "Cut Down",
+     "Legend: Haste",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10093": {
   "start": [
@@ -3069,7 +4979,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10094": {
   "start": [
@@ -3102,7 +5013,8 @@
    "Perseverance",
    "Last Stand"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10095": {
   "start": [
@@ -3135,7 +5047,8 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10096": {
   "start": [
@@ -3168,7 +5081,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10097": {
   "start": [
@@ -3201,7 +5115,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10098": {
   "start": [
@@ -3234,7 +5149,8 @@
    "Legend: Bloodline",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10099": {
   "start": [
@@ -3267,7 +5183,76 @@
    "Overgrowth",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Hollow Radiance",
+     "Thornmail",
+     "Unending Despair"
+    ],
+    "boots": [
+     "Mercury's Treads"
+    ],
+    "final": [
+     "Mercury's Treads",
+     "Hollow Radiance",
+     "Thornmail",
+     "Unending Despair",
+     "Riftmaker",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Ice Overlord",
+     "Courage of the Colossus",
+     "Second Wind",
+     "Overgrowth",
+     "Sudden Impact"
+    ],
+    "patch": "7.3f"
+   },
+   "4": {
+    "start": [
+     "Relic Shield"
+    ],
+    "core": [
+     "Hollow Radiance",
+     "Thornmail",
+     "Unending Despair"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Bulwark of the Mountain",
+     "Plated Steelcaps",
+     "Hollow Radiance",
+     "Thornmail",
+     "Unending Despair",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Ice Overlord",
+     "Courage of the Colossus",
+     "Second Wind",
+     "Perseverance",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10100": {
   "start": [
@@ -3302,7 +5287,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10101": {
   "start": [
@@ -3335,7 +5321,76 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Manamune",
+     "Serpent's Fang",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Boots of Dynamism"
+    ],
+    "final": [
+     "Muramana",
+     "Boots of Dynamism",
+     "Serpent's Fang",
+     "Serylda's Grudge",
+     "Edge of Night",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "First Strike",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Eclipse",
+     "Serpent's Fang",
+     "Serylda's Grudge"
+    ],
+    "boots": [
+     "Boots of Dynamism"
+    ],
+    "final": [
+     "Boots of Dynamism",
+     "Eclipse",
+     "Serpent's Fang",
+     "Serylda's Grudge",
+     "Hullbreaker",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Sudden Impact",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10102": {
   "start": [
@@ -3368,7 +5423,8 @@
    "Perseverance",
    "Brutal"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10103": {
   "start": [
@@ -3401,7 +5457,8 @@
    "Gathering Storm",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10104": {
   "start": [
@@ -3434,7 +5491,8 @@
    "Eyeball Collector",
    "Legend: Bloodline"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10105": {
   "start": [
@@ -3467,7 +5525,8 @@
    "Zombie Ward",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10106": {
   "start": [
@@ -3500,7 +5559,76 @@
    "Legend: Alacrity",
    "Nimbus Cloak"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5",
+  "lanes": {
+   "5": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Trinity Force",
+     "Death's Dance",
+     "Force of Nature"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Trinity Force",
+     "Plated Steelcaps",
+     "Death's Dance",
+     "Force of Nature",
+     "Sterak's Gage",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Ghost",
+     "Smite"
+    ],
+    "runes": [
+     "Conqueror",
+     "Triumph",
+     "Last Stand",
+     "Legend: Alacrity",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   },
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Trinity Force",
+     "Zeke's Convergence",
+     "Hullbreaker"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Plated Steelcaps",
+     "Trinity Force",
+     "Zeke's Convergence",
+     "Hullbreaker",
+     "Sterak's Gage",
+     "Overlord's Bloodmail"
+    ],
+    "spells": [
+     "Flash",
+     "Ghost"
+    ],
+    "runes": [
+     "Conqueror",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Nimbus Cloak"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10107": {
   "start": [
@@ -3533,7 +5661,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10108": {
   "start": [
@@ -3566,7 +5695,8 @@
    "Revitalize",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10109": {
   "start": [
@@ -3599,7 +5729,8 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10110": {
   "start": [
@@ -3632,7 +5763,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10112": {
   "start": [
@@ -3667,7 +5799,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10116": {
   "start": [
@@ -3700,7 +5833,8 @@
    "Perseverance",
    "Hextech Flashtraption"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10117": {
   "start": [
@@ -3733,7 +5867,8 @@
    "Overgrowth",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10118": {
   "start": [
@@ -3766,7 +5901,8 @@
    "Overgrowth",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10119": {
   "start": [
@@ -3799,7 +5935,76 @@
    "Scorch",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Blackfire Torch",
+     "Liandry's Torment",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Electrocute",
+     "Manaflow Band",
+     "Transcendence",
+     "Scorch",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Blackfire Torch"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Boots of Mana",
+     "Liandry's Torment",
+     "Rylai's Crystal Scepter",
+     "Blackfire Torch",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Arcane Comet",
+     "Cheap Shot",
+     "Tyrant",
+     "Zombie Ward",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10120": {
   "start": [
@@ -3832,7 +6037,8 @@
    "Eyeball Collector",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10121": {
   "start": [
@@ -3867,7 +6073,8 @@
    "Perseverance",
    "Scorch"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10122": {
   "start": [
@@ -3900,7 +6107,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10123": {
   "start": [
@@ -3935,7 +6143,78 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4",
+  "lanes": {
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Statikk Shiv",
+     "Hexoptics C44",
+     "Mortal Reminder"
+    ],
+    "boots": [
+     "Boots of Dynamism",
+     "Galeforce"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Statikk Shiv",
+     "Boots of Dynamism",
+     "Hexoptics C44",
+     "Mortal Reminder",
+     "Infinity Edge",
+     "Galeforce"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Brutal",
+     "Cut Down",
+     "Legend: Alacrity",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   },
+   "3": {
+    "start": [
+     "Long Sword"
+    ],
+    "core": [
+     "Stormrazor",
+     "Hexoptics C44",
+     "Mortal Reminder"
+    ],
+    "boots": [
+     "Berserker's Greaves"
+    ],
+    "final": [
+     "Stormrazor",
+     "Berserker's Greaves",
+     "Hexoptics C44",
+     "Mortal Reminder",
+     "Infinity Edge",
+     "Guardian Angel"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "Fleet Footwork",
+     "Brutal",
+     "Cut Down",
+     "Legend: Bloodline",
+     "Bone Plating"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10124": {
   "start": [
@@ -3968,7 +6247,8 @@
    "Perseverance",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10125": {
   "start": [
@@ -4001,7 +6281,8 @@
    "Overgrowth",
    "Manaflow Band"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10126": {
   "start": [
@@ -4034,7 +6315,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10127": {
   "start": [
@@ -4067,7 +6349,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10128": {
   "start": [
@@ -4100,7 +6383,8 @@
    "Eyeball Collector",
    "Absolute Focus"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10129": {
   "start": [
@@ -4133,7 +6417,76 @@
    "Eyeball Collector",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1",
+  "lanes": {
+   "1": {
+    "start": [
+     "Amplifying Tome"
+    ],
+    "core": [
+     "Luden's Echo",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Boots of Mana",
+     "Luden's Echo",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Void Staff",
+     "Zhonya's Hourglass"
+    ],
+    "spells": [
+     "Flash",
+     "Barrier"
+    ],
+    "runes": [
+     "First Strike",
+     "Cheap Shot",
+     "Chain Assault",
+     "Eyeball Collector",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   },
+   "4": {
+    "start": [
+     "Spectral Sickle"
+    ],
+    "core": [
+     "Horizon Focus",
+     "Infinity Orb",
+     "Rabadon's Deathcap"
+    ],
+    "boots": [
+     "Boots of Mana"
+    ],
+    "final": [
+     "Black Mist Scythe",
+     "Boots of Mana",
+     "Horizon Focus",
+     "Infinity Orb",
+     "Rabadon's Deathcap",
+     "Cryptbloom"
+    ],
+    "spells": [
+     "Flash",
+     "Heal"
+    ],
+    "runes": [
+     "First Strike",
+     "Cheap Shot",
+     "Chain Assault",
+     "Zombie Ward",
+     "Transcendence"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10130": {
   "start": [
@@ -4166,7 +6519,8 @@
    "Perseverance",
    "Hextech Flashtraption"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10131": {
   "start": [
@@ -4199,7 +6553,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10132": {
   "start": [
@@ -4232,7 +6587,8 @@
    "Perseverance",
    "Hextech Flashtraption"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "4"
  },
  "10133": {
   "start": [
@@ -4265,7 +6621,8 @@
    "Gathering Storm",
    "Sudden Impact"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10134": {
   "start": [
@@ -4298,7 +6655,8 @@
    "Legend: Alacrity",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10135": {
   "start": [
@@ -4331,7 +6689,8 @@
    "Legend: Bloodline",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10136": {
   "start": [
@@ -4364,7 +6723,76 @@
    "Overgrowth",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2",
+  "lanes": {
+   "2": {
+    "start": [
+     "Ruby Crystal"
+    ],
+    "core": [
+     "Heartsteel",
+     "Sunfire Aegis",
+     "Thornmail"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Heartsteel",
+     "Plated Steelcaps",
+     "Sunfire Aegis",
+     "Thornmail",
+     "Unending Despair",
+     "Kaenic Rookern"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Grasp of the Undying",
+     "Demolish",
+     "Second Wind",
+     "Overgrowth",
+     "Legend: Haste"
+    ],
+    "patch": "7.3f"
+   },
+   "4": {
+    "start": [
+     "Relic Shield"
+    ],
+    "core": [
+     "Warmog's Armor",
+     "Radiant Virtue",
+     "Knight's Vow"
+    ],
+    "boots": [
+     "Plated Steelcaps"
+    ],
+    "final": [
+     "Bulwark of the Mountain",
+     "Plated Steelcaps",
+     "Warmog's Armor",
+     "Radiant Virtue",
+     "Knight's Vow",
+     "Amaranth's Twinguard"
+    ],
+    "spells": [
+     "Flash",
+     "Ignite"
+    ],
+    "runes": [
+     "Ice Overlord",
+     "Demolish",
+     "Second Wind",
+     "Perseverance",
+     "Legend: Haste"
+    ],
+    "patch": "7.3f"
+   }
+  }
  },
  "10137": {
   "start": [
@@ -4397,7 +6825,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10138": {
   "start": [
@@ -4430,7 +6859,8 @@
    "Legend: Bloodline",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10139": {
   "start": [
@@ -4463,7 +6893,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10140": {
   "start": [
@@ -4496,7 +6927,8 @@
    "Legend: Haste",
    "Nimbus Cloak"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10141": {
   "start": [
@@ -4529,7 +6961,8 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10144": {
   "start": [
@@ -4562,40 +6995,8 @@
    "Nimbus Cloak",
    "Bone Plating"
   ],
-  "patch": "7.3e"
- },
- "10145": {
-  "start": [
-   "Long Sword"
-  ],
-  "core": [
-   "Eclipse",
-   "Spear of Shojin",
-   "Death's Dance"
-  ],
-  "boots": [
-   "Gluttonous Greaves"
-  ],
-  "final": [
-   "Gluttonous Greaves",
-   "Eclipse",
-   "Spear of Shojin",
-   "Death's Dance",
-   "Sterak's Gage",
-   "Overlord's Bloodmail"
-  ],
-  "spells": [
-   "Flash",
-   "Smite"
-  ],
-  "runes": [
-   "Conqueror",
-   "Sudden Impact",
-   "Chain Assault",
-   "Eyeball Collector",
-   "Absolute Focus"
-  ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10146": {
   "start": [
@@ -4628,7 +7029,8 @@
    "Eyeball Collector",
    "Transcendence"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10147": {
   "start": [
@@ -4661,7 +7063,8 @@
    "Scorch",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  },
  "10148": {
   "start": [
@@ -4694,7 +7097,8 @@
    "Legend: Bloodline",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "3"
  },
  "10151": {
   "start": [
@@ -4729,7 +7133,8 @@
    "Nimbus Cloak",
    "Legend: Haste"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "5"
  },
  "10152": {
   "start": [
@@ -4762,7 +7167,8 @@
    "Perseverance",
    "Last Stand"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "2"
  },
  "10166": {
   "start": [
@@ -4795,6 +7201,7 @@
    "Eyeball Collector",
    "Bone Plating"
   ],
-  "patch": "7.3e"
+  "patch": "7.3f",
+  "lane": "1"
  }
 }
