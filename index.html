@@ -202,7 +202,10 @@ footer { color: var(--mute); font-size: 12px; line-height: 16px; margin-top: 24p
 }
 .poscard:hover { border-color: var(--line); }
 .poscard[aria-pressed="true"] { border-color: var(--brass); }
-.poscard .p { font-size: 13px; color: var(--sub); }
+.poscard .p { display: flex; justify-content: space-between; align-items: baseline; font-size: 13px; color: var(--sub); }
+.poscard .gr { font-family: var(--mono); font-size: 12px; color: var(--mute); }
+.poscard .gr.hi { color: var(--text); }
+.stale { color: var(--down); margin-top: 4px; }
 .poscard .w { font-size: 24px; line-height: 28px; font-weight: 500; color: var(--text); }
 .poscard .bar { margin: 4px 0 8px; }
 .poscard .s { font-size: 12px; line-height: 16px; color: var(--mute); }
@@ -382,6 +385,7 @@ a.orig:hover { color: var(--text); }
     <div>
       <h1><span id="h1a">와일드리프트</span> <span id="h1b">정보</span></h1>
       <p class="meta" id="meta"></p>
+      <p class="meta stale" id="stale" hidden></p>
     </div>
     <div class="langs" id="langs" role="group" aria-label="Language">
       <button type="button" data-lang="ko" lang="ko">한국어</button>
@@ -440,6 +444,7 @@ a.orig:hover { color: var(--text); }
   var T = {
     ko: {
       title: '와일드리프트 정보', h1a: '와일드리프트', h1b: '정보',
+      stale: '통계가 {n}일 전 기준입니다. 중국 쪽 갱신이 늦어지고 있을 수 있습니다', grade: '티어 {g}',
       meta: '중국 서버 랭크 게임 기준 · {d} 집계',
       vStats: '승률표', vPatch: '패치 노트',
       pos: { 2: '탑', 5: '정글', 1: '미드', 3: '원딜', 4: '서폿' },
@@ -490,6 +495,7 @@ a.orig:hover { color: var(--text); }
     },
     en: {
       title: 'Wild Rift Info', h1a: 'Wild Rift', h1b: 'Info',
+      stale: 'The stats are {n} days old. The China-side update may be delayed', grade: 'Tier {g}',
       meta: 'China server ranked games · data for {d}',
       vStats: 'Win Rates', vPatch: 'Patch Notes',
       pos: { 2: 'Top', 5: 'Jungle', 1: 'Mid', 3: 'Bot', 4: 'Support' },
@@ -540,6 +546,7 @@ a.orig:hover { color: var(--text); }
     },
     zh: {
       title: '英雄联盟手游资讯', h1a: '英雄联盟手游', h1b: '资讯',
+      stale: '统计数据已是{n}天前。国服更新可能有延迟', grade: '梯队 {g}',
       meta: '国服排位赛数据 · {d} 统计',
       vStats: '胜率榜', vPatch: '版本更新',
       pos: { 2: '上单', 5: '打野', 1: '中路', 3: '下路', 4: '辅助' },
@@ -727,6 +734,10 @@ a.orig:hover { color: var(--text); }
     document.documentElement.style.setProperty('--t-close', JSON.stringify(t('shut')));
     $('h1a').textContent = t('h1a'); $('h1b').textContent = t('h1b');
     $('meta').textContent = t('meta', { d: D.date });
+    // 통계 기준일이 사흘 이상 지났으면 알린다 (보통은 하루 이틀 늦는다)
+    var age = Math.floor((Date.now() - Date.parse(D.date + 'T00:00:00+08:00')) / 86400000);
+    $('stale').hidden = !(age >= 3);
+    $('stale').textContent = age >= 3 ? t('stale', { n: age }) : '';
     each($('langs').children, function (b) { b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false'); });
     each($('views').children, function (b) { b.textContent = t(b.dataset.view === 'stats' ? 'vStats' : 'vPatch'); });
     tabs.setAttribute('aria-label', t('posLabel'));
@@ -845,6 +856,17 @@ a.orig:hover { color: var(--text); }
   // 티어 등급: 같은 포지션 안에서 승률, 픽률, 밴률을 합친 점수로 줄을 세워 S/A/B/C 로 나눈다.
   // 픽률이 낮으면 승률이 우연히 높거나 낮을 수 있어서, 승률의 50% 에서 벗어난 폭을 픽률에 비례해 줄인다.
   var GRADES = [['S', 0, 10], ['A', 10, 40], ['B', 40, 80], ['C', 80, 100]];
+  // 챔피언 상세용: 한 포지션에서의 등급 글자 (S/A/B/C)
+  var gradeMemo = {};
+  function gradeOf(tier, pos, id) {
+    var key = tier + '|' + pos;
+    if (!gradeMemo[key]) {
+      var map = {};
+      grade(D.stats[tier][pos] || []).forEach(function (grp) { grp.items.forEach(function (x) { map[x.r[0]] = grp.g[0]; }); });
+      gradeMemo[key] = map;
+    }
+    return gradeMemo[key][id] || '';
+  }
   function grade(rows) {
     var scored = rows.map(function (r) {
       var adj = (r[1] - 50) * r[2] / (r[2] + 1.5);
@@ -997,7 +1019,14 @@ a.orig:hover { color: var(--text); }
         var card = el('button', 'poscard');
         card.type = 'button';
         card.setAttribute('aria-pressed', p === state.hpos ? 'true' : 'false');
-        card.appendChild(el('span', 'p', T[lang].pos[p]));
+        var ph = el('span', 'p', T[lang].pos[p]);
+        var gl = gradeOf(state.tier, p, id);
+        if (gl) {
+          var gb = el('span', 'gr' + (gl === 'S' || gl === 'A' ? ' hi' : ''), gl);
+          gb.title = t('grade', { g: gl });
+          ph.appendChild(gb);
+        }
+        card.appendChild(ph);
         card.appendChild(el('span', 'w', pct(f.row[1])));
         card.appendChild(winBar(f.row[1]));
         card.appendChild(el('span', 's', t('rankOf', { r: f.rank, n: f.total })));
